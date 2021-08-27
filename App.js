@@ -1,25 +1,22 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import Navigation from './src/navigation/Navigation';
-import auth from '@react-native-firebase/auth';
-import AuthenticatedStack from './src/navigation/AuthenticatedStack';
-import { LogBox } from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-export default function App() {
-  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-LogBox.ignoreAllLogs();//Ignore all log notifications
-  const [authenticated, setAuthenticated] = React.useState(false);
-
-  auth().onAuthStateChanged(user => {
-    if (user) {
-      setAuthenticated(true);
-    } else {
-      setAuthenticated(false);
-    }
-  });
-
-  if (authenticated) return <AuthenticatedStack />;
-  else return <Navigation />;
-}
-
-const styles = StyleSheet.create({});
+ import React, {useState, useEffect} from 'react';
+ import {StatusBar} from 'react-native';
+ import Tab from './Navigation/tabNavigation';//Import Tab Navigator
+ import { NavigationContainer } from '@react-navigation/native';
+ import Main from "./Screens/mainMenu"
+ 
+ const App = () => {
+   return (
+     <Main/>
+   );
+ };
+ 
+ export default App;
+ 
