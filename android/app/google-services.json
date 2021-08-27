@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "607011628610",
+    "project_id": "scrappy-facf3",
+    "storage_bucket": "scrappy-facf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607011628610:android:9d0f1ec570383b56cd2fdb",
+        "android_client_info": {
+          "package_name": "com.scrappy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607011628610-7hqj10q0s8bk6hbolkut5ttqm8qd5r78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scrappy",
+            "certificate_hash": "ea51fb1c7d0aa65a2209c3560687acaae0f0c476"
+          }
+        },
+        {
+          "client_id": "607011628610-kufg99it36kc0kmkankvqooaljschs5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6agEB_f3tr10XRGgabbtUMTT-ZUlMn24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607011628610-kufg99it36kc0kmkankvqooaljschs5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
