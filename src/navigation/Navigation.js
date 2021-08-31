@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import PhoneAuthScreen from '../screens/PhoneAuthScreen';
 import OtpVerificationScreen from '../screens/OtpVerificationScreen';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/tabHomeScreen';
 
 const Stack = createStackNavigator();
 

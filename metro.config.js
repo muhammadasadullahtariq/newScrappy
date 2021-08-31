@@ -10,6 +10,7 @@ module.exports = {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
+        sourceExts: ['js', 'json', 'ts', 'tsx'],
         inlineRequires: true,
       },
     }),

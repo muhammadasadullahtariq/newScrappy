@@ -43,13 +43,19 @@ export default function OtpVerificationScreen({navigation, route}) {
   };
 
   useEffect(() => {
+    console.log(phone);
     signInWithPhoneNumber1();
   }, []);
 
   const signInWithPhoneNumber1 = async () => {
-    const confirmation = await auth().signInWithPhoneNumber('+44' + phone);
+    const confirmation = await auth()
+      .signInWithPhoneNumber('+92' + phone)
+      .then(res => {
+        console.log("Responce "+res);
+      })
+      .catch(err => console.log("Error"+err)); //Change the code in final output
     setConfirm(confirmation);
-    console.log('confirmation');
+    console.log(confirmation);
   };
 
   return (
@@ -67,7 +73,7 @@ export default function OtpVerificationScreen({navigation, route}) {
               color: '#000000',
             }}>
             {' '}
-            +44 {phone}
+            +92 {phone}
             {/* {JSON.stringify(number)} */}
           </Text>
         </Text>

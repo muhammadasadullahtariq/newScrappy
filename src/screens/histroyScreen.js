@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 export default function ({Navigation}) {
   return (
     <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-      <Text>{'Home Screen'}</Text>
+      <Text>{'Histroy Screen'}</Text>
     </View>
   );
 }
