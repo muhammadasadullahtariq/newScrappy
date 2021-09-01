@@ -18,7 +18,9 @@ function Navigation() {
         backgroundColor="#F7F8FA"
         translucent={true}
       />
-      <Stack.Navigator headerMode="none">
+      <Stack.Navigator
+        headerMode="none"
+        initialRouteName="OtpVerificationScreen">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"

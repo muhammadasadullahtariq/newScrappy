@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import maimMenu from '../../Screens/mainMenu';
+import maimMenu from './mainMenu';
 import homeScreen from './homeScreen';
 import offerScreen from './offerScreen';
 import firstTabImage from '../icons/bottomNavigation1.png';

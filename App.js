@@ -18,8 +18,9 @@ export default function App() {
     }
   });
 
-  if (!authenticated) return <AuthenticatedStack />;
-  else return <Navigation />;
+  // if (authenticated) return <AuthenticatedStack />;
+  // else
+   return <Navigation />;
 }
 
 const styles = StyleSheet.create({});

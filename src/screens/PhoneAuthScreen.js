@@ -20,8 +20,8 @@ const HEIGHT = Dimensions.get('window').height;
 import PhoneInput from 'react-native-phone-number-input';
 import auth from '@react-native-firebase/auth';
 
-import ActiveButton from '../components/ActiveButton';
-import DisableButton from '../components/DisableButton';
+import ActiveButton from '../components/LoginComponent/ActiveButton';
+import DisableButton from '../components/LoginComponent/DisableButton';
 
 export default function PhoneAuthScreen({navigation}) {
   const [checked, onChange] = useState(false);
@@ -87,7 +87,7 @@ export default function PhoneAuthScreen({navigation}) {
         <View style={styles.flagContainer}>
           <Image style={styles.uk} source={require('../icons/uk.png')} />
           <Image style={styles.down} source={require('../icons/down1.png')} />
-          <Text style={styles.code}>+44</Text>
+          <Text style={styles.code}>+92</Text>
         </View>
 
         <TextInput

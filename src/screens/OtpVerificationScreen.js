@@ -16,19 +16,41 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 import auth from '@react-native-firebase/auth';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-
-import PhoneInput from 'react-native-phone-number-input';
-import ActiveButton from '../components/ActiveButton';
-import DisableButton from '../components/DisableButton';
+import ActiveButton from '../components/LoginComponent/ActiveButton';
+import DisableButton from '../components/LoginComponent/DisableButton';
+import ModalComponent from '../components/GlobalComponent/singleButtonAlert';
+import {useNavigation} from '@react-navigation/native';
+import WaitingAlert from '../components/GlobalComponent/waitingAlertComponent';
 
 export default function OtpVerificationScreen({navigation, route}) {
+  const Navigation = useNavigation();
   const [code, setCode] = React.useState('');
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
+  const [seconds, setSeconds] = useState('59');
   const [confirmation, setConfirm] = React.useState();
-  const {phone} = route.params;
+  const [alterModelFlag, setAlterModelFlag] = useState(false);
+  const [alterModelFlagWithAction, setAlterModelFlagWithAction] =
+    useState(false);
+  const [alertText, setAlertText] = useState('Alter Text Here');
+  const {phone} = 'asad'; //route.params; //just for test
+  const [optResendCount, setoptResendCount] = useState(0);
+  //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
+  let alterOnpressAction = changeModelFlag;
+  function changeModelFlag() {
+    console.log('change Model Flag');
+    setAlterModelFlag(!alterModelFlag);
+  }
+
+  function changeModelFlagWithAction() {
+    console.log('change Model Flag with Action');
+    setAlterModelFlagWithAction(!alterModelFlagWithAction);
+    Navigation.navigate('PhoneAuthScreen');
+  }
   const confirmCode = async () => {
     try {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
+      navigation.reset
 
       navigation.reset({
         index: 0, //the stack index
@@ -37,29 +59,83 @@ export default function OtpVerificationScreen({navigation, route}) {
         ],
       });
     } catch (error) {
-      // Alert.alert('you have enter incorrect code')
-      Alert.alert('Please Enter Valid Code');
+      console.log(error);
+      setAlertText('OTP is not correct Please Enter Valid Code');
+      //setAlertOnPressAction(changeModelFlag);
+      setAlterModelFlag(true);
     }
   };
 
+  let interval;
+
+  function timerForotp() {
+    interval = setInterval(() => {
+      setSeconds(s => {
+        if (s == 1) clearInterval(interval);
+        return s - 1;
+      });
+    }, 1000);
+  }
+
+  function sendOtpAgain() {
+    signInWithPhoneNumber();
+  }
+
   useEffect(() => {
     console.log(phone);
-    signInWithPhoneNumber1();
+    //signInWithPhoneNumber();
   }, []);
 
-  const signInWithPhoneNumber1 = async () => {
-    const confirmation = await auth()
+  const signInWithPhoneNumber = async () => {
+    setoptResendCount(s => {
+      if (s == 3) {
+        setAlertText('Some internal issue try again latter');
+        //setAlertOnPressAction(changeModelFlagWithAction);
+        Navigation.navigate('PhoneAuthScreen');
+        setAlterModelFlagWithAction(true);
+      }
+      return s + 1;
+    });
+    try {
+      clearInterval(interval);
+    } catch (error) {
+    } finally {
+      setSeconds('59');
+    }
+    let confirmation;
+    await auth()
       .signInWithPhoneNumber('+92' + phone)
       .then(res => {
-        console.log("Responce "+res);
+        setWaitingAertFlag(false);
+        timerForotp();
+        console.log('Responce ', res);
+        confirmation = res;
+        setConfirm(confirmation);
       })
-      .catch(err => console.log("Error"+err)); //Change the code in final output
-    setConfirm(confirmation);
-    console.log(confirmation);
+      .catch(err => {
+        setAlertText(
+          'Some internal error occure Please try again after some time',
+        );
+        //setAlertOnPressAction(changeModelFlagWithAction);
+        setWaitingAlertFlag(false);
+        alterOnpressAction = changeModelFlagWithAction;
+        setAlterModelFlagWithAction(true);
+        //Navigation.navigate('PhoneAuthScreen');
+        console.log('Error' + err);
+      }); //Change the code in final output
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <WaitingAlert visibal={waitingAlertFlag} />
+      <ModalComponent
+        visibal={alterModelFlag}
+        onPress={changeModelFlag}
+        text={alertText}></ModalComponent>
+      <ModalComponent
+        visibal={alterModelFlagWithAction}
+        onPress={changeModelFlagWithAction}
+        text={alertText}></ModalComponent>
       <View style={styles.mainTextContainer}>
         <Text style={styles.title}>Verification codes OTP</Text>
         <Text style={{...styles.title, fontSize: 15, marginTop: 15}}>
@@ -81,7 +157,7 @@ export default function OtpVerificationScreen({navigation, route}) {
 
       <View style={styles.otpConatiner}>
         <SmoothPinCodeInput
-          codeLength={6}
+          codeLength={7}
           textStyle={{
             fontSize: 15,
             color: '#092058',
@@ -113,10 +189,17 @@ export default function OtpVerificationScreen({navigation, route}) {
       )}
 
       <View>
-        <Text style={{...styles.otpTimer, opacity: 0.5}}>
-          Send Again OTP (59s)
-        </Text>
-        <Text style={styles.otpTimer}>Change Phone Number</Text>
+        <Pressable onpress={sendOtpAgain}>
+          <Text style={{...styles.otpTimer, opacity: 0.5}}>
+            Send Again OTP ({seconds}s)
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            Navigation.navigate('PhoneAuthScreen');
+          }}>
+          <Text style={styles.otpTimer}>Change Phone Number</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
