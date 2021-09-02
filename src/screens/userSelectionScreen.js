@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Pressable} from 'react-native';
+import {launchImageLibrary,launchCamera} from "react-native-image-picker"
+import FirebaseStorage from "@react-native-firebase/storage"
 //import Components
 import UserSelectionButtonComponent from '../components/userSelectionComponent/ButtonComponent';
 import InputComponent from '../components/GlobalComponent/inputComponent';
@@ -110,7 +112,7 @@ const screen = () => {
             },
           }),
           fontSize: 20,
-          fontStyle: 'bold',
+          //fontStyle: 'bold',
         }}>
         I am
       </Text>
@@ -199,7 +201,9 @@ const screen = () => {
                     setAlertModelFlag(true);
                   }
                 }}>
-                <Text style={styles.addButtonStyle}>Add</Text>
+                  <View style={[{justifyContent:"center"},styles.addButtonStyle]}>
+                <Text style={{textAlign:"center",color:"white"}}>Add</Text>
+                </View>
               </Pressable>
             </View>
           </View>
@@ -249,9 +253,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   addButtonStyle: {
-    textAlign: 'center',
     color: 'white',
-    textAlignVertical: 'center',
     backgroundColor: '#2097f5',
     height: 40,
     borderTopLeftRadius: 0,
