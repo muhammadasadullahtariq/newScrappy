@@ -7,6 +7,7 @@ import PhoneAuthScreen from '../screens/PhoneAuthScreen';
 import OtpVerificationScreen from '../screens/OtpVerificationScreen';
 import HomeScreen from '../screens/tabHomeScreen';
 import UserSelectionScreen from '../screens/userSelectionScreen';
+import ImageUpload from '../screens/uploadImageAndVideo';
 
 const Stack = createStackNavigator();
 
@@ -20,8 +21,14 @@ function Navigation() {
         translucent={true}
       />
       <Stack.Navigator
-        headerMode="screen"
-        initialRouteName="UserSelectionScreen">
+        screenOptions={{
+          headerStyle: {backgroundColor: '#007AFF'},
+          headerTitleStyle: {
+            textAlign: 'center',
+            color: 'white',
+          },
+        }}
+        initialRouteName="videoAndImageUpload">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
@@ -33,13 +40,9 @@ function Navigation() {
           component={UserSelectionScreen}
           options={{
             title: 'Register',
-            headerStyle: {backgroundColor: '#007AFF'},
-            headerTitleStyle: {
-              color: 'white',
-              textAlign: 'center',
-            },
           }}
         />
+        <Stack.Screen name="videoAndImageUpload" component={ImageUpload} />
       </Stack.Navigator>
     </NavigationContainer>
   );
