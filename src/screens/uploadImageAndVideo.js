@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import imageSource from '../photos/download.jpg';
-import ButtonComponent from '../components/GlobalComponent/ButtonComponent';
+import ButtonComponent from '../components/GlobalComponent/buttonComponent';
 import ContextMenu from '../components/uploadImageAndVideo/contextMenu';
 import Video from 'react-native-video';
-import videolink from '../photos/video.mp4';
+import videolink from '../photos/video.gif';
 import fuu, {
   cameraOptions,
   cameraVideoOptions,

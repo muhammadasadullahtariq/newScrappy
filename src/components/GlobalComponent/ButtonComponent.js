@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   textContainer: {
     padding: 10,
     backgroundColor: '#2097f5',
-    borderRadius: 10,
+    borderRadius: 25,
     alignSelf: 'center',
     alignItems: 'center',
     textAlign: 'center',
