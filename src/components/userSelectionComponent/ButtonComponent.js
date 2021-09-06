@@ -13,13 +13,14 @@ const component = props => {
             borderWidth: 1,
             borderColor: '#2097f5',
             backgroundColor: props.flag ? 'white' : '#2097f5',
-            borderRadius: 25,
+            borderRadius:25,
             alignSelf: 'center',
             alignItems: 'center',
             textAlign: 'center',
             color: props.flag ? '#2097f5' : 'white',
             marginBottom: 10,
             width: '80%',
+            overflow:"hidden"
           },
           props.style,
         ]}>
