@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     marginBottom: 10,
+    overflow:"hidden"
   },
 });
 

@@ -5,7 +5,7 @@ import ButtonComponent from '../../components/GlobalComponent/buttonComponent';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
-//import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation';
 
 const screen = navigation => {
   const [firstName, setFirstName] = useState('');
@@ -81,7 +81,7 @@ const screen = navigation => {
     }
   }
   useEffect(() => {
-    //Orientation.lockToPortrait();
+    Orientation.lockToPortrait();
   }, []);
   return (
     <View style={styles.mainContainer}>

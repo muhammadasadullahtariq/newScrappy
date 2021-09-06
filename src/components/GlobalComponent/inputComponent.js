@@ -27,6 +27,7 @@ const style = StyleSheet.create({
     height: 40,
     fontSize: 20,
     textAlign: 'center',
+    overflow:"hidden"
   },
 });
 
