@@ -4,7 +4,7 @@ import imageSource from '../photos/download.jpg';
 import ButtonComponent from '../components/GlobalComponent/ButtonComponent';
 import ContextMenu from '../components/uploadImageAndVideo/contextMenu';
 import Video from 'react-native-video';
-import videolink from '../photos/video.mp4';
+import videolink from '../photos/video.gif';
 import fuu, {
   cameraOptions,
   cameraVideoOptions,
@@ -18,12 +18,15 @@ const screen = () => {
     if (responce == 'Take Photo') {
       ImagePicker.launchCamera(cameraOptions, responce => {
         setImageURI({uri: responce.assets[0].uri});
-        //console.log(imageuri);
-        console.log(responce.assets[0].uri);
+        //console.log("asad",imageuri);
+        //console.log(responce.assets[0].uri);
       });
     } else {
+      console.log("lolol")
       ImagePicker.launchImageLibrary(galleryOptions, responce => {
-        setImageURI(responce);
+        setImageURI({uri: responce.assets[0].uri});
+        //setImageURI(responce);
+        console.log(responce);
         console.log(responce);
       });
     }
@@ -38,14 +41,17 @@ const screen = () => {
         //console.log(responce);
       });
     } else {
+      console.log("nabeel");
       ImagePicker.launchImageLibrary(galleryVideOptions, responce => {
         //setImageURI(responce);
+        setVideouri({uri: responce.assets[0].uri});
+        console.log('asad ullah1', responce);
         console.log(responce);
       });
     }
   };
   function selectImage(resonces, index) {
-    console.log('selectImage');
+    //console.log('selectImage');
     setMenuFlag(false);
     if (index <= 1) {
       setimageOrVideoFlag(false);
@@ -86,7 +92,7 @@ const screen = () => {
       {imageOrVideoFlag && (
         <Video
           controls={true}
-          paused
+          
           resizeMode={'contain'}
           source={Videouri} // Can be a URL or a local file.
           ref={ref => {
