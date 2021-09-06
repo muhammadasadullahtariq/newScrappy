@@ -6,6 +6,7 @@ import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAle
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
 //import Orientation from 'react-native-orientation';
+import registerUser from '../../components/GlobalFunctions/postRequest';
 
 const screen = navigation => {
   const [firstName, setFirstName] = useState('');
@@ -79,6 +80,9 @@ const screen = navigation => {
       setAlertModelFlag(true);
       return;
     }
+    console.log(
+      registerUser('03045622878', email, postCode, firstName, lastName, 1),
+    );
   }
   useEffect(() => {
     //Orientation.lockToPortrait();

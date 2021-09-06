@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, Keyboard} from 'react-native';
 
 export const component = props => {
   return (
@@ -7,9 +7,11 @@ export const component = props => {
       <TextInput
         placeholder={props.placeHolder}
         value={props.text}
+        returnKeyType="go"
         keyboardType={props.keyBoadType}
         onChangeText={props.textHandler}
-        style={[style.textCointaner, props.style1]}></TextInput>
+        style={[style.textCointaner, props.style1]}
+        onSubmitEditing={props.onSubmit}></TextInput>
     </View>
   );
 };

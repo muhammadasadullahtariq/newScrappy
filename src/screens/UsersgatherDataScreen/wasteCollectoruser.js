@@ -1,43 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, Text, Pressable} from 'react-native';
 import InputComponent from '../../components/GlobalComponent/inputComponent';
 import ButtonComponent from '../../components/GlobalComponent/buttonComponent';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
-
-//  if (checkPostalCode(postCodeInputFieldText)) {
-//    setPostCodeArray(s => [...s, postCodeInputFieldText]);
-//    setPostCodeInputFiledText('');
-//  } else {
-//    setAlertText('Please Enter Valid Code');
-//    setAlertModelFlag(true);
-//  }
-// <View>
-//       {postCodeArray.map(item => {
-//         return (
-//           <View
-//             key={item}
-//             style={{
-//               flexDirection: 'row',
-//               justifyContent: 'center',
-//             }}>
-//             <Text style={styles.textContainer}>{item}</Text>
-//             <Pressable
-//               style={{width: '5%'}}
-//               onPress={() => {
-//                 console.log(item);
-//                 let array = postCodeArray;
-//                 console.log(array.indexOf(item));
-//                 array.splice(array.indexOf(item), 1);
-//                 setFlag(!flag);
-//                 setPostCodeArray(array);
-//               }}>
-//               <Text style={styles.cancelTextContainer}>X</Text>
-//             </Pressable>
-//           </View>
-//         );
-//       })}
+import registerUser from '../../components/GlobalFunctions/postRequest';
 
 const screen = navigation => {
   const [firstName, setFirstName] = useState('');
@@ -46,6 +14,7 @@ const screen = navigation => {
   const [postCode, setPostCode] = useState('');
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
   const [modelFlag, setAlertModelFlag] = useState(false);
+  const [flag, setFlag] = useState(true);
   const [postCodeArray, setPostCodeArray] = useState([]);
 
   function firsNameHandler(text) {
@@ -106,13 +75,16 @@ const screen = navigation => {
       setAlertModelFlag(true);
       return;
     }
-    if (checkPostalCode(postCode));
+    if (postCodeArray.length > 0);
     else {
-      setAlertText('Please Enter Valid Code');
+      setAlertText('Please Enter atleast one Code');
       setAlertModelFlag(true);
       return;
     }
+    console.log(registerUser("03045622878",email,postCode,firstName,lastName,1));
   }
+
+  useEffect(() => {}, [flag]);
 
   return (
     <View style={styles.mainContainer}>
@@ -142,11 +114,51 @@ const screen = navigation => {
           textHandler={emailHandler}
           style={{marginBottom: 10}}
         />
+        <View style={{flexDirection: 'row'}}>
+          {postCodeArray.map(item => {
+            return (
+              <View
+                key={item}
+                style={{
+                  backgroundColor: '#1fff9e',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginLeft: 1,
+                }}>
+                <Pressable
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => {
+                    console.log(item);
+                    let array = postCodeArray;
+                    console.log(array.indexOf(item));
+                    array.splice(array.indexOf(item), 1);
+                    setFlag(!flag);
+                    setPostCodeArray(array);
+                  }}>
+                  <Text style={styles.textContainer}>{item}</Text>
+                  <Text style={styles.cancelTextContainer}>X</Text>
+                </Pressable>
+              </View>
+            );
+          })}
+        </View>
         <InputComponent
           placeHolder="Enter PostCode"
           text={postCode}
           textHandler={postCodeHandler}
           style={{marginBottom: 10}}
+          onSubmit={() => {
+            if (checkPostalCode(postCode) && postCode.length < 7) {
+              setPostCodeArray(s => [...s, postCode]);
+              setPostCode('');
+            } else {
+              setAlertText('Please Enter Valid Code');
+              setAlertModelFlag(true);
+            }
+          }}
         />
       </View>
       <View style={{flex: 1, justifyContent: 'flex-end'}}>
@@ -165,6 +177,25 @@ const styles = StyleSheet.create({
     flex: 4,
     flexDirection: 'column',
     justifyContent: 'center',
+  },
+  cancelTextContainer: {
+    borderColor: '#007AFF',
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    height: 30,
+    borderBottomWidth: 1,
+    textAlignVertical: 'center',
+    paddingRight: 5,
+    color: 'red',
+    width: 13,
+  },
+  textContainer: {
+    borderColor: '#007AFF',
+    textAlignVertical: 'center',
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    height: 30,
   },
 });
 

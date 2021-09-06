@@ -32,7 +32,7 @@ function Navigation() {
             color: 'white',
           },
         }}
-        initialRouteName="Registration">
+        initialRouteName="HomeUser">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
