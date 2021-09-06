@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal, Pressable, StyleSheet, View, Text} from 'react-native';
-import ButtonComponent from './ButtonComponent';
+import ButtonComponent from './buttonComponent';
 
 const screen = props => {
   return (
