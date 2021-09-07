@@ -1,12 +1,12 @@
 import React from 'react';
 
-const registerUser = async (
+export const registerUser = async (
   phoneNumber,
   emailAdress,
-  postCode,
-  firstName,
-  lastName,
-  role,
+  postalCode,
+  fName,
+  lName,
+  roleOfUser,
 ) => {
   try {
     const response = await fetch(
@@ -17,17 +17,17 @@ const registerUser = async (
           'content-type': 'application/json',
           'cache-control': 'no-cache',
         },
-        body: {
-          phone: '+9203045622878',
-          email: 'jyqygatob@vomoto.com',
-          firstName: 'Public',
-          lastName: 'admin',
+        body: JSON.stringify({
+          phone: phoneNumber,
+          email: emailAdress,
+          firstName: fName,
+          lastName: lName,
           address: 'near by rolse',
-          postCode: 'H1452',
+          postCode: postalCode,
           servicePostCodes: [],
-          role: 1,
+          role: roleOfUser,
           deviceId: 'androidDeviceId',
-        },
+        }),
       },
     );
     const json = await response.json();
@@ -39,4 +39,43 @@ const registerUser = async (
   }
 };
 
-export default registerUser;
+export const registerWasteCollector = async (
+  phoneNumber,
+  emailAdress,
+  postalCode,
+  fName,
+  lName,
+  servicePostalCodes,
+) => {
+  try {
+    const response = await fetch(
+      'http://scrappy.world:3000/api/v1/user/register',
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'cache-control': 'no-cache',
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,
+          email: emailAdress,
+          firstName: fName,
+          lastName: lName,
+          address: 'near by rolse',
+          postCode: postalCode,
+          servicePostCodes: servicePostalCodes,
+          role: 2,
+          deviceId: 'androidDeviceId',
+        }),
+      },
+    );
+    const json = await response.json();
+    console.log(json);
+    return json;
+  } catch (error) {
+    console.error(error);
+    return error.message;
+  }
+};
+
+export default {registerUser, registerWasteCollector};

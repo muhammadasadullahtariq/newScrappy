@@ -9,7 +9,6 @@ export default function App() {
   LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
   LogBox.ignoreAllLogs(); //Ignore all log notifications
   const [authenticated, setAuthenticated] = React.useState(false);
-
   auth().onAuthStateChanged(user => {
     if (user) {
       setAuthenticated(true);
@@ -19,8 +18,8 @@ export default function App() {
   });
 
   // if (authenticated) return <AuthenticatedStack />;
-  // else
-   return <Navigation />;
+  // else 
+  return <Navigation />;
 }
 
 const styles = StyleSheet.create({});

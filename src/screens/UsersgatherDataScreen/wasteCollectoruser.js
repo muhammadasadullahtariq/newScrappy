@@ -5,17 +5,24 @@ import ButtonComponent from '../../components/GlobalComponent/buttonComponent';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
-import registerUser from '../../components/GlobalFunctions/postRequest';
+import {registerWasteCollector} from '../../components/GlobalFunctions/postRequest';
+//import registerUser from '../../components/GlobalFunctions/postRequest';
+import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 
-const screen = navigation => {
+const screen = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [postCode, setPostCode] = useState('');
+  const [userPostCode, setUserPostCode] = useState('');
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
   const [modelFlag, setAlertModelFlag] = useState(false);
   const [flag, setFlag] = useState(true);
   const [postCodeArray, setPostCodeArray] = useState([]);
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
+  const {phone} = route.params;
+  //const phone = 'asad';
+  const [alertModelWithAction, setAlertModelWithAction] = useState(false);
 
   function firsNameHandler(text) {
     setFirstName(text);
@@ -29,10 +36,25 @@ const screen = navigation => {
   function postCodeHandler(text) {
     setPostCode(text);
   }
+  function userPostCodeHandler(text) {
+    setUserPostCode(text);
+  }
 
   function hideAlert() {
     setAlertModelFlag(false);
   }
+
+  function hideAlertWithAction() {
+    setAlertModelWithAction(false);
+    navigation.reset;
+    navigation.reset({
+      index: 0, //the stack index
+      routes: [
+        {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
+      ],
+    });
+  }
+
   function validateEmail(email) {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -58,7 +80,7 @@ const screen = navigation => {
     return c.toLowerCase() != c.toUpperCase();
   }
 
-  function userValidate() {
+  async function userValidate() {
     if (firstName == '') {
       setAlertText('Please Enter First Name');
       setAlertModelFlag(true);
@@ -81,10 +103,33 @@ const screen = navigation => {
       setAlertModelFlag(true);
       return;
     }
-    console.log(registerUser("03045622878",email,postCode,firstName,lastName,1));
+    setWaitingAlertFlag(true);
+    const responce = await registerWasteCollector(
+      phone, //need to change
+      email,
+      userPostCode,
+      firstName,
+      lastName,
+      postCodeArray,
+    );
+    if (responce.message === 'User successfully register') {
+      setWaitingAlertFlag(false);
+      setAlertText(responce.message);
+      setAlertModelWithAction(true);
+    } else if (responce.message.length < 30) {
+      setWaitingAlertFlag(false);
+      setAlertText(responce.message);
+      setAlertModelFlag(true);
+    } else {
+      setWaitingAlertFlag(false);
+      setAlertText('Something Went Wrong Please Try Again Later');
+      setAlertModelFlag(true);
+    }
   }
 
-  useEffect(() => {}, [flag]);
+  useEffect(() => {
+    console.log('ws', phone);
+  }, [flag]);
 
   return (
     <View style={styles.mainContainer}>
@@ -93,6 +138,12 @@ const screen = navigation => {
         onPress={hideAlert}
         text={alertText}
       />
+      <SingleButtonAllert
+        visibal={alertModelWithAction}
+        onPress={hideAlertWithAction}
+        text={alertText}
+      />
+      <WaitingAlert visible={waitingAlertFlag} />
       <View style={{flex: 3, justifyContent: 'center'}}>
         <HeaderText heading="Information" />
         <InfoText text="This information is used to authenticate and protect your account better" />
@@ -114,16 +165,24 @@ const screen = navigation => {
           textHandler={emailHandler}
           style={{marginBottom: 10}}
         />
+        <InputComponent
+          placeHolder="Enter Your PostCode"
+          text={userPostCode}
+          textHandler={userPostCodeHandler}
+          style={{marginBottom: 10}}
+        />
         <View style={{flexDirection: 'row'}}>
           {postCodeArray.map(item => {
             return (
               <View
                 key={item}
                 style={{
-                  backgroundColor: '#1fff9e',
+                  backgroundColor: '#c4c4c4',
                   flexDirection: 'row',
                   justifyContent: 'center',
                   marginLeft: 1,
+                  borderRadius: 2,
+                  marginBottom: 10,
                 }}>
                 <Pressable
                   style={{
@@ -146,17 +205,27 @@ const screen = navigation => {
           })}
         </View>
         <InputComponent
-          placeHolder="Enter PostCode"
+          placeHolder="Enter Services PostCode"
           text={postCode}
           textHandler={postCodeHandler}
           style={{marginBottom: 10}}
           onSubmit={() => {
-            if (checkPostalCode(postCode) && postCode.length < 7) {
-              setPostCodeArray(s => [...s, postCode]);
-              setPostCode('');
-            } else {
-              setAlertText('Please Enter Valid Code');
+            if (postCodeArray.length > 7) {
+              setAlertText('User can only add upto 7 Services Area');
               setAlertModelFlag(true);
+            } else {
+              if (postCodeArray.indexOf(postCode) != -1) {
+                setAlertText('Post Code Already Exist');
+                setAlertModelFlag(true);
+              } else {
+                if (checkPostalCode(postCode)) {
+                  setPostCodeArray(s => [...s, postCode]);
+                  setPostCode('');
+                } else {
+                  setAlertText('Please Enter Valid Code');
+                  setAlertModelFlag(true);
+                }
+              }
             }
           }}
         />
@@ -179,22 +248,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cancelTextContainer: {
-    borderColor: '#007AFF',
-    borderTopWidth: 1,
-    borderRightWidth: 1,
+    borderColor: '#a1ffba',
     height: 30,
-    borderBottomWidth: 1,
     textAlignVertical: 'center',
     paddingRight: 5,
-    color: 'red',
+    color: 'black',
     width: 13,
+    borderRadius: 25,
   },
   textContainer: {
-    borderColor: '#007AFF',
+    borderColor: '#a1ffba',
     textAlignVertical: 'center',
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderBottomWidth: 1,
+    borderRadius: 25,
     height: 30,
   },
 });

@@ -22,10 +22,12 @@ import auth from '@react-native-firebase/auth';
 
 import ActiveButton from '../components/LoginComponent/ActiveButton';
 import DisableButton from '../components/LoginComponent/DisableButton';
+import SingleButtonAllert from '../components/GlobalComponent/singleButtonAlert';
 
 export default function PhoneAuthScreen({navigation}) {
   const [checked, onChange] = useState(false);
   const [phone, setPhone] = React.useState('');
+  const [modelFlag, setAlertModelFlag] = useState(false);
 
   //  const phoneInput = useRef(null);
 
@@ -34,14 +36,30 @@ export default function PhoneAuthScreen({navigation}) {
       phone,
     });
   };
+  function hideAlert() {
+    setAlertModelFlag(false);
+  }
 
   function onCheckmarkPress() {
     onChange(!checked);
   }
 
+  useEffect(() => {
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        navigation.navigate('HomeScreen');
+      }
+    });
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainTextContainer}>
+        <SingleButtonAllert
+          visibal={modelFlag}
+          onPress={hideAlert}
+          text={'Please Enter Valid Number'}
+        />
         <Text style={styles.title}>Enter your phone number</Text>
         <Text style={{...styles.title, fontSize: 15, marginTop: 15}}>
           Use the phone number to register or
@@ -109,7 +127,7 @@ export default function PhoneAuthScreen({navigation}) {
           onpress={() => {
             phone.length === 11 || phone.length === 10
               ? signInWithPhoneNumber()
-              : Alert.alert('Please Enter Correct number');
+              : setAlertModelFlag(true);
           }}
         />
       ) : (

@@ -25,14 +25,14 @@ import WaitingAlert from '../components/GlobalComponent/waitingAlertComponent';
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
   const [code, setCode] = React.useState('');
-  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true); //change this
   const [seconds, setSeconds] = useState('59');
   const [confirmation, setConfirm] = React.useState();
   const [alterModelFlag, setAlterModelFlag] = useState(false);
   const [alterModelFlagWithAction, setAlterModelFlagWithAction] =
     useState(false);
   const [alertText, setAlertText] = useState('Alter Text Here');
-  const {phone} = 'asad'; //route.params; //just for test
+  const {phone} = route.params; //just for test
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
@@ -50,12 +50,11 @@ export default function OtpVerificationScreen({navigation, route}) {
     try {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
-      navigation.reset
-
+      navigation.reset;
       navigation.reset({
         index: 0, //the stack index
         routes: [
-          {name: 'HomeScreen'}, //to go to initial stack screen
+          {name: 'Registration', params: {phone: phone}}, //to go to initial stack screen
         ],
       });
     } catch (error) {
@@ -71,7 +70,10 @@ export default function OtpVerificationScreen({navigation, route}) {
   function timerForotp() {
     interval = setInterval(() => {
       setSeconds(s => {
-        if (s == 1) clearInterval(interval);
+        if (s == 1) {
+          clearInterval(interval);
+          signInWithPhoneNumber();
+        }
         return s - 1;
       });
     }, 1000);
@@ -83,7 +85,7 @@ export default function OtpVerificationScreen({navigation, route}) {
 
   useEffect(() => {
     console.log(phone);
-    //signInWithPhoneNumber();
+    signInWithPhoneNumber();
   }, []);
 
   const signInWithPhoneNumber = async () => {
@@ -91,7 +93,6 @@ export default function OtpVerificationScreen({navigation, route}) {
       if (s == 3) {
         setAlertText('Some internal issue try again latter');
         //setAlertOnPressAction(changeModelFlagWithAction);
-        Navigation.navigate('PhoneAuthScreen');
         setAlterModelFlagWithAction(true);
       }
       return s + 1;
@@ -106,7 +107,7 @@ export default function OtpVerificationScreen({navigation, route}) {
     await auth()
       .signInWithPhoneNumber('+92' + phone)
       .then(res => {
-        setWaitingAertFlag(false);
+        setWaitingAlertFlag(false);
         timerForotp();
         console.log('Responce ', res);
         confirmation = res;
@@ -116,7 +117,7 @@ export default function OtpVerificationScreen({navigation, route}) {
         setAlertText(
           'Some internal error occure Please try again after some time',
         );
-        //setAlertOnPressAction(changeModelFlagWithAction);
+        console.log(err);
         setWaitingAlertFlag(false);
         alterOnpressAction = changeModelFlagWithAction;
         setAlterModelFlagWithAction(true);
@@ -127,7 +128,7 @@ export default function OtpVerificationScreen({navigation, route}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <WaitingAlert visibal={waitingAlertFlag} />
+      <WaitingAlert visible={waitingAlertFlag} />
       <ModalComponent
         visibal={alterModelFlag}
         onPress={changeModelFlag}

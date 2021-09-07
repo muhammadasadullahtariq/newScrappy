@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Image, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import maimMenu from './mainMenu';
@@ -13,9 +13,14 @@ import secondTabImageSelected from '../icons/bottomNavigation2changed.png';
 import thirdTabImageSelected from '../icons/bottomNavigation3changed.png';
 import forthTabImageSelected from '../icons/bottomNavigation4changed.png';
 import histroyScreen from './histroyScreen';
+import Orientation from 'react-native-orientation';
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
+  useEffect(() => {
+    Orientation.unlockAllOrientations();
+  });
+
   return (
     <Tab.Navigator
       //Bottom Navigation

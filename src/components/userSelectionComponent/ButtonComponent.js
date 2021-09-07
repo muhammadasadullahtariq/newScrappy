@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
 
 const component = props => {
   return (
@@ -13,14 +13,19 @@ const component = props => {
             borderWidth: 1,
             borderColor: '#2097f5',
             backgroundColor: props.flag ? 'white' : '#2097f5',
-            borderRadius:25,
+            ...Platform.select({
+              ios: {
+                borderRadius: 30,
+              },
+              android: {borderRadius: 20},
+            }),
             alignSelf: 'center',
             alignItems: 'center',
             textAlign: 'center',
             color: props.flag ? '#2097f5' : 'white',
             marginBottom: 10,
             width: '80%',
-            overflow:"hidden"
+            overflow: 'hidden',
           },
           props.style,
         ]}>

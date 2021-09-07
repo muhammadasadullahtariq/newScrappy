@@ -6,14 +6,19 @@ import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAle
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
 import Orientation from 'react-native-orientation';
+import {registerUser} from '../../components/GlobalFunctions/postRequest';
+import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 
-const screen = navigation => {
+const screen = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [postCode, setPostCode] = useState('');
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
   const [modelFlag, setAlertModelFlag] = useState(false);
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
+  const {phone} = route.params;
+  const [alertModelWithAction, setAlertModelWithAction] = useState(false);
 
   function firsNameHandler(text) {
     setFirstName(text);
@@ -31,6 +36,18 @@ const screen = navigation => {
   function hideAlert() {
     setAlertModelFlag(false);
   }
+
+  function hideAlertWithAction() {
+    setAlertModelWithAction(false);
+    navigation.reset;
+    navigation.reset({
+      index: 0, //the stack index
+      routes: [
+        {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
+      ],
+    });
+  }
+
   function validateEmail(email) {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -56,7 +73,7 @@ const screen = navigation => {
     return c.toLowerCase() != c.toUpperCase();
   }
 
-  function userValidate() {
+  async function userValidate() {
     if (firstName == '') {
       setAlertText('Please Enter First Name');
       setAlertModelFlag(true);
@@ -79,9 +96,28 @@ const screen = navigation => {
       setAlertModelFlag(true);
       return;
     }
-    console.log(
-      registerUser('03045622878', email, postCode, firstName, lastName, 1),
+    setWaitingAlertFlag(true); //User successfully register
+    const responce = await registerUser(
+      phone, //need to change
+      email,
+      postCode,
+      firstName,
+      lastName,
+      1,
     );
+    if (responce.message === 'User successfully register') {
+      setWaitingAlertFlag(false);
+      setAlertText(responce.message);
+      setAlertModelWithAction(true);
+    } else if (responce.message.length < 30) {
+      setWaitingAlertFlag(false);
+      setAlertText(responce.message);
+      setAlertModelFlag(true);
+    } else {
+      setWaitingAlertFlag(false);
+      setAlertText('Something Went Wrong Please Try Again Later');
+      setAlertModelFlag(true);
+    }
   }
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -93,6 +129,12 @@ const screen = navigation => {
         onPress={hideAlert}
         text={alertText}
       />
+      <SingleButtonAllert
+        visibal={alertModelWithAction}
+        onPress={hideAlertWithAction}
+        text={alertText}
+      />
+      <WaitingAlert visible={waitingAlertFlag} />
       <View style={{flex: 3, justifyContent: 'center'}}>
         <HeaderText heading="Information" />
         <InfoText text="This information is used to authenticate and protect your account better" />

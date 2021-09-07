@@ -8,14 +8,17 @@ import ButtonComponent from '../components/GlobalComponent/buttonComponent';
 import SingleButtonAllert from '../components/GlobalComponent/singleButtonAlert';
 import {useNavigation} from '@react-navigation/native';
 import HeaderText from '../components/GlobalComponent/headerText';
+import Orientation from 'react-native-orientation';
 
-const screen = () => {
+const screen = ({navigation, route}) => {
   //UseState variable declaration
   const Navigation = useNavigation();
   const [homeUserFlag, setHomeUserFlag] = useState(false);
   const [wasteCollectorFlag, setWastCollectorFlag] = useState(false);
   const [yardFlag, setYardFlag] = useState(false);
   const [wasteBuyerFlag, setWasteBuyerFlage] = useState(false);
+  const {phone} = route.params;
+  //const phone = 'asad';
   // const [postCodeInputFieldText, setPostCodeInputFiledText] = useState('');
   // const [postCodeArray, setPostCodeArray] = useState([]);
   //const [flag, setFlag] = useState(true);
@@ -28,13 +31,13 @@ const screen = () => {
       setAlertText('Select A catagory');
       setAlertModelFlag(true);
     } else if (yardFlag) {
-      Navigation.navigate('YardUser');
+      Navigation.navigate('YardUser', {phone});
     } else if (wasteBuyerFlag) {
-      Navigation.navigate('WasteBuyer');
+      Navigation.navigate('WasteBuyer', {phone});
     } else if (wasteCollectorFlag) {
-      Navigation.navigate('WasteBuyer');
+      Navigation.navigate('WasteCollector', {phone});
     } else if (homeUserFlag) {
-      Navigation.navigate('HomeUser');
+      Navigation.navigate('HomeUser', {phone});
     }
   }
   function setUserFlag(user) {
@@ -89,6 +92,10 @@ const screen = () => {
   function hideAlert() {
     setAlertModelFlag(false);
   }
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    console.log(phone);
+  });
 
   //FrontEnd
   return (

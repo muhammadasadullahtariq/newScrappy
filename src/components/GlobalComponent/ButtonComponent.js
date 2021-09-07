@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, al} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Platform} from 'react-native';
 
 const component = props => {
   return (
@@ -13,13 +13,19 @@ const styles = StyleSheet.create({
   textContainer: {
     padding: 10,
     backgroundColor: '#2097f5',
-    borderRadius: 25,
+
+    ...Platform.select({
+      ios: {
+        borderRadius: 30,
+      },
+      android: {borderRadius: 20},
+    }),
     alignSelf: 'center',
     alignItems: 'center',
     textAlign: 'center',
     color: 'white',
     marginBottom: 10,
-    overflow:"hidden"
+    overflow: 'hidden',
   },
 });
 

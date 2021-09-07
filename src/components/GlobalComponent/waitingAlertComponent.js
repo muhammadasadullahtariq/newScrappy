@@ -11,7 +11,7 @@ import ButtonComponent from './buttonComponent';
 
 const screen = props => {
   return (
-    <Modal visible={props.visibal} transparent={true} style={{height: 3}}>
+    <Modal visible={props.visible} transparent={true} style={{height: 3}}>
       <View
         style={{
           flex: 1,

@@ -32,13 +32,12 @@ function Navigation() {
             color: 'white',
           },
         }}
-        initialRouteName="HomeUser">
+        initialRouteName="PhoneAuthScreen">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
           component={OtpVerificationScreen}
         />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="Registration"
           component={UserSelectionScreen}
@@ -46,6 +45,7 @@ function Navigation() {
             title: 'Register',
           }}
         />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="videoAndImageUpload" component={ImageUpload} />
         <Stack.Screen name="HomeUser" component={HomeUser} />
         <Stack.Screen name="YardUser" component={YardUser} />
