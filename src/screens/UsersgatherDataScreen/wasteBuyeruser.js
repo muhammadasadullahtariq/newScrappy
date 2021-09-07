@@ -20,6 +20,7 @@ const screen = ({navigation, route}) => {
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
   const {phone} = route.params;
   const [alertModelWithAction, setAlertModelWithAction] = useState(false);
+  const [flag,setFlag]=useState(false);
 
   function firsNameHandler(text) {
     setFirstName(text);
@@ -41,12 +42,22 @@ const screen = ({navigation, route}) => {
   function hideAlertWithAction() {
     setAlertModelWithAction(false);
     navigation.reset;
-    navigation.reset({
-      index: 0, //the stack index
-      routes: [
-        {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
-      ],
-    });
+    if(!flag){
+      navigation.reset({
+        index: 0, //the stack index
+        routes: [
+          {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
+        ],
+      });
+    }
+    else{
+      navigation.reset({
+        index: 0, //the stack index
+        routes: [
+          {name: 'PhoneAuthScreen'}, //to go to initial stack screen
+        ],
+      });
+    }
   }
 
   function validateEmail(email) {
@@ -109,19 +120,15 @@ const screen = ({navigation, route}) => {
     );
     if (responce.message === 'User successfully register') {
       setWaitingAlertFlag(false);
+      setFlag(false);
       setAlertText(responce.message);
       setAlertModelWithAction(true);
     } else if (responce.message === 'Phone already exists') {
       auth().signOut();
       setWaitingAlertFlag(false);
-      setAlertText(responce.message + 'Try Another Number');
-      setAlertModelFlag(true);
-      navigation.reset({
-        index: 0, //the stack index
-        routes: [
-          {name: 'PhoneAuthScreen'}, //to go to initial stack screen
-        ],
-      });
+      setAlertText(responce.message + ' Try Another Number');
+      setAlertModelWithAction(true);
+      setFlag(true);
     } else if (responce.message.length < 30) {
       setWaitingAlertFlag(false);
       setAlertText(responce.message);
