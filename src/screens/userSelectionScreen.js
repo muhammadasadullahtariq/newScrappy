@@ -4,7 +4,7 @@ import {StyleSheet, View, Text, Pressable} from 'react-native';
 //import Components
 import UserSelectionButtonComponent from '../components/userSelectionComponent/ButtonComponent';
 //import InputComponent from '../components/GlobalComponent/inputComponent';
-import ButtonComponent from '../components/GlobalComponent/buttonComponent';
+import ButtonComponent from '../components/GlobalComponent/ButtonComponent';
 import SingleButtonAllert from '../components/GlobalComponent/singleButtonAlert';
 import {useNavigation} from '@react-navigation/native';
 import HeaderText from '../components/GlobalComponent/headerText';

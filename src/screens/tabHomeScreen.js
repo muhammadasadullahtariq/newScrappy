@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, Image, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import maimMenu from './mainMenu';
-import homeScreen from './homeScreen';
+import homeScreen from './HomeScreen';
 import offerScreen from './offerScreen';
 import firstTabImage from '../icons/bottomNavigation1.png';
 import secondTabImage from '../icons/bottomNavigation2.png';

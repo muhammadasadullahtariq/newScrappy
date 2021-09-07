@@ -7,7 +7,7 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native';
-import ButtonComponent from './buttonComponent';
+import ButtonComponent from './ButtonComponent';
 
 const screen = props => {
   return (
