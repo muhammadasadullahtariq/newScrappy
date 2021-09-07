@@ -6,6 +6,7 @@ import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAle
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
 import {registerWasteCollector} from '../../components/GlobalFunctions/postRequest';
+import auth from '@react-native-firebase/auth';
 //import registerUser from '../../components/GlobalFunctions/postRequest';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 
@@ -116,6 +117,17 @@ const screen = ({navigation, route}) => {
       setWaitingAlertFlag(false);
       setAlertText(responce.message);
       setAlertModelWithAction(true);
+    } else if (responce.message === 'Phone already exists') {
+      auth().signOut();
+      setWaitingAlertFlag(false);
+      setAlertText(responce.message + 'Try Another Number');
+      setAlertModelFlag(true);
+      navigation.reset({
+        index: 0, //the stack index
+        routes: [
+          {name: 'PhoneAuthScreen'}, //to go to initial stack screen
+        ],
+      });
     } else if (responce.message.length < 30) {
       setWaitingAlertFlag(false);
       setAlertText(responce.message);
