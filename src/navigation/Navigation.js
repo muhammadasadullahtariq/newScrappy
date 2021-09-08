@@ -1,17 +1,18 @@
 import * as React from 'react';
-import {View, Text, StatusBar} from 'react-native';
+import {View, Text, StatusBar, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
 
-import PhoneAuthScreen from '../screens/PhoneAuthScreen';
-import OtpVerificationScreen from '../screens/OtpVerificationScreen';
+import PhoneAuthScreen from '../screens/phoneAuthScreen';
+import OtpVerificationScreen from '../screens/otpVerificationScreen';
 import HomeScreen from '../screens/tabHomeScreen';
-import UserSelectionScreen from '../screens/userSelectionScreen';
+import UserSelectionScreen from '../screens/userRegistrationScreen';
 import ImageUpload from '../screens/uploadImageAndVideo';
 import HomeUser from '../screens/UsersgatherDataScreen/homeuser';
 import YardUser from '../screens/UsersgatherDataScreen/yarduser';
 import WasteCollector from '../screens/UsersgatherDataScreen/wasteCollectoruser';
 import WasteBuyer from '../screens/UsersgatherDataScreen/wasteBuyeruser';
+import icon from '../icons/Navigation/Back.png';
 
 const Stack = createStackNavigator();
 
@@ -21,18 +22,19 @@ function Navigation() {
       <StatusBar
         barStyle="dark-content"
         hidden={false}
-        backgroundColor="#007AFF"
+        backgroundColor="#186BFE"
         translucent={true}
       />
       <Stack.Navigator
         screenOptions={{
-          headerStyle: {backgroundColor: '#007AFF'},
+          headerStyle: {backgroundColor: '#186BFE'},
           headerTitleStyle: {
             textAlign: 'center',
             color: 'white',
           },
+          headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="PhoneAuthScreen">
+        initialRouteName="Registration">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"

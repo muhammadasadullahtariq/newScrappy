@@ -16,8 +16,6 @@ import {
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
-
-import PhoneInput from 'react-native-phone-number-input';
 import auth from '@react-native-firebase/auth';
 
 import ActiveButton from '../components/LoginComponent/ActiveButton';
@@ -103,8 +101,11 @@ export default function PhoneAuthScreen({navigation}) {
 
       <View style={styles.phoneInputContainer}>
         <View style={styles.flagContainer}>
-          <Image style={styles.uk} source={require('../icons/uk.png')} />
-          <Image style={styles.down} source={require('../icons/down1.png')} />
+          <Image style={styles.uk} source={require('../icons/Login/uk.png')} />
+          <Image
+            style={styles.down}
+            source={require('../icons/Login/down1.png')}
+          />
           <Text style={styles.code}>+92</Text>
         </View>
 
@@ -139,7 +140,10 @@ export default function PhoneAuthScreen({navigation}) {
           style={[styles.checkboxBase, checked && styles.checkboxChecked]}
           onPress={onCheckmarkPress}>
           {checked && (
-            <Image style={styles.icon} source={require('../icons/mark1.png')} />
+            <Image
+              style={styles.icon}
+              source={require('../icons/Login/mark1.png')}
+            />
           )}
         </Pressable>
 

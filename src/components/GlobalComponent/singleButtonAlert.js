@@ -18,7 +18,7 @@ const screen = props => {
             width: '80%',
             backgroundColor: 'white',
             marginBottom: 300,
-            borderRadius: 10,
+            borderRadius: 22,
           }}>
           <Text style={styles.textContainer}>{props.text}</Text>
           <ButtonComponent
@@ -34,7 +34,15 @@ const screen = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {},
-  textContainer: {fontSize: 20, padding: 10, paddingBottom: 30, marginTop: 40},
+  textContainer: {
+    fontSize: 15,
+    padding: 10,
+    paddingBottom: 30,
+    marginTop: 40,
+    fontFamily: 'Montserrat',
+    color: '#4F6C8D',
+    textAlign: 'center',
+  },
 });
 
 export default screen;

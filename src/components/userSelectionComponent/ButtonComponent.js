@@ -9,20 +9,23 @@ const component = props => {
       <Text
         style={[
           {
-            padding: 10,
+            padding: 14,
+            height: 50,
+            fontFamily: 'Montserrat',
+            fontSize: 15,
             borderWidth: 1,
-            borderColor: '#2097f5',
-            backgroundColor: props.flag ? 'white' : '#2097f5',
+            borderColor: '#186BFE',
+            backgroundColor: props.flag ? 'white' : '#186BFE',
             ...Platform.select({
               ios: {
                 borderRadius: 30,
               },
-              android: {borderRadius: 20},
+              android: {borderRadius: 30},
             }),
             alignSelf: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            color: props.flag ? '#2097f5' : 'white',
+            color: props.flag ? '#186BFE' : 'white',
             marginBottom: 10,
             width: '80%',
             overflow: 'hidden',
