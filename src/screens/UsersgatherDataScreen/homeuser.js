@@ -24,6 +24,7 @@ const screen = ({navigation, route}) => {
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
   const {phone} = route.params;
   const [alertModelWithAction, setAlertModelWithAction] = useState(false);
+  const [alertModelAction, setAlertModelAction] = useState(false);
 
   function firsNameHandler(text) {
     setFirstName(text);
@@ -44,13 +45,23 @@ const screen = ({navigation, route}) => {
 
   function hideAlertWithAction() {
     setAlertModelWithAction(false);
-    navigation.reset;
-    navigation.reset({
-      index: 0, //the stack index
-      routes: [
-        {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
-      ],
-    });
+    if (!alertModelAction) {
+      navigation.reset;
+      navigation.reset({
+        index: 0, //the stack index
+        routes: [
+          {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
+        ],
+      });
+    } else {
+      navigation.reset;
+      navigation.reset({
+        index: 0, //the stack index
+        routes: [
+          {name: 'PhoneAuthScreen'}, //to go to initial stack screen
+        ],
+      });
+    }
   }
 
   async function userValidate() {
@@ -89,17 +100,13 @@ const screen = ({navigation, route}) => {
       setWaitingAlertFlag(false);
       setAlertText(responce.message);
       setAlertModelWithAction(true);
+      setAlertModelAction(false);
     } else if (responce.message === 'Phone already exists') {
       auth().signOut();
       setWaitingAlertFlag(false);
-      setAlertText(responce.message + 'Try Another Number');
-      setAlertModelFlag(true);
-      navigation.reset({
-        index: 0, //the stack index
-        routes: [
-          {name: 'PhoneAuthScreen'}, //to go to initial stack screen
-        ],
-      });
+      setAlertText(responce.message + ' Try Another Number');
+      setAlertModelWithAction(true);
+      setAlertModelAction(true);
     } else if (responce.message.length < 30) {
       setWaitingAlertFlag(false);
       setAlertText(responce.message);

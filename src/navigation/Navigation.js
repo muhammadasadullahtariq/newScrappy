@@ -13,6 +13,7 @@ import YardUser from '../screens/UsersgatherDataScreen/yarduser';
 import WasteCollector from '../screens/UsersgatherDataScreen/wasteCollectoruser';
 import WasteBuyer from '../screens/UsersgatherDataScreen/wasteBuyeruser';
 import icon from '../icons/Navigation/Back.png';
+import Splash from '../screens/splashScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +35,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="Registration">
+        initialRouteName="OtpVerificationScreen">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
@@ -53,6 +54,11 @@ function Navigation() {
         <Stack.Screen name="YardUser" component={YardUser} />
         <Stack.Screen name="WasteCollector" component={WasteCollector} />
         <Stack.Screen name="WasteBuyer" component={WasteBuyer} />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

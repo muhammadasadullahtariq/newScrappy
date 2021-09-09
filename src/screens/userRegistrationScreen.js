@@ -15,7 +15,8 @@ const screen = ({navigation, route}) => {
   const [wasteCollectorFlag, setWastCollectorFlag] = useState(false);
   const [yardFlag, setYardFlag] = useState(false);
   const [wasteBuyerFlag, setWasteBuyerFlage] = useState(false);
-  const phone = 'asad';
+  const {phone} = route.params;
+  //const phone = 'asad';
   const [modelFlag, setAlertModelFlag] = useState(false);
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
 

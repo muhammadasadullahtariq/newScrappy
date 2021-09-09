@@ -21,18 +21,21 @@ import DisableButton from '../components/LoginComponent/DisableButton';
 import ModalComponent from '../components/GlobalComponent/singleButtonAlert';
 import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../components/GlobalComponent/waitingAlertComponent';
+import HeaderText from '../components/GlobalComponent/headerText';
+import InfoText from '../components/GlobalComponent/infoText';
 
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
   const [code, setCode] = React.useState('');
-  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true); //change this
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false); //change this
   const [seconds, setSeconds] = useState('59');
   const [confirmation, setConfirm] = React.useState();
   const [alterModelFlag, setAlterModelFlag] = useState(false);
   const [alterModelFlagWithAction, setAlterModelFlagWithAction] =
     useState(false);
   const [alertText, setAlertText] = useState('Alter Text Here');
-  const {phone} = route.params; //just for test
+  //const {phone} = route.params; //just for test
+  const phone = 'asad';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
@@ -85,7 +88,7 @@ export default function OtpVerificationScreen({navigation, route}) {
 
   useEffect(() => {
     console.log(phone);
-    signInWithPhoneNumber();
+    //signInWithPhoneNumber();
   }, []);
 
   const signInWithPhoneNumber = async () => {
@@ -138,7 +141,7 @@ export default function OtpVerificationScreen({navigation, route}) {
         onPress={changeModelFlagWithAction}
         text={alertText}></ModalComponent>
       <View style={styles.mainTextContainer}>
-        <Text style={styles.title}>Verification codes OTP</Text>
+        <HeaderText heading="Verification codes OTP" />
         <Text style={{...styles.title, fontSize: 15, marginTop: 15}}>
           A verification codes has been sent{'\n'}
           to{' '}
@@ -148,6 +151,7 @@ export default function OtpVerificationScreen({navigation, route}) {
               fontSize: 15,
               marginTop: 15,
               color: '#000000',
+              paddingLeft: 1,
             }}>
             {' '}
             +92 {phone}
@@ -213,8 +217,9 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   title: {
-    fontSize: 20,
-    color: '#092058',
+    fontSize: 15,
+    color: '#4F6C8D',
+    fontFamily: 'Montserrat',
     textAlign: 'center',
   },
 
@@ -233,6 +238,7 @@ const styles = StyleSheet.create({
   otpTimer: {
     fontSize: 15,
     color: '#0079FE',
+    fontFamily: 'Montserrat',
     alignSelf: 'center',
     marginTop: 20,
   },
