@@ -27,15 +27,15 @@ import InfoText from '../components/GlobalComponent/infoText';
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
   const [code, setCode] = React.useState('');
-  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false); //change this
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true); //change this
   const [seconds, setSeconds] = useState('59');
   const [confirmation, setConfirm] = React.useState();
   const [alterModelFlag, setAlterModelFlag] = useState(false);
   const [alterModelFlagWithAction, setAlterModelFlagWithAction] =
     useState(false);
   const [alertText, setAlertText] = useState('Alter Text Here');
-  //const {phone} = route.params; //just for test
-  const phone = 'asad';
+  const {phone} = route.params; //just for test
+  //const phone = 'asad';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
