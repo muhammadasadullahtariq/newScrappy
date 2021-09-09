@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Navigation from './src/navigation/Navigation';
 import auth from '@react-native-firebase/auth';
-import AuthenticatedStack from './src/navigation/AuthenticatedStack';
+//import AuthenticatedStack from './src/navigation/AuthenticatedStack';
 import {LogBox} from 'react-native';
 
 export default function App() {

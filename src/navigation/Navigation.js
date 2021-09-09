@@ -3,8 +3,8 @@ import {View, Text, StatusBar, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
 
-import PhoneAuthScreen from '../screens/phoneAuthScreen';
-import OtpVerificationScreen from '../screens/otpVerificationScreen';
+import PhoneAuthScreen from '../screens/PhoneAuthScreen';
+import OtpVerificationScreen from '../screens/OtpVerificationScreen';
 import HomeScreen from '../screens/tabHomeScreen';
 import UserSelectionScreen from '../screens/userRegistrationScreen';
 import ImageUpload from '../screens/uploadImageAndVideo';
