@@ -29,9 +29,9 @@ function MyTabs() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
-          height: 83,
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          height: 100,
           bottom: 0,
         },
       }}>

@@ -3,6 +3,7 @@ import {Image, StyleSheet, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import imageSource from '../icons/SplashScreen/scrappy.gif';
 import HeaderText from '../components/GlobalComponent/headerText';
+import Orientation from 'react-native-orientation';
 
 const screen = ({navigation, route}) => {
   const [screenTime, setScreenTime] = useState(3);
@@ -33,6 +34,7 @@ const screen = ({navigation, route}) => {
   }
 
   useEffect(() => {
+    Orientation.lockToPortrait();
     timerForotp();
   }, []);
 

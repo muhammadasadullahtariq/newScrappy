@@ -23,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../components/GlobalComponent/waitingAlertComponent';
 import HeaderText from '../components/GlobalComponent/headerText';
 import InfoText from '../components/GlobalComponent/infoText';
+import CheckUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
@@ -53,13 +54,27 @@ export default function OtpVerificationScreen({navigation, route}) {
     try {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
-      navigation.reset;
-      navigation.reset({
-        index: 0, //the stack index
-        routes: [
-          {name: 'Registration', params: {phone: phone}}, //to go to initial stack screen
-        ],
-      });
+      setWaitingAlertFlag(true);
+      const resultUserExist = await CheckUserExist(phone);
+      if (resultUserExist == 'User not found') {
+        setWaitingAlertFlag(false);
+        navigation.reset;
+        navigation.reset({
+          index: 0, //the stack index
+          routes: [
+            {name: 'Registration', params: {phone: phone}}, //to go to initial stack screen
+          ],
+        });
+      } else {
+        setWaitingAlertFlag(false);
+        navigation.reset;
+        navigation.reset({
+          index: 0, //the stack index
+          routes: [
+            {name: 'HomeScreen', params: {userData: resultUserExist}}, //to go to initial stack screen
+          ],
+        });
+      }
     } catch (error) {
       console.log(error);
       setAlertText('OTP is not correct Please Enter Valid Code');
@@ -88,7 +103,7 @@ export default function OtpVerificationScreen({navigation, route}) {
 
   useEffect(() => {
     console.log(phone);
-    //signInWithPhoneNumber();
+    signInWithPhoneNumber();
   }, []);
 
   const signInWithPhoneNumber = async () => {

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 3,
     fontSize: 11,
-    width: 66,
+    width: 68,
     textAlign: 'center',
     color: '#092058',
     fontFamily: 'Montserrat',
