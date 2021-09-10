@@ -12,10 +12,12 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {},
   textContainer: {
-    fontSize: 25,
+    fontSize: 17,
+    color: '#092058',
+    fontFamily: 'Montserrat',
     textAlign: 'center',
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 5,
     paddingHorizontal: 20,
   },
 });

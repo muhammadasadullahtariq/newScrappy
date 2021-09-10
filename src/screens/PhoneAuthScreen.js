@@ -9,20 +9,18 @@ import {
   Platform,
   Dimensions,
   Image,
-  Alert,
   TextInput,
-  Button,
 } from 'react-native';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-import PhoneInput from 'react-native-phone-number-input';
-import auth from '@react-native-firebase/auth';
-
 import ActiveButton from '../components/LoginComponent/ActiveButton';
 import DisableButton from '../components/LoginComponent/DisableButton';
 import SingleButtonAllert from '../components/GlobalComponent/singleButtonAlert';
+import HeaderText from '../components/GlobalComponent/headerText';
+import InfoText from '../components/GlobalComponent/infoText';
+//import InputComponent from '../../components/GlobalComponent/inputComponent';
 
 export default function PhoneAuthScreen({navigation}) {
   const [checked, onChange] = useState(false);
@@ -44,13 +42,7 @@ export default function PhoneAuthScreen({navigation}) {
     onChange(!checked);
   }
 
-  useEffect(() => {
-    auth().onAuthStateChanged(user => {
-      if (user) {
-        navigation.navigate('HomeScreen');
-      }
-    });
-  });
+  useEffect(() => {});
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,13 +52,12 @@ export default function PhoneAuthScreen({navigation}) {
           onPress={hideAlert}
           text={'Please Enter Valid Number'}
         />
-        <Text style={styles.title}>Enter your phone number</Text>
-        <Text style={{...styles.title, fontSize: 15, marginTop: 15}}>
-          Use the phone number to register or
-        </Text>
-        <Text style={{...styles.title, fontSize: 15, marginTop: 4}}>
-          login in Scrappy
-        </Text>
+        <HeaderText heading="Enter your phone number" />
+        <InfoText
+          text="Use the phone number to register or"
+          style={{marginBottom: 1}}
+        />
+        <InfoText text="login in Scrappy" style={{marginBottom: 5}} />
       </View>
 
       {/* <PhoneInput
@@ -103,8 +94,11 @@ export default function PhoneAuthScreen({navigation}) {
 
       <View style={styles.phoneInputContainer}>
         <View style={styles.flagContainer}>
-          <Image style={styles.uk} source={require('../icons/uk.png')} />
-          <Image style={styles.down} source={require('../icons/down1.png')} />
+          <Image style={styles.uk} source={require('../icons/Login/uk.png')} />
+          <Image
+            style={styles.down}
+            source={require('../icons/Login/down1.png')}
+          />
           <Text style={styles.code}>+92</Text>
         </View>
 
@@ -139,7 +133,10 @@ export default function PhoneAuthScreen({navigation}) {
           style={[styles.checkboxBase, checked && styles.checkboxChecked]}
           onPress={onCheckmarkPress}>
           {checked && (
-            <Image style={styles.icon} source={require('../icons/mark1.png')} />
+            <Image
+              style={styles.icon}
+              source={require('../icons/Login/mark1.png')}
+            />
           )}
         </Pressable>
 
@@ -194,14 +191,17 @@ const styles = StyleSheet.create({
   },
 
   termsText: {
-    color: '#7D90AA',
-    fontSize: 15,
+    color: '#4F6C8D',
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
   },
 
   underlineterms: {
     color: '#186BFE',
     textDecorationLine: 'underline',
     marginRight: 3,
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
   },
 
   underlineTextContainer: {
@@ -243,9 +243,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-
+    borderTopLeftRadius: 11,
+    borderBottomLeftRadius: 11,
     overflow: 'hidden',
   },
 
@@ -257,13 +256,15 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    borderRadius: 10,
-    height: 50,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderColor: '#ffffff',
-    alignSelf: 'center',
     width: '60%',
+    padding: 5,
+    color: '#092058',
+    borderRadius: 11,
+    backgroundColor: '#ffffff',
+    height: 50,
+    fontSize: 15,
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     overflow: 'hidden',
@@ -271,5 +272,7 @@ const styles = StyleSheet.create({
   code: {
     fontSize: 15,
     color: '#092058',
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
   },
 });

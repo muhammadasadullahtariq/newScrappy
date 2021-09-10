@@ -24,13 +24,50 @@ const style = StyleSheet.create({
   textCointaner: {
     width: '100%',
     padding: 5,
-    borderRadius: 5,
-    backgroundColor: 'white',
-    height: 40,
-    fontSize: 20,
+    color: '#092058',
+    borderRadius: 11,
+    backgroundColor: '#ffffff',
+    height: 50,
+    fontSize: 15,
     textAlign: 'center',
-    overflow:"hidden"
+    overflow: 'hidden',
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
   },
 });
+
+// #a {
+//   width: 187px;
+//   height: 15px;
+//   color: #092058;
+//   font-family: Montserrat;
+//   font-size: 15px;
+//   font-weight: 500;
+//   line-height: 19.5px;
+//   text-align: center;
+// }
+
+// #input {
+//   width: 312px;
+//   height: 50px;
+// }
+
+// #rectangle {
+//   width: 311px;
+//   height: 50px;
+//   border-radius: 11px;
+//   background: #ffffff;
+// }
+
+// #enteryourp {
+//   width: 135px;
+//   height: 20px;
+//   color: #7d90aa;
+//   font-family: Montserrat;
+//   font-size: 13px;
+//   font-weight: 400;
+//   line-height: 19.5px;
+//   text-align: center;
+// }
 
 export default component;

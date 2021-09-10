@@ -21,14 +21,14 @@ import {
 } from 'react-native';
 import optionArrayImported, {
   cardOptionArray,
-} from '../components/menuScreenComponent/optionsArray';
-import {NumberOfColumn} from '../components/menuScreenComponent/calculateWidth';
-import ImageTextComponent from '../components/menuScreenComponent/imageTextComponent';
-import CardImageTextComponent from '../components/menuScreenComponent/cardImageAndTextComponent';
-import searchImage from '../icons/search.png';
-import notification from '../icons/notification.png';
-import logOut from '../icons/logOut.png';
-import eye from '../icons/eye.png';
+} from '../../components/menuScreenComponent/optionsArray';
+import {NumberOfColumn} from '../../components/menuScreenComponent/calculateWidth';
+import ImageTextComponent from '../../components/menuScreenComponent/imageTextComponent';
+import CardImageTextComponent from '../../components/menuScreenComponent/cardImageAndTextComponent';
+import searchImage from '../../icons/MainMenu/search.png';
+import notification from '../../icons/MainMenu/notification.png';
+import logOut from '../../icons/MainMenu/logOut.png';
+import eye from '../../icons/MainMenu/eye.png';
 
 const App = () => {
   const [cardArray, setCardArray] = useState(cardOptionArray);

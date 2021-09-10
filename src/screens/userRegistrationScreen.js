@@ -3,7 +3,6 @@ import {StyleSheet, View, Text, Pressable} from 'react-native';
 
 //import Components
 import UserSelectionButtonComponent from '../components/userSelectionComponent/ButtonComponent';
-//import InputComponent from '../components/GlobalComponent/inputComponent';
 import ButtonComponent from '../components/GlobalComponent/ButtonComponent';
 import SingleButtonAllert from '../components/GlobalComponent/singleButtonAlert';
 import {useNavigation} from '@react-navigation/native';
@@ -11,7 +10,6 @@ import HeaderText from '../components/GlobalComponent/headerText';
 import Orientation from 'react-native-orientation';
 
 const screen = ({navigation, route}) => {
-  //UseState variable declaration
   const Navigation = useNavigation();
   const [homeUserFlag, setHomeUserFlag] = useState(false);
   const [wasteCollectorFlag, setWastCollectorFlag] = useState(false);
@@ -19,12 +17,8 @@ const screen = ({navigation, route}) => {
   const [wasteBuyerFlag, setWasteBuyerFlage] = useState(false);
   const {phone} = route.params;
   //const phone = 'asad';
-  // const [postCodeInputFieldText, setPostCodeInputFiledText] = useState('');
-  // const [postCodeArray, setPostCodeArray] = useState([]);
-  //const [flag, setFlag] = useState(true);
   const [modelFlag, setAlertModelFlag] = useState(false);
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
-  //function that make sure only one user is selected at a time
 
   function checkValidation() {
     if (!yardFlag && !wasteBuyerFlag && !wasteCollectorFlag && !homeUserFlag) {
@@ -63,32 +57,6 @@ const screen = ({navigation, route}) => {
       setWasteBuyerFlage(false);
     }
   }
-  //Function to check entered postal code is correct or not?
-  // function checkPostalCode(code) {
-  //   code = code.replace(' ', '');
-  //   if (code.length >= 5 && code.length <= 7) {
-  //     if (code[code.length - 3] >= 0 && code[code.length - 3] <= 9) {
-  //       if (isLetter(code[code.length - 2]) && isLetter(code[code.length - 2]))
-  //         return true;
-  //       else {
-  //         console.log('Character issue');
-  //       }
-  //     }
-  //   } else {
-  //     console.log('length issue');
-  //   }
-  //   return false;
-  // }
-  //check a character is alphabet or not
-  // function isLetter(c) {
-  //   return c.toLowerCase() != c.toUpperCase();
-  // }
-
-  // function setInputFieldText(text) {
-  //   setPostCodeInputFiledText(text);
-  // }
-
-  //Function to Hide Alert
   function hideAlert() {
     setAlertModelFlag(false);
   }
@@ -121,75 +89,7 @@ const screen = ({navigation, route}) => {
         user="wasteCollector"
         text="Waste Collector"
       />
-      {/* {wasteCollectorFlag && (
-        <View>
-          {postCodeArray.map(item => {
-            return (
-              <View
-                key={item}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <Text style={styles.textContainer}>{item}</Text>
-                <Pressable
-                  style={{width: '5%'}}
-                  onPress={() => {
-                    console.log(item);
-                    let array = postCodeArray;
-                    console.log(array.indexOf(item));
-                    array.splice(array.indexOf(item), 1);
-                    setFlag(!flag);
-                    setPostCodeArray(array);
-                  }}>
-                  <Text style={styles.cancelTextContainer}>X</Text>
-                </Pressable>
-              </View>
-            );
-          })}
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 10,
-              marginBottom: 20,
-            }}>
-            <InputComponent
-              placeholderText="Enter Postal Code"
-              text={postCodeInputFieldText}
-              textHandler={setInputFieldText}
-              style={{
-                width: '60%',
-              }}
-              style1={{
-                borderTopWidth: 1,
-                borderLeftWidth: 1,
-                borderBottomWidth: 1,
-                borderRightWidth: 0,
-                borderTopRightRadius: 0,
-                borderBottomRightRadius: 0,
-              }}
-            />
-            <Pressable
-              style={{width: '10%'}}
-              onPress={() => {
-                console.log(postCodeInputFieldText);
-                if (checkPostalCode(postCodeInputFieldText)) {
-                  setPostCodeArray(s => [...s, postCodeInputFieldText]);
-                  setPostCodeInputFiledText('');
-                } else {
-                  setAlertText('Please Enter Valid Code');
-                  setAlertModelFlag(true);
-                }
-              }}>
-              <View style={[{justifyContent: 'center'}, styles.addButtonStyle]}>
-                <Text style={{textAlign: 'center', color: 'white'}}>Add</Text>
-              </View>
-            </Pressable>
-          </View>
-        </View>
-      )} */}
+
       <UserSelectionButtonComponent
         flag={yardFlag}
         onPress={setUserFlag}
@@ -213,7 +113,7 @@ const screen = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1},
+  mainContainer: {flex: 1, backgroundColor: '#F7F8FA'},
   textContainer: {
     textAlignVertical: 'center',
     width: '65%',

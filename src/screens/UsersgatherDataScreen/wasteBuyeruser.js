@@ -6,8 +6,11 @@ import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAle
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
 import auth from '@react-native-firebase/auth';
-//import registerUser from '../../components/GlobalFunctions/postRequest';
-import {registerUser} from '../../components/GlobalFunctions/postRequest';
+import {
+  checkPostalCode,
+  validateEmail,
+} from '../../Functions/UserRegistration/codeAndEmailValidation';
+import {registerUser} from '../../Functions/Global/postRequest';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 
 const screen = ({navigation, route}) => {
@@ -20,7 +23,7 @@ const screen = ({navigation, route}) => {
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
   const {phone} = route.params;
   const [alertModelWithAction, setAlertModelWithAction] = useState(false);
-  const [flag,setFlag]=useState(false);
+  const [alertModelAction, setAlertModelAction] = useState(false);
 
   function firsNameHandler(text) {
     setFirstName(text);
@@ -41,16 +44,16 @@ const screen = ({navigation, route}) => {
 
   function hideAlertWithAction() {
     setAlertModelWithAction(false);
-    navigation.reset;
-    if(!flag){
+    if (!alertModelAction) {
+      navigation.reset;
       navigation.reset({
         index: 0, //the stack index
         routes: [
           {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
         ],
       });
-    }
-    else{
+    } else {
+      navigation.reset;
       navigation.reset({
         index: 0, //the stack index
         routes: [
@@ -60,32 +63,7 @@ const screen = ({navigation, route}) => {
     }
   }
 
-  function validateEmail(email) {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-
-  function checkPostalCode(code) {
-    code = code.replace(' ', '');
-    if (code.length >= 5 && code.length <= 7) {
-      if (code[code.length - 3] >= 0 && code[code.length - 3] <= 9) {
-        if (isLetter(code[code.length - 2]) && isLetter(code[code.length - 2]))
-          return true;
-        else {
-          console.log('Character issue');
-        }
-      }
-    } else {
-      console.log('length issue');
-    }
-    return false;
-  }
-  function isLetter(c) {
-    return c.toLowerCase() != c.toUpperCase();
-  }
-
- async function userValidate() {
+  async function userValidate() {
     if (firstName == '') {
       setAlertText('Please Enter First Name');
       //console.log('Please Enter First Name');
@@ -110,7 +88,7 @@ const screen = ({navigation, route}) => {
       return;
     }
     setWaitingAlertFlag(true);
-    const responce =await registerUser(
+    const responce = await registerUser(
       phone, //need to change
       email,
       postCode,
@@ -123,12 +101,13 @@ const screen = ({navigation, route}) => {
       setFlag(false);
       setAlertText(responce.message);
       setAlertModelWithAction(true);
+      setAlertModelAction(false);
     } else if (responce.message === 'Phone already exists') {
       auth().signOut();
       setWaitingAlertFlag(false);
       setAlertText(responce.message + ' Try Another Number');
       setAlertModelWithAction(true);
-      setFlag(true);
+      setAlertModelAction(true);
     } else if (responce.message.length < 30) {
       setWaitingAlertFlag(false);
       setAlertText(responce.message);

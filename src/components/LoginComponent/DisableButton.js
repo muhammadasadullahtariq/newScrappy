@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+    fontFamily: 'Montserrat',
     borderRadius: 30,
     marginTop: 30,
   },

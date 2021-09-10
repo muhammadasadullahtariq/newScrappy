@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     width: WIDTH / 1.55,
     height: 50,
     backgroundColor: '#186BFE',
+    fontFamily: 'Montserrat',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
