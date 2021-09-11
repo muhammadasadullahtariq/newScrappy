@@ -88,7 +88,7 @@ const screen = ({navigation, route}) => {
       return;
     }
     setWaitingAlertFlag(true); //User successfully register
-    const responce =await registerUser(
+    const responce = await registerUser(
       phone, //need to change
       email,
       postCode,
@@ -136,7 +136,10 @@ const screen = ({navigation, route}) => {
       <WaitingAlert visible={waitingAlertFlag} />
       <View style={{flex: 3, justifyContent: 'center'}}>
         <HeaderText heading="Information" />
-        <InfoText text="This information is used to authenticate and protect your account better" />
+        <InfoText
+          text="This information is used to authenticate and protect your account better"
+          style={{marginBottom: 30}}
+        />
         <InputComponent
           placeHolder="Enter First Name"
           text={firstName}

@@ -21,14 +21,14 @@ import {
 } from 'react-native';
 import optionArrayImported, {
   cardOptionArray,
-} from '../../components/menuScreenComponent/optionsArray';
-import {NumberOfColumn} from '../../components/menuScreenComponent/calculateWidth';
-import ImageTextComponent from '../../components/menuScreenComponent/imageTextComponent';
+} from '../../components/WasteCollectorTabScreen/optionsArray';
+import FlatListItemView from '../../components/WasteCollectorTabScreen/MainMenu/flatlistItem';
 import CardImageTextComponent from '../../components/menuScreenComponent/cardImageAndTextComponent';
 import searchImage from '../../icons/MainMenu/search.png';
 import notification from '../../icons/MainMenu/notification.png';
 import logOut from '../../icons/MainMenu/logOut.png';
 import eye from '../../icons/MainMenu/eye.png';
+import InfoText from '../../components/GlobalComponent/infoText';
 
 const App = () => {
   const [cardArray, setCardArray] = useState(cardOptionArray);
@@ -37,16 +37,17 @@ const App = () => {
   const [windowWidth, setWindowWidth] = useState(
     Dimensions.get('window').width,
   );
+  const [balance, setBalance] = useState('20000');
   useEffect(() => {
-    setColumnNum(() => NumberOfColumn(windowWidth));
-  }, [windowWidth]);
-  Dimensions.addEventListener('change', () => {
-    setWindowWidth(() => Dimensions.get('window').width);
+    //   setColumnNum(() => NumberOfColumn(windowWidth));
+    // }, [windowWidth]);
+    // Dimensions.addEventListener('change', () => {
+    //   setWindowWidth(() => Dimensions.get('window').width);
   });
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       {/*Start of Search and Card View */}
-      <View style={{height: 300, width: '100%'}}>
+      <View style={{height: 240, width: '100%'}}>
         <View style={styles.backgroundBoxContainer}>
           {/*Top Blue View containe search Tab and notification */}
           <View style={styles.searchViewContainer}>
@@ -78,10 +79,10 @@ const App = () => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: '100%',
+              marginHorizontal: 20,
             }}>
             {cardArray.map(item => {
               return (
-                //+447851506252
                 <CardImageTextComponent
                   image={item.image}
                   text={item.text}
@@ -91,15 +92,19 @@ const App = () => {
             })}
           </View>
           {/*Balance View */}
-          <View style={{flexDirection: 'row', marginLeft: 5, marginTop: 20}}>
-            <Text style={styles.balanceTextContainer}>
-              Balance in the Wallet
-            </Text>
-            <Image style={{marginTop: 3, marginLeft: 4}} source={eye} />
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 20,
+              marginHorizontal: 20,
+            }}>
+            <InfoText
+              text="Balance in the Wallet"
+              style={{paddingHorizontal: 0}}
+            />
+            <Image style={{marginTop: 3, marginLeft: 20}} source={eye} />
             <View style={{flex: 1}}></View>
-            <Text style={[styles.balanceTextContainer, {marginRight: 5}]}>
-              $ 20000
-            </Text>
+            <InfoText text={'£  ' + balance} style={{paddingHorizontal: 0}} />
             {/*End Of Balance View */}
           </View>
         </View>
@@ -108,12 +113,16 @@ const App = () => {
       {/*End of Main View  */}
       <FlatList
         data={optionArray}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
         renderItem={items => (
-          <ImageTextComponent text={items.item.text} image={items.item.image} />
+          <FlatListItemView
+            text={items.item.text}
+            image={items.item.image}
+            date={items.item.date}
+            status={items.item.status}
+            higestBid={items.item.higestBid}
+            bidCount={items.item.bidCount}
+          />
         )}
-        numColumns={columNum}
-        key={columNum}
         keyExtractor={(item, index) => +item.Key}
       />
     </ScrollView>
@@ -129,10 +138,11 @@ const styles = StyleSheet.create({
   backgroundBoxContainer: {
     height: '40%',
     width: '100%',
-    backgroundColor: '#007AFF',
+    backgroundColor: '#186BFE',
     flexDirection: 'row',
   },
   searchViewContainer: {
+    height: 116.5,
     flexDirection: 'row',
     ...Platform.select({
       ios: {
@@ -167,15 +177,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#ffffff',
     width: '90%',
-    height: '60%',
+    height: 152,
     borderRadius: 25,
     flexDirection: 'column',
     ...Platform.select({
       ios: {
-        marginTop: -40,
+        marginTop: -28.5,
       },
       android: {
-        marginTop: -50,
+        marginTop: -28.5,
       },
     }),
   },

@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedbackBase,
 } from 'react-native';
+import HeaderText from '../../components/GlobalComponent/headerText';
+import InfoText from '../../components/GlobalComponent/infoText';
 
 const screen = props => {
-  const array = [];
   return (
     <Modal
       visible={props.visibal}
@@ -28,35 +29,36 @@ const screen = props => {
         <View
           style={{
             width: '60%',
-            marginBottom: 300,
+            marginTop: '70%',
+            borderRadius: 22,
+            overflow: 'hidden',
+            backgroundColor: 'white',
+            justifyContent: 'center',
           }}>
-          <Text
-            style={{
-              fontSize: 20,
-              padding: 10,
-              color: '#007AFF',
-              backgroundColor: 'white',
-            }}>
-            {props.heading}
-          </Text>
-          <View style={{height: 1, backgroundColor: '#007AFF'}}></View>
+          <HeaderText
+            heading={props.heading}
+            style={{height: 52, alignSelf: 'center', paddingVertical: 16.5}}
+          />
+          <View style={{height: 1, backgroundColor: '#F7F8FA'}}></View>
           {props.array.map(item => {
             return (
-              <Pressable
-                onPress={() => {
-                  props.itemPressed(item, props.array.indexOf(item));
-                  console.log(item);
-                }}>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    padding: 10,
-                    marginTop: 0.5,
-                    backgroundColor: 'white',
+              <View>
+                <Pressable
+                  onPress={() => {
+                    props.itemPressed(item, props.array.indexOf(item));
+                    console.log(item);
                   }}>
-                  {item}
-                </Text>
-              </Pressable>
+                  <InfoText
+                    text={item}
+                    style={{
+                      height: 52,
+                      paddingVertical: 16.5,
+                      alignSelf: 'flex-start',
+                    }}
+                  />
+                </Pressable>
+                <View style={{height: 1, backgroundColor: '#F7F8FA'}}></View>
+              </View>
             );
           })}
         </View>

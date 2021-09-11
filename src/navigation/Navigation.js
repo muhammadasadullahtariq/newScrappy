@@ -14,6 +14,9 @@ import WasteCollector from '../screens/UsersgatherDataScreen/wasteCollectoruser'
 import WasteBuyer from '../screens/UsersgatherDataScreen/wasteBuyeruser';
 import icon from '../icons/Navigation/Back.png';
 import Splash from '../screens/splashScreen';
+import WasteCollecterHomeScreen from '../screens/wasteCollector';
+import TypeOfScrap from '../screens/WasteCollecterChildScreen/selectTypeOfScrap';
+import ScrapDataUpload from '../screens/WasteCollecterChildScreen/scrapDataUpload';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +38,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="Splash">
+        initialRouteName="ScrapDataUpload">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
@@ -55,10 +58,16 @@ function Navigation() {
         <Stack.Screen name="WasteCollector" component={WasteCollector} />
         <Stack.Screen name="WasteBuyer" component={WasteBuyer} />
         <Stack.Screen
+          name="WasteCollectorHomeScreen"
+          component={WasteCollecterHomeScreen}
+        />
+        <Stack.Screen
           name="Splash"
           component={Splash}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="TypeOfScrap" component={TypeOfScrap} />
+        <Stack.Screen name="ScrapDataUpload" component={ScrapDataUpload} />
       </Stack.Navigator>
     </NavigationContainer>
   );

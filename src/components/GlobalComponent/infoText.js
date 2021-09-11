@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     textAlign: 'center',
     paddingHorizontal: 20,
-    marginBottom: 30,
   },
 });
 
