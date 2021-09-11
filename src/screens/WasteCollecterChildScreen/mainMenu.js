@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     ...Platform.select({
       ios: {
-        marginTop: 50,
+        marginTop: 25,
       },
       android: {
         marginTop: 25,

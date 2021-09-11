@@ -7,7 +7,6 @@ import PhoneAuthScreen from '../screens/PhoneAuthScreen';
 import OtpVerificationScreen from '../screens/OtpVerificationScreen';
 import HomeScreen from '../screens/tabHomeScreen';
 import UserSelectionScreen from '../screens/userRegistrationScreen';
-import ImageUpload from '../screens/uploadImageAndVideo';
 import HomeUser from '../screens/UsersgatherDataScreen/homeuser';
 import YardUser from '../screens/UsersgatherDataScreen/yarduser';
 import WasteCollector from '../screens/UsersgatherDataScreen/wasteCollectoruser';
@@ -38,7 +37,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="ScrapDataUpload">
+        initialRouteName="WasteCollectorHomeScreen">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
@@ -52,7 +51,6 @@ function Navigation() {
           }}
         />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="videoAndImageUpload" component={ImageUpload} />
         <Stack.Screen name="HomeUser" component={HomeUser} />
         <Stack.Screen name="YardUser" component={YardUser} />
         <Stack.Screen name="WasteCollector" component={WasteCollector} />

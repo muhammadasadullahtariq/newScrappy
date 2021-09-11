@@ -17,6 +17,12 @@
 	</dict>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Scrappy wants to Access Photos</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Scrappy wants to Access Camera</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Scrappy wants to Access Camera and photos</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

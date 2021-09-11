@@ -13,6 +13,8 @@ const screen = () => {
   const imageContainer = responce => {
     try {
       if (responce == 'Take Photo') {
+        try{
+          
         ImagePicker.openCamera({
           width: 400,
           height: 400,
@@ -23,7 +25,9 @@ const screen = () => {
             return [...s, {flag: false, path: {uri: image.path}}, {path: ''}];
           });
         });
+      }catch(err){console.log(err)}
       } else {
+        setTimeout(()=>{
         ImagePicker.openPicker({
           width: 400,
           height: 400,
@@ -41,7 +45,7 @@ const screen = () => {
               });
             }
           }
-        });
+        })},10000);
       }
     } catch (err) {
       console.log(err);
@@ -76,6 +80,7 @@ const screen = () => {
     setMenuFlag(false);
     console.log('asad', VideoOrImageSourceArray);
     if (index <= 1) {
+      console.log("g g")
       imageContainer(resonces);
     } else {
       videoContainer(resonces);
