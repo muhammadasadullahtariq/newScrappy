@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Dimensions, FlatList} from 'react-native';
+import {StyleSheet, View, Dimensions, FlatList, Text} from 'react-native';
 import {NumberOfColumn} from '../menuScreenComponent/calculateWidth';
 import ImageComponent from './VideoOrImageUI';
 
-const screen = () => {
+const screen = props => {
   const [columNum, setColumnNum] = useState(3);
   const [windowWidth, setWindowWidth] = useState(
     Dimensions.get('window').width,
   );
   useEffect(() => {
+    console.log(props.Array);
     setColumnNum(() => NumberOfColumn(windowWidth));
   }, [windowWidth]);
   Dimensions.addEventListener('change', () => {
@@ -18,18 +19,27 @@ const screen = () => {
     <View style={styles.mainContainer}>
       <FlatList
         data={props.Array}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
         renderItem={items => (
-          <ImageComponent path={items.item.path} flag={items.item.path} />
+          <ImageComponent
+            flag={items.item.flag}
+            path={items.item.path}
+            onPress={props.onPress}
+          />
         )}
         numColumns={columNum}
         key={columNum}
         keyExtractor={(item, index) => +item.path}
+        style={{marginHorizontal: 20}}
       />
     </View>
   );
 };
 
-const styles = StyleSheet.create({mainContainer: {marginVertical: 10}});
+const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: 'red',
+    width: '100%',
+  },
+});
 
 export default screen;
