@@ -103,6 +103,7 @@ const screen = ({navigation, route}) => {
       postCodeArray,
     );
     if (responce.message === 'User successfully register') {
+      global.id = responce.data._id;
       setWaitingAlertFlag(false);
       setActionFlag(false);
       setAlertText(responce.message);

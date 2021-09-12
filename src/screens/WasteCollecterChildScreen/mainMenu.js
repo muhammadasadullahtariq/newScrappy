@@ -29,8 +29,11 @@ import notification from '../../icons/MainMenu/notification.png';
 import logOut from '../../icons/MainMenu/logOut.png';
 import eye from '../../icons/MainMenu/eye.png';
 import InfoText from '../../components/GlobalComponent/infoText';
+//import Navigation, {useN} from '../../navigation/Navigation';
+import {useNavigation} from '@react-navigation/native';
 
 const App = () => {
+  const navigation = useNavigation();
   const [cardArray, setCardArray] = useState(cardOptionArray);
   const [optionArray, setOptionArray] = useState(optionArrayImported);
   const [columNum, setColumnNum] = useState(3);
@@ -38,12 +41,7 @@ const App = () => {
     Dimensions.get('window').width,
   );
   const [balance, setBalance] = useState('20000');
-  useEffect(() => {
-    //   setColumnNum(() => NumberOfColumn(windowWidth));
-    // }, [windowWidth]);
-    // Dimensions.addEventListener('change', () => {
-    //   setWindowWidth(() => Dimensions.get('window').width);
-  });
+  useEffect(() => {});
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       {/*Start of Search and Card View */}
@@ -87,6 +85,7 @@ const App = () => {
                   image={item.image}
                   text={item.text}
                   key={item.Key}
+                  onPress={() => navigation.navigate('TypeOfScrap')}
                 />
               );
             })}

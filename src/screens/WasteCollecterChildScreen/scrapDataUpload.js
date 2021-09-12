@@ -17,14 +17,14 @@ const screen = ({navigation, route}) => {
   const [alertWithAction, setAlertWithAction] = useState(false);
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
-  //const {catagory} = route.params;
+  const {catagory} = route.params;
   function alertHandler() {
     setAlertFlag(false);
   }
 
   function alertHandlerWithAction() {
     setAlertWithAction(false);
-    //navigation.navigate('HomeScreen');
+    navigation.navigate('WasteCollectorHomeScreen');
   }
 
   const imageContainer = responce => {
@@ -49,40 +49,38 @@ const screen = ({navigation, route}) => {
           console.log(err);
         }
       } else {
-        setTimeout(() => {
-          ImagePicker.openPicker({
-            width: 400,
-            height: 400,
-            multiple: true,
-          }).then(image => {
-            console.log('asad', image);
-            if (image.length > 5) {
-              setAlertText('Please select only five pictures');
-              setAlertFlag(true);
-            } else {
-              VideoOrImageSourceArray.splice(
-                VideoOrImageSourceArray.length - 1,
-                1,
-              );
-              for (var i = 0; i < image.length; i++) {
+        ImagePicker.openPicker({
+          width: 400,
+          height: 400,
+          multiple: true,
+        }).then(image => {
+          console.log('asad', image);
+          if (image.length > 5) {
+            setAlertText('Please select only five pictures');
+            setAlertFlag(true);
+          } else {
+            VideoOrImageSourceArray.splice(
+              VideoOrImageSourceArray.length - 1,
+              1,
+            );
+            for (var i = 0; i < image.length; i++) {
+              setVideoORImageSourceArray(s => {
+                return [
+                  ...s,
+                  {
+                    flag: false,
+                    path: {uri: image[i].path, responce: image[i]},
+                  },
+                ];
+              });
+              if (i == image.length - 1) {
                 setVideoORImageSourceArray(s => {
-                  return [
-                    ...s,
-                    {
-                      flag: false,
-                      path: {uri: image[i].path, responce: image[i]},
-                    },
-                  ];
+                  return [...s, {path: ''}];
                 });
-                if (i == image.length - 1) {
-                  setVideoORImageSourceArray(s => {
-                    return [...s, {path: ''}];
-                  });
-                }
               }
             }
-          });
-        }, 10000);
+          }
+        });
       }
     } catch (err) {
       console.log(err);
@@ -95,7 +93,7 @@ const screen = ({navigation, route}) => {
       ImagePicker.openCamera({
         mediaType: 'video',
       }).then(video => {
-        console.log('asad', video.path);
+        console.log('asad', video);
         setVideoORImageSourceArray(s => {
           s.splice(VideoOrImageSourceArray.length - 1, 1);
           return [
@@ -143,14 +141,17 @@ const screen = ({navigation, route}) => {
 
   async function uploadImage() {
     setWaitingAlertFlag(true);
-    // const result = await imageUpload(VideoOrImageSourceArray[0]);
-    // if (result.message == 'success') {
-    //   setWaitingAlertFlag(false);
-    //   setAlertText('Uploaded Data Successfully');
-    //   setAlertWithAction(true);
-    // } else {
-    //   setWaitingAlertFlag(false);
-    // }
+    const responce = await scrapDataUpload(
+      global.id,
+      catagory,
+      title,
+      detail,
+      VideoOrImageSourceArray,
+    );
+    setWaitingAlertFlag(false);
+    setAlertText(responce);
+    setAlertWithAction(true);
+    console.log(responce);
   }
   const [menuFlag, setMenuFlag] = useState(false);
   const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
@@ -209,7 +210,7 @@ const screen = ({navigation, route}) => {
       <View style={{flex: 1}}></View>
       <ButtonComponent
         text="Next"
-        style={{width: 250, marginBottom: 50}}
+        style={{width: 250, marginBottom: 40}}
         onPress={uploadImage}
       />
     </View>

@@ -15,8 +15,7 @@ const screen = ({navigation, route}) => {
   const [paperWasteFlag, setPaperWasteFlag] = useState(false);
   const [plasticFlag, setPlasticFlag] = useState(false);
   const [mixedWasteFlag, setMixedWasteFlage] = useState(false);
-  //const {phone} = route.params;
-  const phone = 'asad';
+  //const phone = 'asad';
   const [modelFlag, setAlertModelFlag] = useState(false);
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
 
@@ -25,13 +24,17 @@ const screen = ({navigation, route}) => {
       setAlertText('Select A catagory');
       setAlertModelFlag(true);
     } else if (plasticFlag) {
-      Navigation.navigate('YardUser', {phone});
+      console.log('plastic');
+      Navigation.navigate('ScrapDataUpload', {catagory: 'Plactic Scrap'});
     } else if (mixedWasteFlag) {
-      Navigation.navigate('WasteBuyer', {phone});
+      console.log('mixed');
+      Navigation.navigate('ScrapDataUpload', {catagory: 'Mixed Scrap'});
     } else if (paperWasteFlag) {
-      Navigation.navigate('WasteCollector', {phone});
+      console.log('paper');
+      Navigation.navigate('ScrapDataUpload', {catagory: 'Paper Scrap'});
     } else if (metalScrapFlag) {
-      Navigation.navigate('HomeUser', {phone});
+      console.log('metal');
+      Navigation.navigate('ScrapDataUpload', {catagory: 'Metal Scrap'});
     }
   }
   function setUserFlag(user) {
@@ -62,7 +65,6 @@ const screen = ({navigation, route}) => {
   }
   useEffect(() => {
     Orientation.lockToPortrait();
-    console.log(phone);
   });
 
   //FrontEnd
@@ -87,7 +89,7 @@ const screen = ({navigation, route}) => {
         flag={paperWasteFlag}
         onPress={setUserFlag}
         user="paper waste"
-        text="Waste Collector"
+        text="Paper waste"
       />
 
       <ScrapTypeSelectionComponent

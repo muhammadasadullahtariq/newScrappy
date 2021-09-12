@@ -5,7 +5,9 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 
 export default function (props) {
   return (
-    <TouchableOpacity style={[styles.mainContainer, props.style]}>
+    <TouchableOpacity
+      style={[styles.mainContainer, props.style]}
+      onPress={props.onPress}>
       <View style={styles.imageViewContainer}>
         <Image source={props.image} />
       </View>

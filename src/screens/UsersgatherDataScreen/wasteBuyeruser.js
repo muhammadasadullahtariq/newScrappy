@@ -97,6 +97,7 @@ const screen = ({navigation, route}) => {
       3,
     );
     if (responce.message === 'User successfully register') {
+      global.id = responce.data._id;
       setWaitingAlertFlag(false);
       setFlag(false);
       setAlertText(responce.message);

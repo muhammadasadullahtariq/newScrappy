@@ -97,6 +97,7 @@ const screen = ({navigation, route}) => {
       1,
     );
     if (responce.message === 'User successfully register') {
+      global.id = responce.data._id;
       setWaitingAlertFlag(false);
       setAlertText(responce.message);
       setFlag(false);
@@ -119,6 +120,7 @@ const screen = ({navigation, route}) => {
     }
   }
   useEffect(() => {
+    console.log(global.id);
     Orientation.lockToPortrait();
   }, []);
   return (

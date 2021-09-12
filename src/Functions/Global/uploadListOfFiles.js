@@ -3,24 +3,25 @@ var videoArray = [];
 var imageArray = [];
 var count = 0;
 const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
-  var responce = true;
-  for (var i = 0; i < arr.length; i++) {
-    if (ar[i].flag) {
+  for (var i = 0; i < arr.length - 1; i++) {
+    if (arr[i].flag) {
       var result = await videoUpload(arr[i]);
       if (result.status == 'OK') {
-        imageArray.push(result.data);
+        videoArray.push(result.data);
       } else {
         count += 1;
       }
     } else {
       var result = await imageUpload(arr[i]);
       if (result.status == 'OK') {
-        videoArray.push(result.data);
+        imageArray.push(result.data);
       } else {
         count += 1;
       }
     }
-    if (i == arr.length - 1) {
+    console.log(i);
+    if (i == arr.length - 2) {
+      console.log('here i am');
       if (count == 0) {
         var res = await uploadScrapData(id, catagory, title, detail);
         if (res.message == 'WasteCollector data successfully added') {
@@ -29,7 +30,7 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
           return 'Some Error occure try again latter';
         }
       } else if (count < arr.length) {
-        var res = await uploadScrapData();
+        var res = await uploadScrapData(id, catagory, title, detail);
         if (res.message == 'WasteCollector data successfully added') {
           return 'WasteCollector Uploaded Successfully some mediua fail to upload';
         } else {

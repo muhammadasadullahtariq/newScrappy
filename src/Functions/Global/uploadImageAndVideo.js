@@ -1,10 +1,8 @@
 import React from 'react';
 //import RNFetchBlob from 'rn-fetch-blob';
-import {Platform} from 'react-native';
-import img from '../../photos/download.jpg';
 
 const videoUpload = async video => {
-  upload(video);
+  return await upload(video.responce);
 };
 
 async function upload(imageSur) {
@@ -15,10 +13,10 @@ async function upload(imageSur) {
   image.type = imageSur.mime;
   image.dateModified = new Date();
   var formdata = new FormData();
-  formdata.append('image', image, imageSur.path);
+  formdata.append('video', image, imageSur.path);
   try {
     const response = await fetch(
-      'http://scrappy.world:3000/api/v1/file/upload/image',
+      'http://scrappy.world:3000/api/v1/file/upload/video',
       {
         method: 'POST',
         body: formdata,
@@ -35,7 +33,7 @@ async function upload(imageSur) {
 }
 
 const imageUpload = async image => {
-  registerUser(image.responce);
+  return await registerUser(image.responce);
 };
 
 export const registerUser = async imageSur => {
