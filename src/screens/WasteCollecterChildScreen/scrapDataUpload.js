@@ -2,50 +2,87 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import ContextMenu from '../../components/uploadImageAndVideo/contextMenu';
-import plusImageSource from '../../icons/WasteCollerTabScreen/plus.png';
 import ImagePicker from 'react-native-image-crop-picker';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import VideoOrImage from '../../components/WasteCollectorTabScreen/videoOrImageMap';
-import imageSorce from '../../photos/download.jpg';
-import VideoSource from '../../photos/video.gif';
+import SingleButtonAlert from '../../components/GlobalComponent/singleButtonAlert';
+import WaitAlert from '../../components/GlobalComponent/waitingAlertComponent';
+import InputTextComponent from '../../components/GlobalComponent/inputComponent';
+import scrapDataUpload from '../../Functions/Global/uploadListOfFiles';
 
-const screen = () => {
+const screen = ({navigation, route}) => {
+  const [alertFlag, setAlertFlag] = useState(false);
+  const [alertText, setAlertText] = useState('User Can Only Upload 5 Pictures');
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
+  const [videoFlag, setVideoFlag] = useState(false);
+  const [alertWithAction, setAlertWithAction] = useState(false);
+  const [title, setTitle] = useState('');
+  const [detail, setDetail] = useState('');
+  //const {catagory} = route.params;
+  function alertHandler() {
+    setAlertFlag(false);
+  }
+
+  function alertHandlerWithAction() {
+    setAlertWithAction(false);
+    //navigation.navigate('HomeScreen');
+  }
+
   const imageContainer = responce => {
     try {
       if (responce == 'Take Photo') {
-        try{
-          
-        ImagePicker.openCamera({
-          width: 400,
-          height: 400,
-        }).then(image => {
-          console.log('asad', image);
-          setVideoORImageSourceArray(s => {
-            s.splice(VideoOrImageSourceArray.length - 1, 1);
-            return [...s, {flag: false, path: {uri: image.path}}, {path: ''}];
-          });
-        });
-      }catch(err){console.log(err)}
-      } else {
-        setTimeout(()=>{
-        ImagePicker.openPicker({
-          width: 400,
-          height: 400,
-          multiple: true,
-        }).then(image => {
-          console.log('asad', image);
-          VideoOrImageSourceArray.splice(VideoOrImageSourceArray.length - 1, 1);
-          for (var i = 0; i < image.length; i++) {
+        try {
+          ImagePicker.openCamera({
+            width: 400,
+            height: 400,
+          }).then(image => {
+            console.log('asad', image);
             setVideoORImageSourceArray(s => {
-              return [...s, {flag: false, path: {uri: image[i].path}}];
+              s.splice(VideoOrImageSourceArray.length - 1, 1);
+              return [
+                ...s,
+                {flag: false, path: {uri: image.path}, responce: image},
+                {path: ''},
+              ];
             });
-            if (i == image.length - 1) {
-              setVideoORImageSourceArray(s => {
-                return [...s, {path: ''}];
-              });
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        setTimeout(() => {
+          ImagePicker.openPicker({
+            width: 400,
+            height: 400,
+            multiple: true,
+          }).then(image => {
+            console.log('asad', image);
+            if (image.length > 5) {
+              setAlertText('Please select only five pictures');
+              setAlertFlag(true);
+            } else {
+              VideoOrImageSourceArray.splice(
+                VideoOrImageSourceArray.length - 1,
+                1,
+              );
+              for (var i = 0; i < image.length; i++) {
+                setVideoORImageSourceArray(s => {
+                  return [
+                    ...s,
+                    {
+                      flag: false,
+                      path: {uri: image[i].path, responce: image[i]},
+                    },
+                  ];
+                });
+                if (i == image.length - 1) {
+                  setVideoORImageSourceArray(s => {
+                    return [...s, {path: ''}];
+                  });
+                }
+              }
             }
-          }
-        })},10000);
+          });
+        }, 10000);
       }
     } catch (err) {
       console.log(err);
@@ -61,7 +98,11 @@ const screen = () => {
         console.log('asad', video.path);
         setVideoORImageSourceArray(s => {
           s.splice(VideoOrImageSourceArray.length - 1, 1);
-          return [...s, {flag: true, path: {uri: video.path}}, {path: ''}];
+          return [
+            ...s,
+            {flag: true, path: {uri: video.path}, responce: video},
+            {path: ''},
+          ];
         });
       });
     } else {
@@ -71,7 +112,11 @@ const screen = () => {
         console.log('asad', video.path);
         setVideoORImageSourceArray(s => {
           s.splice(VideoOrImageSourceArray.length - 1, 1);
-          return [...s, {flag: true, path: {uri: video.path}}, {path: ''}];
+          return [
+            ...s,
+            {flag: true, path: {uri: video.path, responce: video}},
+            {path: ''},
+          ];
         });
       });
     }
@@ -80,10 +125,15 @@ const screen = () => {
     setMenuFlag(false);
     console.log('asad', VideoOrImageSourceArray);
     if (index <= 1) {
-      console.log("g g")
       imageContainer(resonces);
     } else {
-      videoContainer(resonces);
+      if (!videoFlag) {
+        videoContainer(resonces);
+        setVideoFlag(true);
+      } else {
+        setAlertText('User can Only Upload One Video');
+        setAlertFlag(true);
+      }
     }
   }
 
@@ -91,8 +141,17 @@ const screen = () => {
     setMenuFlag(false);
   }
 
-  function uploadImage() {}
-  //Flag variable declaration to indicate Menu is enabled or disabled
+  async function uploadImage() {
+    setWaitingAlertFlag(true);
+    // const result = await imageUpload(VideoOrImageSourceArray[0]);
+    // if (result.message == 'success') {
+    //   setWaitingAlertFlag(false);
+    //   setAlertText('Uploaded Data Successfully');
+    //   setAlertWithAction(true);
+    // } else {
+    //   setWaitingAlertFlag(false);
+    // }
+  }
   const [menuFlag, setMenuFlag] = useState(false);
   const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
     {path: ''},
@@ -101,7 +160,39 @@ const screen = () => {
     <View style={styles.mainContainer}>
       <VideoOrImage
         Array={VideoOrImageSourceArray}
-        onPress={() => setMenuFlag(true)}
+        onPress={() => {
+          if (VideoOrImageSourceArray.length > 5) {
+            setAlertText('User can only Upload 5 pictures and video');
+            setAlertFlag(true);
+          } else setMenuFlag(true);
+        }}
+      />
+      <InputTextComponent
+        placeHolder="Enter Title"
+        value={title}
+        style={{marginTop: 10}}
+        style1={{textAlign: 'left'}}
+        textHandler={s => setTitle(s)}
+      />
+      <InputTextComponent
+        placeHolder="Detail"
+        numberOfLines={5}
+        text={detail}
+        flag={true}
+        style={{justifyContent: 'flex-start'}}
+        style1={{marginTop: 10, height: 150, textAlign: 'left'}}
+        textHandler={s => setDetail(s)}
+      />
+      <WaitAlert visible={waitingAlertFlag} />
+      <SingleButtonAlert
+        visibal={alertFlag}
+        text={alertText}
+        onPress={alertHandler}
+      />
+      <SingleButtonAlert
+        visibal={alertWithAction}
+        text={alertText}
+        onPress={alertHandlerWithAction}
       />
       <ContextMenu
         visibal={menuFlag}
@@ -118,7 +209,7 @@ const screen = () => {
       <View style={{flex: 1}}></View>
       <ButtonComponent
         text="Next"
-        style={{width: 200, marginBottom: 50}}
+        style={{width: 250, marginBottom: 50}}
         onPress={uploadImage}
       />
     </View>

@@ -37,7 +37,6 @@ const screen = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: 'red',
     width: '100%',
   },
 });

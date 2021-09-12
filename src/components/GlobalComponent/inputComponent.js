@@ -8,9 +8,12 @@ export const component = props => {
         placeholder={props.placeHolder}
         value={props.text}
         returnKeyType="go"
+        multiline={true}
+        numberOfLines={props.numberOfLines}
         keyboardType={props.keyBoadType}
         onChangeText={props.textHandler}
         style={[style.textCointaner, props.style1]}
+        textAlignVertical={props.flag?"top":"center"}
         onSubmitEditing={props.onSubmit}></TextInput>
     </View>
   );
@@ -20,6 +23,8 @@ const style = StyleSheet.create({
   mainView: {
     width: '80%',
     alignSelf: 'center',
+    height: 50,
+    justifyContent: 'center',
   },
   textCointaner: {
     width: '100%',
@@ -27,7 +32,7 @@ const style = StyleSheet.create({
     color: '#092058',
     borderRadius: 11,
     backgroundColor: '#ffffff',
-    height: 50,
+    height: '100%',
     fontSize: 15,
     textAlign: 'center',
     overflow: 'hidden',
