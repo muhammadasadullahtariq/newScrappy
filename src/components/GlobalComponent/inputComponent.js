@@ -13,7 +13,7 @@ export const component = props => {
         keyboardType={props.keyBoadType}
         onChangeText={props.textHandler}
         style={[style.textCointaner, props.style1]}
-        textAlignVertical={props.flag?"top":"center"}
+        textAlignVertical="center"
         onSubmitEditing={props.onSubmit}></TextInput>
     </View>
   );

@@ -3,6 +3,7 @@ var videoArray = [];
 var imageArray = [];
 var count = 0;
 const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
+  if(arr.length!=1){
   for (var i = 0; i < arr.length - 1; i++) {
     if (arr[i].flag) {
       var result = await videoUpload(arr[i]);
@@ -13,6 +14,7 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
       }
     } else {
       var result = await imageUpload(arr[i]);
+      console.log("waiting");
       if (result.status == 'OK') {
         imageArray.push(result.data);
       } else {
@@ -41,6 +43,14 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
       }
     }
   }
+}else{
+  var res = await uploadScrapData(id, catagory, title, detail);
+        if (res.message == 'WasteCollector data successfully added') {
+          return 'Data Uploaded Successfully';
+        } else {
+          return 'Some Error occure try again latter';
+        }
+}
 };
 
 async function uploadScrapData(id, catagory, title, detail) {

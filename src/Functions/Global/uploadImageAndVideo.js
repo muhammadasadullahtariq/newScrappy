@@ -1,5 +1,6 @@
 import React from 'react';
 //import RNFetchBlob from 'rn-fetch-blob';
+import {Platform} from "react-native";
 
 const videoUpload = async video => {
   return await upload(video.responce);
@@ -7,13 +8,14 @@ const videoUpload = async video => {
 
 async function upload(imageSur) {
   console.log(imageSur);
+  var uri=Platform.OS=="ios"?imageSur.sourceURL: imageSur.path;
   var image = {};
-  image.uri = imageSur.path;
+  image.uri = uri;
   image.name = imageSur.path.substring(imageSur.path.lastIndexOf('/') + 1);
   image.type = imageSur.mime;
   image.dateModified = new Date();
   var formdata = new FormData();
-  formdata.append('video', image, imageSur.path);
+  formdata.append('video', image, uri);
   try {
     const response = await fetch(
       'http://scrappy.world:3000/api/v1/file/upload/video',
@@ -33,18 +35,23 @@ async function upload(imageSur) {
 }
 
 const imageUpload = async image => {
+  //console.log(image);
+  console.log("called and waiting")
   return await registerUser(image.responce);
 };
 
 export const registerUser = async imageSur => {
   console.log(imageSur);
+  var uri=Platform.OS=="ios"?imageSur.sourceURL: imageSur.path;
+  console.log(uri);
   var image = {};
-  image.uri = imageSur.path;
+  image.uri = uri;
   image.name = imageSur.path.substring(imageSur.path.lastIndexOf('/') + 1);
   image.type = imageSur.mime;
+  console.log(image);
   image.dateModified = new Date();
   var formdata = new FormData();
-  formdata.append('image', image, imageSur.path);
+  formdata.append('image', image, uri);
   try {
     const response = await fetch(
       'http://scrappy.world:3000/api/v1/file/upload/image',

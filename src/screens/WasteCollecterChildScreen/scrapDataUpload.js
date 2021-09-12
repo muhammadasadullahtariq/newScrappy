@@ -69,7 +69,7 @@ const screen = ({navigation, route}) => {
                   ...s,
                   {
                     flag: false,
-                    path: {uri: image[i].path, responce: image[i]},
+                    path: {uri: image[i].path}, responce: image[i]
                   },
                 ];
               });
