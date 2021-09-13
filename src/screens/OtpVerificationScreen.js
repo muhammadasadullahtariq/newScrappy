@@ -28,7 +28,7 @@ import CheckUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
   const [code, setCode] = React.useState('');
-  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false); //change this
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true); //change this
   const [seconds, setSeconds] = useState('59');
   const [confirmation, setConfirm] = React.useState();
   const [alterModelFlag, setAlterModelFlag] = useState(false);
@@ -62,7 +62,7 @@ export default function OtpVerificationScreen({navigation, route}) {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
       setWaitingAlertFlag(true);
-      let resultUserExist = await CheckUserExist(cellPhone);
+      let resultUserExist = await CheckUserExist(countryCode+cellPhone);
       if (resultUserExist == 'User not found') {
         setWaitingAlertFlag(false);
         
