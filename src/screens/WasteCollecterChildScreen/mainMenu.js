@@ -29,21 +29,36 @@ import notification from '../../icons/MainMenu/notification.png';
 import logOut from '../../icons/MainMenu/logOut.png';
 import eye from '../../icons/MainMenu/eye.png';
 import InfoText from '../../components/GlobalComponent/infoText';
-//import Navigation, {useN} from '../../navigation/Navigation';
+import userDashBoard from '../../Functions/HomeUserDashBoard/homeUserData';
+import sellSrap from '../../icons/WasteCollerTabScreen/sellScrap.png';
 import {useNavigation} from '@react-navigation/native';
+import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 
 const App = () => {
   const navigation = useNavigation();
   const [cardArray, setCardArray] = useState(cardOptionArray);
-  const [optionArray, setOptionArray] = useState(optionArrayImported);
-  const [columNum, setColumnNum] = useState(3);
-  const [windowWidth, setWindowWidth] = useState(
-    Dimensions.get('window').width,
-  );
-  const [balance, setBalance] = useState('20000');
-  useEffect(() => {});
+  const [optionArray, setOptionArray] = useState([]);
+  const [balance, setBalance] = useState('');
+  const [waitingFlag, setWaitingFlag] = useState(true);
+  useEffect(() => {
+    readUserData();
+  }, []);
+  async function readUserData() {
+    const responce = await userDashBoard(global.id);
+    var arr = responce.data.data.total_earn_price;
+    console.log(arr);
+    try {
+      setBalance(arr[0].total);
+    } catch (err) {
+      setBalance(0);
+    }
+    console.log(responce.data.data.user_data);
+    setOptionArray(responce.data.data.user_data);
+    setWaitingFlag(false);
+  }
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <WaitingAlert visible={waitingFlag} />
       {/*Start of Search and Card View */}
       <View style={{height: 240, width: '100%'}}>
         <View style={styles.backgroundBoxContainer}>
@@ -56,7 +71,7 @@ const App = () => {
               placeholderTextColor="white"
             />
             <View style={styles.notificationAndLogoutContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={readUserData}>
                 {/* Notiification Action */}
                 <Image source={notification} />
               </TouchableOpacity>
@@ -114,15 +129,15 @@ const App = () => {
         data={optionArray}
         renderItem={items => (
           <FlatListItemView
-            text={items.item.text}
-            image={items.item.image}
-            date={items.item.date}
+            text={items.item.name}
+            image={sellSrap}
+            date={items.item.date.substring(0, 10)}
             status={items.item.status}
-            higestBid={items.item.higestBid}
-            bidCount={items.item.bidCount}
+            higestBid={items.item.biddingPrice}
+            bidCount={items.item.biddingCount}
           />
         )}
-        keyExtractor={(item, index) => +item.Key}
+        keyExtractor={(item, index) => item.date}
       />
     </ScrollView>
   );

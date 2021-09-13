@@ -13,7 +13,6 @@ import {
   checkPostalCode,
   validateEmail,
 } from '../../Functions/UserRegistration/codeAndEmailValidation';
-
 const screen = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -50,7 +49,7 @@ const screen = ({navigation, route}) => {
       navigation.reset({
         index: 0, //the stack index
         routes: [
-          {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
+          {name:"WasteCollectorHomeScreen"}, //to go to initial stack screen
         ],
       });
     } else {
@@ -100,9 +99,9 @@ const screen = ({navigation, route}) => {
       global.id = responce.data._id;
       setWaitingAlertFlag(false);
       setAlertText(responce.message);
-      setFlag(false);
+      //setFlag(false);
       setAlertModelWithAction(true);
-      setAlertModelAction(false);
+      //setAlertModelAction(false);
     } else if (responce.message === 'Phone already exists') {
       auth().signOut();
       setWaitingAlertFlag(false);

@@ -37,7 +37,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="WasteCollectorHomeScreen">
+        initialRouteName="PhoneAuthScreen">
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"

@@ -28,7 +28,7 @@ import CheckUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
   const [code, setCode] = React.useState('');
-  const [waitingAlertFlag, setWaitingAlertFlag] = useState(true); //change this
+  const [waitingAlertFlag, setWaitingAlertFlag] = useState(false); //change this
   const [seconds, setSeconds] = useState('59');
   const [confirmation, setConfirm] = React.useState();
   const [alterModelFlag, setAlterModelFlag] = useState(false);
@@ -55,7 +55,7 @@ export default function OtpVerificationScreen({navigation, route}) {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
       setWaitingAlertFlag(true);
-      const resultUserExist = await CheckUserExist(phone);
+      let resultUserExist = await CheckUserExist(phone);
       if (resultUserExist == 'User not found') {
         setWaitingAlertFlag(false);
         navigation.reset;
@@ -66,12 +66,15 @@ export default function OtpVerificationScreen({navigation, route}) {
           ],
         });
       } else {
+        global.id = resultUserExist.data._id;
         setWaitingAlertFlag(false);
         navigation.reset;
         navigation.reset({
           index: 0, //the stack index
           routes: [
-            {name: 'HomeScreen', params: {userData: resultUserExist}}, //to go to initial stack screen
+            {
+              name: 'WasteCollectorHomeScreen',
+            }, //to go to initial stack screen
           ],
         });
       }
@@ -79,6 +82,7 @@ export default function OtpVerificationScreen({navigation, route}) {
       console.log(error);
       setAlertText('OTP is not correct Please Enter Valid Code');
       //setAlertOnPressAction(changeModelFlag);
+      setWaitingAlertFlag(false);
       setAlterModelFlag(true);
     }
   };
@@ -98,7 +102,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   }
 
   function sendOtpAgain() {
-    signInWithPhoneNumber();
+    //signInWithPhoneNumber();
   }
 
   useEffect(() => {

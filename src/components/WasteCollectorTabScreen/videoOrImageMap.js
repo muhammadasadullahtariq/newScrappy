@@ -28,7 +28,7 @@ const screen = props => {
         )}
         numColumns={columNum}
         key={columNum}
-        keyExtractor={(item, index) => +item.path}
+        keyExtractor={(item, index) => item.path}
         style={{marginHorizontal: 20}}
       />
     </View>

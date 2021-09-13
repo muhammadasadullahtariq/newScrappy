@@ -14,7 +14,7 @@ const screen = props => {
           marginTop: 20,
           height: 36,
         }}>
-        <Image source={props.image}></Image>
+        <Image source={props.image} style={{height: 36, width: 36}}></Image>
         <View
           style={{
             height: 36,
@@ -22,7 +22,11 @@ const screen = props => {
           }}>
           <InfroText
             text={props.text}
-            style={{height: 18, marginBottom: 0, color: '#092058'}}
+            style={{
+              paddingLeft: 10,
+              marginBottom: 0,
+              color: '#092058',
+            }}
           />
         </View>
       </View>
@@ -56,7 +60,7 @@ const screen = props => {
           </View>
         )}
         <View style={{flex: 1}} />
-        {props.bidCount != 0 && (
+        {props.status != 'Expired' && (
           <View style={{flexDirection: 'row', marginTop: 12}}>
             <InfroText
               text={props.bidCount}
@@ -68,7 +72,7 @@ const screen = props => {
             />
           </View>
         )}
-        {props.bidCount == 0 && (
+        {props.status == 'Expired' && (
           <Pressable>
             <Image source={reNew} style={{marginRight: 20}} />
           </Pressable>

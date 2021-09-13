@@ -19,7 +19,6 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   useEffect(() => {
     Orientation.unlockAllOrientations();
-    global.id = '613743059723a412686b9a4f';
   });
 
   return (

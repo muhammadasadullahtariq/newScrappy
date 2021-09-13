@@ -8,14 +8,16 @@ const registerUser = async phoneNumber => {
           'content-type': 'application/json',
           'cache-control': 'no-cache',
         },
+        redirect: 'follow',
       },
     );
-    const json = await response.json();
-    console.log(json);
-    return json;
+    const j = await response.json();
+    console.error('g g ', j);
+    return j;
+    console.log(response);
   } catch (error) {
-    console.error(error);
-    return error.message;
+    console.error('asad', error);
+    return 'User not found';
   }
 };
 
