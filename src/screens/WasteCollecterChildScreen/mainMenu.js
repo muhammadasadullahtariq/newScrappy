@@ -44,6 +44,7 @@ const App = () => {
     readUserData();
   }, []);
   async function readUserData() {
+    console.log("user data called");
     const responce = await userDashBoard(global.id);
     var arr = responce.data.data.total_earn_price;
     console.log(arr);

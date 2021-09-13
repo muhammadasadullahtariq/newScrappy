@@ -18,7 +18,7 @@ const component = props => {
             backgroundColor: props.flag ? 'white' : '#186BFE',
             ...Platform.select({
               ios: {
-                borderRadius: 20,
+                borderRadius: 25,
               },
               android: {borderRadius: 30},
             }),

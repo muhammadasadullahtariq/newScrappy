@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Keyboard} from 'react-native';
+import {View, StyleSheet, TextInput, Keyboard,Platform} from 'react-native';
 
 export const component = props => {
   return (
@@ -13,7 +13,7 @@ export const component = props => {
         keyboardType={props.keyBoadType}
         onChangeText={props.textHandler}
         style={[style.textCointaner, props.style1]}
-        textAlignVertical="center"
+        textAlignVertical={props.flag?"top":"center"}
         onSubmitEditing={props.onSubmit}></TextInput>
     </View>
   );
@@ -28,7 +28,14 @@ const style = StyleSheet.create({
   },
   textCointaner: {
     width: '100%',
+    
     padding: 5,
+    ...Platform.select({
+      ios: {
+        paddingTop:15,
+      },
+      android: {},
+    }),
     color: '#092058',
     borderRadius: 11,
     backgroundColor: '#ffffff',

@@ -61,6 +61,7 @@ export const registerUser = async imageSur => {
         redirect: 'follow',
       },
     );
+    console.log("here and i");
     const json = await response.json();
     console.log(json);
     return json;

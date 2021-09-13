@@ -8,6 +8,7 @@ import SingleButtonAllert from '../components/GlobalComponent/singleButtonAlert'
 import {useNavigation} from '@react-navigation/native';
 import HeaderText from '../components/GlobalComponent/headerText';
 import Orientation from 'react-native-orientation';
+import auth from "@react-native-firebase/auth"
 
 const screen = ({navigation, route}) => {
   const Navigation = useNavigation();
@@ -63,6 +64,7 @@ const screen = ({navigation, route}) => {
   useEffect(() => {
     Orientation.lockToPortrait();
     console.log(phone);
+    auth().onAuthStateChanged(user => {console.log(user.phoneNumber)})
   });
 
   //FrontEnd

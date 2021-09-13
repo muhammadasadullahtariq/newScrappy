@@ -12,11 +12,11 @@ const registerUser = async phoneNumber => {
       },
     );
     const j = await response.json();
-    console.error('g g ', j);
+    console.log('g g ', j);
     return j;
     console.log(response);
   } catch (error) {
-    console.error('asad', error);
+    console.log('asad', error);
     return 'User not found';
   }
 };

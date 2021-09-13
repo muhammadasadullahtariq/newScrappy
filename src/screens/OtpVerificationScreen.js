@@ -37,6 +37,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   const [alertText, setAlertText] = useState('Alter Text Here');
   const {phone} = route.params; //just for test
   //const phone = 'asad';
+  const countryCode="+92";
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
@@ -52,17 +53,24 @@ export default function OtpVerificationScreen({navigation, route}) {
   }
   const confirmCode = async () => {
     try {
+      let cellPhone=phone;
+    if(phone[0]==0)
+    {
+      cellPhone=cellPhone.slice(1);
+    }
+    console.log(cellPhone)
       const result = await confirmation.confirm(code);
       console.log('our result', result);
       setWaitingAlertFlag(true);
-      let resultUserExist = await CheckUserExist(phone);
+      let resultUserExist = await CheckUserExist(cellPhone);
       if (resultUserExist == 'User not found') {
         setWaitingAlertFlag(false);
+        
         navigation.reset;
         navigation.reset({
           index: 0, //the stack index
           routes: [
-            {name: 'Registration', params: {phone: phone}}, //to go to initial stack screen
+            {name: 'Registration', params: {phone: countryCode+cellPhone}}, //to go to initial stack screen
           ],
         });
       } else {
@@ -127,7 +135,7 @@ export default function OtpVerificationScreen({navigation, route}) {
     }
     let confirmation;
     await auth()
-      .signInWithPhoneNumber('+92' + phone)
+      .signInWithPhoneNumber(countryCode + phone)
       .then(res => {
         setWaitingAlertFlag(false);
         timerForotp();
@@ -173,7 +181,7 @@ export default function OtpVerificationScreen({navigation, route}) {
               paddingLeft: 1,
             }}>
             {' '}
-            +92 {phone}
+            {countryCode} {phone}
             {/* {JSON.stringify(number)} */}
           </Text>
         </Text>
