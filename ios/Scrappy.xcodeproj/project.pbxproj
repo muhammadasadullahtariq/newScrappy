@@ -17,7 +17,9 @@
 		8C7854CDAB72056DF39EAF86 /* libPods-Scrappy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D817A20A15895194BBE92C6A /* libPods-Scrappy.a */; };
 		B188471C269C84A30008FCED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B188471B269C84A30008FCED /* GoogleService-Info.plist */; };
 		B188471D269C84A30008FCED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B188471B269C84A30008FCED /* GoogleService-Info.plist */; };
-		B1DEFBC426E7B12900A2B224 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		B1CCD6DA26F084F900F83616 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = B1CCD6D926F084F900F83616 /* assets */; };
+		B1CCD6DD26F0850200F83616 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = B1CCD6D326F0810400F83616 /* main.jsbundle */; };
+		B1DEFBC426E7B12900A2B224 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Scrappy/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFE5356A40CF9375C261698C /* Pods-Scrappy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scrappy.debug.xcconfig"; path = "Target Support Files/Pods-Scrappy/Pods-Scrappy.debug.xcconfig"; sourceTree = "<group>"; };
 		B188471B269C84A30008FCED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B1CCD6D326F0810400F83616 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		B1CCD6D926F084F900F83616 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		CEF42822200A4EAA8ADB272F /* Montserrat.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Montserrat.ttf; path = ../assets/fonts/Montserrat.ttf; sourceTree = "<group>"; };
 		D817A20A15895194BBE92C6A /* libPods-Scrappy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scrappy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C8F914079054A7F72F4E11 /* libPods-Scrappy-ScrappyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scrappy-ScrappyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +145,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B1CCD6D726F084CE00F83616 /* assets */,
+				B1CCD6D826F084E200F83616 /* assets */,
+				B1CCD6D926F084F900F83616 /* assets */,
+				B1CCD6D326F0810400F83616 /* main.jsbundle */,
 				B188471B269C84A30008FCED /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Scrappy */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -162,6 +170,20 @@
 				00E356EE1AD99517003FC87E /* ScrappyTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B1CCD6D726F084CE00F83616 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		B1CCD6D826F084E200F83616 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +282,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1DEFBC426E7B12900A2B224 /* BuildFile in Resources */,
+				B1CCD6DD26F0850200F83616 /* main.jsbundle in Resources */,
+				B1CCD6DA26F084F900F83616 /* assets in Resources */,
+				B1DEFBC426E7B12900A2B224 /* (null) in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B188471C269C84A30008FCED /* GoogleService-Info.plist in Resources */,
