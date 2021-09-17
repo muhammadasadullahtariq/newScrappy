@@ -132,6 +132,7 @@ const App = () => {
           <FlatListItemView
             text={items.item.name}
             image={sellSrap}
+            id={items.item._id}
             date={items.item.date.substring(0, 10)}
             status={items.item.status}
             higestBid={items.item.biddingPrice}

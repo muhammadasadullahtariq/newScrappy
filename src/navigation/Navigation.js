@@ -16,6 +16,7 @@ import Splash from '../screens/splashScreen';
 import WasteCollecterHomeScreen from '../screens/wasteCollector';
 import TypeOfScrap from '../screens/WasteCollecterChildScreen/selectTypeOfScrap';
 import ScrapDataUpload from '../screens/WasteCollecterChildScreen/scrapDataUpload';
+import WasteDetailScreen from '../screens/WasteCollecterChildScreen/wasteDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,7 @@ function Navigation() {
         />
         <Stack.Screen name="TypeOfScrap" component={TypeOfScrap} />
         <Stack.Screen name="ScrapDataUpload" component={ScrapDataUpload} />
+        <Stack.Screen name="WasteDetailScreen" component={WasteDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
