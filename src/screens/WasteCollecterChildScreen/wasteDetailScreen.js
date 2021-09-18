@@ -6,6 +6,7 @@ import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
 import VideoComponent from '../../components/GlobalComponent/MediaComponent/videoComponent';
 import ImageComponent from '../../components/GlobalComponent/MediaComponent/imageComponent';
+import Video from 'react-native-video';
 
 const screen = ({navigation, route}) => {
   const {id} = route.params;
@@ -42,19 +43,33 @@ const screen = ({navigation, route}) => {
           fontSize: 15,
         }}
       />
-      {scrapDetail.image.map(imag => {
+      {scrapDetail.image.map((imag, index) => {
         console.log('image data', imag);
-        return <ImageComponent key={imag.uri} path={imag} />;
+        console.log(index);
+        return <ImageComponent key={imag.uri} path={imag} flag={true} />;
       })}
       {scrapDetail.video.map(video => {
-        return <VideoComponent key={video.uri} path={video} />;
+        console.log('Video', video);
+        return <VideoComponent path={video} />;
       })}
+      <View style={{marginBottom: 10}}></View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {},
+  backgroundVideo: {
+    width: '99%',
+    height: 400,
+    alignSelf: 'center',
+    borderRadius: 10,
+    marginTop: 10,
+    marginRight: 10,
+    backgroundColor: 'red',
+  },
 });
 
 export default screen;
+
+//'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'

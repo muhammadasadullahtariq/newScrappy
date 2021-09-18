@@ -10,10 +10,10 @@ import {
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-export default function DisableButton() {
+export default function DisableButton(props) {
   return (
     <TouchableOpacity disabled={true}>
-      <View style={styles.btnContainer}>
+      <View style={[styles.btnContainer, props.style]}>
         <Text style={styles.btnText}>Next</Text>
       </View>
     </TouchableOpacity>

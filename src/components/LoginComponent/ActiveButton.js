@@ -10,10 +10,10 @@ import {
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-export default function ActiveButton({onpress}) {
+export default function ActiveButton(props) {
   return (
-    <TouchableOpacity onPress={onpress}>
-      <View style={styles.btnContainer}>
+    <TouchableOpacity onPress={props.onpress}>
+      <View style={[styles.btnContainer, props.style]}>
         <Text style={styles.btnText}>Next</Text>
       </View>
     </TouchableOpacity>

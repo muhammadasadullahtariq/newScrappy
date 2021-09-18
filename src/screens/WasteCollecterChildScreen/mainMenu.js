@@ -114,7 +114,7 @@ const App = () => {
               marginHorizontal: 20,
             }}>
             <InfoText
-              text="Balance in the Wallet"
+              text="Scrap sold so far"
               style={{paddingHorizontal: 0}}
             />
             <Image style={{marginTop: 3, marginLeft: 20}} source={eye} />

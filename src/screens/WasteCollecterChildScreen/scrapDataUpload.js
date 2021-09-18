@@ -69,7 +69,8 @@ const screen = ({navigation, route}) => {
                   ...s,
                   {
                     flag: false,
-                    path: {uri: image[i].path}, responce: image[i]
+                    path: {uri: image[i].path},
+                    responce: image[i],
                   },
                 ];
               });
@@ -140,6 +141,16 @@ const screen = ({navigation, route}) => {
   }
 
   async function uploadImage() {
+    if (title == '') {
+      setAlertText('Please Enter Title');
+      setAlertFlag(true);
+      return;
+    } else if (detail.length < 5) {
+      setAlertText('Please Enter Detail');
+      setAlertFlag(true);
+      return;
+    }
+    else{
     setWaitingAlertFlag(true);
     const responce = await scrapDataUpload(
       global.id,
@@ -152,6 +163,7 @@ const screen = ({navigation, route}) => {
     setAlertText(responce);
     setAlertWithAction(true);
     console.log(responce);
+    }
   }
   const [menuFlag, setMenuFlag] = useState(false);
   const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
@@ -203,7 +215,7 @@ const screen = ({navigation, route}) => {
           'Record Video',
           'Select video',
         ]}
-        heading="Select Avatar"
+        heading="Select Pictures & Videos"
         itemPressed={selectImage}
         closeMenu={closeMenu}
       />

@@ -1,14 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import Video from 'react-native-video';
 //import plusImageSource from '../../icons/WasteCollerTabScreen/plus.png';
 
 const screen = props => {
+  const [flag, setFlag] = useState(true);
   return (
     <View style={styles.mainContainer}>
       <Image
         source={props.path}
+        onLoadEnd={() => setFlag(false)}
         style={[styles.imageContainer, props.style]}></Image>
+      {flag && (
+        <View style={{marginTop: -200}}>
+          <ActivityIndicator size="large" color="#186BFE" />
+        </View>
+      )}
     </View>
   );
 };

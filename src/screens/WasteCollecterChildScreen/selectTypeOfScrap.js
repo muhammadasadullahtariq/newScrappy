@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Pressable} from 'react-native';
+import {StyleSheet, View, Text, Pressable, Image} from 'react-native';
 
 //import Components
 import ScrapTypeSelectionComponent from '../../components/WasteCollectorTabScreen/selectScrapTypeButtonComponent';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
+import ActiveButton from '../../components/LoginComponent/ActiveButton';
+import DisableButton from '../../components/LoginComponent/DisableButton';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
 import {useNavigation} from '@react-navigation/native';
 import HeaderText from '../../components/GlobalComponent/headerText';
@@ -17,7 +19,12 @@ const screen = ({navigation, route}) => {
   const [mixedWasteFlag, setMixedWasteFlage] = useState(false);
   //const phone = 'asad';
   const [modelFlag, setAlertModelFlag] = useState(false);
+  const [checked, onChange] = useState(false);
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
+
+  function onCheckmarkPress() {
+    onChange(!checked);
+  }
 
   function checkValidation() {
     if (!plasticFlag && !mixedWasteFlag && !paperWasteFlag && !metalScrapFlag) {
@@ -105,11 +112,37 @@ const screen = ({navigation, route}) => {
         text="Mixed Scrap"
       />
       <View style={{flex: 1, flexDirection: 'column'}}></View>
-      <ButtonComponent
+      {/* <ButtonComponent
         text="Next"
         style={{width: '70%', marginBottom: 40}}
         onPress={checkValidation}
-      />
+      /> */}
+      <View style={styles.checkboxContainer}>
+        <Pressable
+          style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+          onPress={onCheckmarkPress}>
+          {checked && (
+            <Image
+              style={styles.icon}
+              source={require('../../icons/Login/mark1.png')}
+            />
+          )}
+        </Pressable>
+
+        <View style={styles.checkboxtextContainer}>
+          <Text style={styles.termsText}>I agree that i am not posting</Text>
+          <View style={styles.underlineTextContainer}>
+            <Text style={{...styles.termsText, textDecorationLine: 'none'}}>
+              food waste and any wet material
+            </Text>
+          </View>
+        </View>
+      </View>
+      {checked ? (
+        <ActiveButton onpress={checkValidation} style={{marginBottom: 30}} />
+      ) : (
+        <DisableButton style={{marginBottom: 30}} />
+      )}
     </View>
   );
 };
@@ -160,6 +193,83 @@ const styles = StyleSheet.create({
         marginTop: 5,
       },
     }),
+  },
+  checkboxBase: {
+    width: 22,
+    height: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 11,
+    borderWidth: 2,
+    borderColor: '#186BFE',
+    backgroundColor: 'transparent',
+  },
+
+  checkboxChecked: {
+    backgroundColor: '#186BFE',
+  },
+
+  icon: {
+    width: 10,
+    height: 10,
+  },
+
+  termsText: {
+    color: '#4F6C8D',
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
+  },
+
+  underlineterms: {
+    color: '#186BFE',
+    textDecorationLine: 'underline',
+    marginRight: 3,
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
+  },
+
+  underlineTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: '3%',
+  },
+
+  checkboxtextContainer: {
+    marginHorizontal: 10,
+  },
+
+  uk: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    marginLeft: 10,
+  },
+
+  down: {
+    width: 10,
+    height: 10,
+  },
+
+  flagContainer: {
+    borderRadius: 10,
+    width: '25%',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ffffff',
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 11,
+    borderBottomLeftRadius: 11,
+    overflow: 'hidden',
   },
 });
 

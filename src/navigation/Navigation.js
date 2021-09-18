@@ -59,15 +59,34 @@ function Navigation() {
         <Stack.Screen
           name="WasteCollectorHomeScreen"
           component={WasteCollecterHomeScreen}
+          
         />
         <Stack.Screen
           name="Splash"
           component={Splash}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="TypeOfScrap" component={TypeOfScrap} />
-        <Stack.Screen name="ScrapDataUpload" component={ScrapDataUpload} />
-        <Stack.Screen name="WasteDetailScreen" component={WasteDetailScreen} />
+        <Stack.Screen
+          name="TypeOfScrap"
+          options={{
+            title: 'Sell your scrap',
+          }}
+          component={TypeOfScrap}
+        />
+        <Stack.Screen
+          name="ScrapDataUpload"
+          options={{
+            title: 'Sell your scrap',
+          }}
+          component={ScrapDataUpload}
+        />
+        <Stack.Screen
+          name="WasteDetailScreen"
+          options={{
+            title: 'Scrap Detail',
+          }}
+          component={WasteDetailScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
