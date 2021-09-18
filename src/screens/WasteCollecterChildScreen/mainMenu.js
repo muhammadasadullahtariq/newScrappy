@@ -33,18 +33,20 @@ import userDashBoard from '../../Functions/HomeUserDashBoard/homeUserData';
 import sellSrap from '../../icons/WasteCollerTabScreen/sellScrap.png';
 import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
+import {useIsFocused} from '@react-navigation/native';
 
 const App = () => {
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [cardArray, setCardArray] = useState(cardOptionArray);
   const [optionArray, setOptionArray] = useState([]);
   const [balance, setBalance] = useState('');
   const [waitingFlag, setWaitingFlag] = useState(true);
   useEffect(() => {
-    readUserData();
-  }, []);
+    if (isFocused) readUserData();
+  }, [isFocused]);
   async function readUserData() {
-    console.log("user data called");
+    console.log('user data called');
     const responce = await userDashBoard(global.id);
     var arr = responce.data.data.total_earn_price;
     console.log(arr);
@@ -113,10 +115,7 @@ const App = () => {
               marginTop: 20,
               marginHorizontal: 20,
             }}>
-            <InfoText
-              text="Scrap sold so far"
-              style={{paddingHorizontal: 0}}
-            />
+            <InfoText text="Scrap sold so far" style={{paddingHorizontal: 0}} />
             <Image style={{marginTop: 3, marginLeft: 20}} source={eye} />
             <View style={{flex: 1}}></View>
             <InfoText text={'£  ' + balance} style={{paddingHorizontal: 0}} />
