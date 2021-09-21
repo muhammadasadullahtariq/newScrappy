@@ -13,10 +13,12 @@ import WasteCollector from '../screens/UsersgatherDataScreen/wasteCollectoruser'
 import WasteBuyer from '../screens/UsersgatherDataScreen/wasteBuyeruser';
 import icon from '../icons/Navigation/Back.png';
 import Splash from '../screens/splashScreen';
-import WasteCollecterHomeScreen from '../screens/wasteCollector';
-import TypeOfScrap from '../screens/WasteCollecterChildScreen/selectTypeOfScrap';
-import ScrapDataUpload from '../screens/WasteCollecterChildScreen/scrapDataUpload';
-import WasteDetailScreen from '../screens/WasteCollecterChildScreen/wasteDetailScreen';
+//import WasteCollecterHomeScreen from '../screens/wasteCollector';
+import TypeOfScrap from '../screens/PublicUserChildScreen/selectTypeOfScrap';
+import ScrapDataUpload from '../screens/PublicUserChildScreen/scrapDataUpload';
+import WasteDetailScreen from '../screens/PublicUserChildScreen/wasteDetailScreen';
+import WasteCollectorHomeScreen from '../screens/wasteCollectorHomeScreen';
+import AddBid from '../screens/WasteCollectorChildScreens/addBidScreen';
 
 const Stack = createStackNavigator();
 
@@ -38,7 +40,8 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="Splash">
+        initialRouteName="WasteCollectorHomeScreen">
+        {/* initial Route Name */}
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
           name="OtpVerificationScreen"
@@ -54,13 +57,15 @@ function Navigation() {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="HomeUser" component={HomeUser} />
         <Stack.Screen name="YardUser" component={YardUser} />
-        <Stack.Screen name="WasteCollector" component={WasteCollector} />
-        <Stack.Screen name="WasteBuyer" component={WasteBuyer} />
         <Stack.Screen
           name="WasteCollectorHomeScreen"
-          component={WasteCollecterHomeScreen}
-          
+          component={WasteCollectorHomeScreen}
         />
+        <Stack.Screen name="WasteBuyer" component={WasteBuyer} />
+        {/* <Stack.Screen
+          name="WasteCollectorHomeScreen"
+          component={WasteCollecterHomeScreen}
+        /> */}
         <Stack.Screen
           name="Splash"
           component={Splash}
@@ -87,6 +92,8 @@ function Navigation() {
           }}
           component={WasteDetailScreen}
         />
+        <Stack.Screen name="WasteCollector" component={WasteCollector} />
+        <Stack.Screen name="AddBid" component={AddBid} />
       </Stack.Navigator>
     </NavigationContainer>
   );

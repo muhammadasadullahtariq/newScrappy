@@ -138,7 +138,7 @@ const App = () => {
             bidCount={items.item.biddingCount}
           />
         )}
-        keyExtractor={(item, index) => item.date}
+        keyExtractor={(item, index) => item._id}
       />
     </ScrollView>
   );

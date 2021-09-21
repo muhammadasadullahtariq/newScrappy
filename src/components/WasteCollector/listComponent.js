@@ -6,9 +6,9 @@ import {
   Pressable,
   TouchableOpacity,
 } from 'react-native';
-import InfroText from '../../GlobalComponent/infoText';
-import reNew from '../../../icons/WasteCollerTabScreen/reNew.png';
+import InfroText from '../GlobalComponent/infoText';
 import {useNavigation} from '@react-navigation/native';
+import ButtonComponent from '../GlobalComponent/ButtonComponent';
 
 const screen = props => {
   const [backColor, setBackColor] = useState('');
@@ -27,6 +27,14 @@ const screen = props => {
       setTextColor('#d72432');
     }
   }
+  function placeAndChangeBid() {
+    navigation.navigate('AddBid', {
+      id: props.id,
+      yourBid: props.yourBid,
+      timeLeft: props.timeLeft,
+    });
+  }
+
   useEffect(() => {
     statusAndBackgroundColor();
   }, []);
@@ -62,7 +70,7 @@ const screen = props => {
         </View>
         <View
           style={{
-            marginTop: 16,
+            marginTop: 10,
             flexDirection: 'row',
           }}>
           <InfroText text={props.date} style={{color: '#7D90AA'}} />
@@ -73,7 +81,7 @@ const screen = props => {
               width: 90,
               borderRadius: 20,
               overflow: 'hidden',
-              marginRight: 10,
+              marginRight: 20,
               backgroundColor: backColor,
             }}>
             <InfroText text={props.status} style={{color: textColor}} />
@@ -81,42 +89,51 @@ const screen = props => {
         </View>
         <View
           style={{
-            marginTop: 5,
+            marginTop: 0,
             flexDirection: 'row',
           }}>
-          {props.bidCount == 0 && (
+          <View style={{flexDirection: 'row', marginTop: 12}}>
+            <InfroText text={'Higest bid'} style={{color: '#ca2a33'}} />
             <InfroText
-              text={'No bids'}
-              style={{color: '#092058', marginTop: 12}}
+              text={'£  ' + props.higestBid}
+              style={{color: '#092058', paddingLeft: 0}}
             />
-          )}
-          {props.bidCount != 0 && (
-            <View style={{flexDirection: 'row', marginTop: 12}}>
-              <InfroText text={'Higest bid'} style={{color: '#ca2a33'}} />
-              <InfroText
-                text={'£  ' + props.higestBid}
-                style={{color: '#092058', paddingLeft: 0}}
-              />
-            </View>
-          )}
+          </View>
           <View style={{flex: 1}} />
-          {props.status != 'Expired' && (
-            <View style={{flexDirection: 'row', marginTop: 12}}>
-              <InfroText
-                text={props.bidCount}
-                style={{color: '#092058', paddingRight: 5}}
-              />
-              <InfroText
-                text={'bids'}
-                style={{color: '#ca2a33', paddingLeft: 0}}
-              />
-            </View>
-          )}
-          {props.status == 'Expired' && (
-            <Pressable>
-              <Image source={reNew} style={{marginRight: 20}} />
-            </Pressable>
-          )}
+
+          <View style={{flexDirection: 'row', marginTop: 12}}>
+            <InfroText
+              text={props.bidCount}
+              style={{color: '#092058', paddingRight: 5}}
+            />
+            <InfroText
+              text={'bids'}
+              style={{color: '#ca2a33', paddingLeft: 0, paddingRight: 25}}
+            />
+          </View>
+        </View>
+        <View
+          style={{flexDirection: 'row', marginHorizontal: 20, marginTop: 5}}>
+          <View
+            style={{
+              height: 50,
+              justifyContent: 'center',
+            }}>
+            <InfroText text="Time Left" style={{paddingLeft: 0}} />
+          </View>
+          <View
+            style={{
+              height: 50,
+              justifyContent: 'center',
+            }}>
+            <InfroText text={props.timeLeft} style={{paddingLeft: 0}} />
+          </View>
+          <View style={{flex: 1}} />
+          <ButtonComponent
+            style={{borderRadius: 10}}
+            text={props.yourBid == 0 ? 'Place Bid' : 'Change Bid'}
+            onPress={placeAndChangeBid}
+          />
         </View>
       </TouchableOpacity>
     </View>
@@ -128,10 +145,11 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     backgroundColor: 'white',
     width: '95%',
-    height: 138,
+    height: 188,
     alignSelf: 'center',
-    marginBottom: 15.5,
+    marginBottom: 10,
   },
+  statusContainer: {},
 });
 
 export default screen;
