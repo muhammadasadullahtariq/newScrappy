@@ -1,39 +1,40 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Platform, View} from 'react-native';
 
 const component = props => {
   return (
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={() => props.onPress(props.user)}>
-      <Text
-        style={[
-          {
-            padding: 14,
-            height: 50,
-            fontFamily: 'Montserrat',
-            fontSize: 15,
-            borderWidth: 1,
-            borderColor: '#186BFE',
-            backgroundColor: props.flag ? 'white' : '#186BFE',
-            ...Platform.select({
-              ios: {
-                borderRadius: 10,
-              },
-              android: {borderRadius: 10},
-            }),
-            alignSelf: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            color: props.flag ? '#186BFE' : 'white',
-            margin: 5,
-            width: 100,
-            overflow: 'hidden',
-          },
-          props.style,
-        ]}>
-        {props.text}
-      </Text>
+        <Text
+          style={[
+            {
+              padding: 14,
+              height: 50,
+              fontFamily: 'Montserrat',
+              fontSize: 15,
+              borderWidth: 1,
+              borderColor: '#186BFE',
+              backgroundColor: props.flag ? 'white' : '#186BFE',
+              ...Platform.select({
+                ios: {
+                  borderRadius: 10,
+                },
+                android: {borderRadius: 10},
+              }),
+              alignSelf: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              color: props.flag ? '#186BFE' : 'white',
+              margin: 5,
+              width: 100,
+              overflow: 'hidden',
+            },
+            props.style,
+          ]}>
+          {props.text}
+        </Text>
+      
     </TouchableOpacity>
   );
 };

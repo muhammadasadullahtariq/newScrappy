@@ -34,6 +34,7 @@ import sellSrap from '../../icons/WasteCollerTabScreen/sellScrap.png';
 import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 const App = () => {
   const isFocused = useIsFocused();
@@ -78,7 +79,11 @@ const App = () => {
                 {/* Notiification Action */}
                 <Image source={notification} />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  auth().signOut();
+                  navigation.navigate('PhoneAuthScreen');
+                }}>
                 {/* Logout Action */}
                 <Image source={logOut} />
               </TouchableOpacity>

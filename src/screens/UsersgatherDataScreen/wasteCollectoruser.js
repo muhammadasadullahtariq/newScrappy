@@ -56,7 +56,7 @@ const screen = ({navigation, route}) => {
       navigation.reset({
         index: 0, //the stack index
         routes: [
-          {name: 'HomeScreen', params: {phone: phone}}, //to go to initial stack screen
+          {name: 'WasteCollectorHomeScreen', params: {phone: phone}}, //to go to initial stack screen
         ],
       });
     } else {
@@ -87,6 +87,12 @@ const screen = ({navigation, route}) => {
       setAlertModelFlag(true);
       return;
     }
+    if (checkPostalCode(userPostCode));
+    else {
+      setAlertText('Please Enter Valid Code');
+      setAlertModelFlag(true);
+      return;
+    }
     if (postCodeArray.length > 0);
     else {
       setAlertText('Please Enter atleast one Code');
@@ -94,21 +100,25 @@ const screen = ({navigation, route}) => {
       return;
     }
     setWaitingAlertFlag(true);
+    var arr = [...postCodeArray];
+    for (var i = 0; i < arr.length; i++) {
+      arr[i] = arr[i].toUpperCase();
+    }
     const responce = await registerWasteCollector(
       phone, //need to change
       email,
-      userPostCode,
+      userPostCode.toUpperCase(),
       firstName,
       lastName,
-      postCodeArray,
+      arr,
     );
     if (responce.message === 'User successfully register') {
       global.id = responce.data._id;
       setWaitingAlertFlag(false);
-      setActionFlag(false);
+      //setActionFlag(false);
       setAlertText(responce.message);
       setAlertModelWithAction(true);
-      setAlertModelAction(false);
+      //setAlertModelAction(false);
     } else if (responce.message === 'Phone already exists') {
       auth().signOut();
       setWaitingAlertFlag(false);

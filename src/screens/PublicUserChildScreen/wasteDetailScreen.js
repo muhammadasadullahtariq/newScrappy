@@ -27,7 +27,7 @@ const screen = ({navigation, route}) => {
     let val = await getScrapDetail(id);
     var dat = await loadBiddingData(id);
     console.log('bidding data', dat);
-    setBiddingData(dat.data.data);
+    setBiddingData(dat.data);
     console.log(`val`, val);
     setScrapDetail(val);
     setWaitingFlag(false);
@@ -58,9 +58,17 @@ const screen = ({navigation, route}) => {
         console.log('Video', video);
         return <VideoComponent path={video} />;
       })}
-      <View style={{marginBottom: 30}} />
+      {biddingData.length > 0 && (
+        <View>
+          <View style={{marginBottom: 30}} />
+          <HeaderText heading={'Biddes'} />
+        </View>
+      )}
+      <View style={{marginBottom: 10}} />
       {biddingData.map(item => {
-        <BiddingComponent key={item._id} id={item._id} bid={item.bidPrice} />;
+        return (
+          <BiddingComponent key={item._id} id={item._id} bid={item.bidPrice} />
+        );
       })}
       <View style={{marginBottom: 10}}></View>
     </ScrollView>

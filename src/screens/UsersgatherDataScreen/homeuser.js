@@ -49,7 +49,7 @@ const screen = ({navigation, route}) => {
       navigation.reset({
         index: 0, //the stack index
         routes: [
-          {name:"WasteCollectorHomeScreen"}, //to go to initial stack screen
+          {name: 'WasteCollectorHomeScreen'}, //to go to initial stack screen
         ],
       });
     } else {
@@ -90,7 +90,7 @@ const screen = ({navigation, route}) => {
     const responce = await registerUser(
       phone, //need to change
       email,
-      postCode,
+      postCode.toUpperCase(),
       firstName,
       lastName,
       1,

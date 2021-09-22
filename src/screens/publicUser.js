@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {View, Image, Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import maimMenu from './WasteCollecterChildScreen/mainMenu';
-import homeScreen from './WasteCollecterChildScreen/homeScreen';
-import offerScreen from './WasteCollecterChildScreen/offerScreen';
+import maimMenu from './PublicUserChildScreen/mainMenu';
+import homeScreen from './PublicUserChildScreen/homeScreen';
+import offerScreen from './PublicUserChildScreen/offerScreen';
 import firstTabImage from '../icons/TabScreen/bottomNavigation1.png';
 import secondTabImage from '../icons/TabScreen/bottomNavigation2.png';
 import thirdTabImage from '../icons/TabScreen/bottomNavigation3.png';
@@ -12,7 +12,7 @@ import firstTabImageSelected from '../icons/TabScreen/bottomNavigation1changed.p
 import secondTabImageSelected from '../icons/TabScreen/bottomNavigation2changed.png';
 import thirdTabImageSelected from '../icons/TabScreen/bottomNavigation3changed.png';
 import forthTabImageSelected from '../icons/TabScreen/bottomNavigation4changed.png';
-import histroyScreen from './WasteCollecterChildScreen/histroyScreen';
+import histroyScreen from './PublicUserChildScreen/histroyScreen';
 import Orientation from 'react-native-orientation';
 const Tab = createBottomTabNavigator();
 

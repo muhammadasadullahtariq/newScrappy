@@ -29,7 +29,7 @@ const screen = ({navigation, route}) => {
     console.log('outside');
 
     if (bidPrice == 0 || bidPrice == '') {
-      setAlertText('Please eenter valid bid');
+      setAlertText('Please enter valid bid');
       setAlertFlag(true);
       return;
     } else {

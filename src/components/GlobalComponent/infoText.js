@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 
 const screen = props => {
   return (
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer, props.viewStyle]}>
       <Text style={[styles.textContainer, props.style]}>{props.text}</Text>
     </View>
   );

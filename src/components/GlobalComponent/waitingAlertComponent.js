@@ -24,7 +24,7 @@ const screen = props => {
           style={{
             width: '80%',
             backgroundColor: 'white',
-            marginBottom: 300,
+            marginBottom: '10%',
             borderRadius: 10,
           }}>
           <View style={{flexDirection: 'row', padding: 10}}>

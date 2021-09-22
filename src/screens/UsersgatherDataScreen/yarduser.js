@@ -35,6 +35,7 @@ const screen = ({navigation, route}) => {
     setEmail(text);
   }
   function postCodeHandler(text) {
+    //text = text.toUpperCase();
     setPostCode(text);
   }
 
@@ -90,7 +91,7 @@ const screen = ({navigation, route}) => {
     const responce = await registerUser(
       phone, //need to change
       email,
-      postCode,
+      postCode.toUpperCase(),
       firstName,
       lastName,
       4,
@@ -98,10 +99,10 @@ const screen = ({navigation, route}) => {
     if (responce.message === 'User successfully register') {
       global.id = responce.data._id;
       setWaitingAlertFlag(false);
-      setFlag(false);
+      //setFlag(false);
       setAlertText(responce.message);
       setAlertModelWithAction(true);
-      setAlertModelAction(false);
+      //setAlertModelAction(false);
     } else if (responce.message === 'Phone already exists') {
       auth().signOut();
       setWaitingAlertFlag(false);

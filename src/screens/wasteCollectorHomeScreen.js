@@ -98,7 +98,7 @@ const screen = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {flex: 1},
-  topButtonContainer: {flexDirection: 'row', height: 60},
+  topButtonContainer: {flexDirection: 'row', height: 70},
   buttonContainer: {
     width: 100,
     borderRadius: 10,

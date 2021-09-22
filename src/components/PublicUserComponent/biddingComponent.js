@@ -27,14 +27,20 @@ const screen = props => {
         onPress={() => setAlertFlag(false)}
         text={alertText}
       />
-      <InfoText text={props.bid} />
-      <Button text={'Accept'} onPress={() => acceptBid} />
+      <InfoText text={props.bid} viewStyle={{alignSelf: 'center'}} />
+      <View style={{flex: 1}} />
+      <Button
+        text={'Accept'}
+        onPress={() => acceptBid}
+        style={styles.buttonComponent}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {flexDirection: 'row', width: '100%', marginHorizontal: 10},
+  buttonComponent: {marginRight: 20},
 });
 
 export default screen;

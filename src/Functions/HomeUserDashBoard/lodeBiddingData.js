@@ -1,10 +1,11 @@
 const registerUser = async id => {
+  console.log('bidding id', id);
   try {
     const response = await fetch(
       'http://scrappy.world:3000/api/v1/waste/bidding/getBiddingListByWasteId/' +
         id,
       {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'content-type': 'application/json',
           'cache-control': 'no-cache',
