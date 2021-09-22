@@ -36,7 +36,7 @@ const screen = () => {
   }
 
   useEffect(() => {
-    global.id = '614882e461895615992ecf5f';
+    //global.id = '614882e461895615992ecf5f';
     if (isFocused) getUserWasteData();
   }, [isFocused]);
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Pressable, Image} from 'react-native';
 
 //import Components
-import ScrapTypeSelectionComponent from '../../components/WasteCollectorTabScreen/selectScrapTypeButtonComponent';
+import ScrapTypeSelectionComponent from '../../components/PublicUserComponent/selectScrapTypeButtonComponent';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import ActiveButton from '../../components/LoginComponent/ActiveButton';
 import DisableButton from '../../components/LoginComponent/DisableButton';

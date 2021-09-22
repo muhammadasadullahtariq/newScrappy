@@ -21,8 +21,8 @@ import {
 } from 'react-native';
 import optionArrayImported, {
   cardOptionArray,
-} from '../../components/WasteCollectorTabScreen/optionsArray';
-import FlatListItemView from '../../components/WasteCollectorTabScreen/MainMenu/flatlistItem';
+} from '../../components/PublicUserComponent/optionsArray';
+import FlatListItemView from '../../components/PublicUserComponent/MainMenu/flatlistItem';
 import CardImageTextComponent from '../../components/menuScreenComponent/cardImageAndTextComponent';
 import searchImage from '../../icons/MainMenu/search.png';
 import notification from '../../icons/MainMenu/notification.png';

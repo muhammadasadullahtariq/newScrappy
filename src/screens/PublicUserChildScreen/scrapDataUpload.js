@@ -3,7 +3,7 @@ import {StyleSheet, View, Image} from 'react-native';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import ContextMenu from '../../components/uploadImageAndVideo/contextMenu';
 import ImagePicker from 'react-native-image-crop-picker';
-import VideoOrImage from '../../components/WasteCollectorTabScreen/videoOrImageMap';
+import VideoOrImage from '../../components/PublicUserComponent/videoOrImageMap';
 import SingleButtonAlert from '../../components/GlobalComponent/singleButtonAlert';
 import WaitAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import InputTextComponent from '../../components/GlobalComponent/inputComponent';

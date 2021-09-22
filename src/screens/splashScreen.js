@@ -19,6 +19,7 @@ import checkUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 
 const screen = ({navigation, route}) => {
   let userFlag = false;
+  let role = 1;
   const [screenTime, setScreenTime] = useState(3);
   let interval;
   async function getUserDetail() {
@@ -33,6 +34,7 @@ const screen = ({navigation, route}) => {
           } else {
             global.id = resultUserExist.data._id;
             userFlag = true;
+            role = resultUserExist.data.role;
           }
         } catch (err) {
           console.log(err);
@@ -51,14 +53,25 @@ const screen = ({navigation, route}) => {
           console.log(userFlag);
           if (userFlag) {
             navigation.reset;
-            navigation.reset({
-              index: 0, //the stack index
-              routes: [
-                {
-                  name: 'WasteCollectorHomeScreen',
-                }, //to go to initial stack screen
-              ],
-            });
+            if (role == 1) {
+              navigation.reset({
+                index: 0, //the stack index
+                routes: [
+                  {
+                    name: 'PublicUser',
+                  }, //Public User Home Screen
+                ],
+              });
+            } else if (role == 2) {
+              navigation.reset({
+                index: 0, //the stack index
+                routes: [
+                  {
+                    name: 'WasteCollectorHomeScreen',
+                  }, //Waste Collector
+                ],
+              });
+            }
           } else {
             navigation.reset({
               index: 0,

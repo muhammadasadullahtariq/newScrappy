@@ -7,8 +7,6 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import VideoComponent from '../../components/GlobalComponent/MediaComponent/videoComponent';
 import ImageComponent from '../../components/GlobalComponent/MediaComponent/imageComponent';
 import Video from 'react-native-video';
-import loadBiddingData from '../../Functions/HomeUserDashBoard/lodeBiddingData';
-import BiddingComponent from '../../components/PublicUserComponent/biddingComponent';
 
 const screen = ({navigation, route}) => {
   const {id} = route.params;
@@ -17,7 +15,6 @@ const screen = ({navigation, route}) => {
     image: [],
     video: [],
   });
-  const [biddingData, setBiddingData] = useState([]);
   const [waitingFlag, setWaitingFlag] = useState(true);
   useEffect(() => {
     console.log(id, '\tid');
@@ -25,9 +22,6 @@ const screen = ({navigation, route}) => {
   }, [id]);
   async function getWasteDetail() {
     let val = await getScrapDetail(id);
-    var dat = await loadBiddingData(id);
-    console.log('bidding data', dat);
-    setBiddingData(dat.data.data);
     console.log(`val`, val);
     setScrapDetail(val);
     setWaitingFlag(false);
@@ -57,10 +51,6 @@ const screen = ({navigation, route}) => {
       {scrapDetail.video.map(video => {
         console.log('Video', video);
         return <VideoComponent path={video} />;
-      })}
-      <View style={{marginBottom: 30}} />
-      {biddingData.map(item => {
-        <BiddingComponent key={item._id} id={item._id} bid={item.bidPrice} />;
       })}
       <View style={{marginBottom: 10}}></View>
     </ScrollView>

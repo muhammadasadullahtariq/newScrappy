@@ -98,8 +98,7 @@ const screen = ({navigation, route}) => {
           />
         </View>
       </View>
-      <View style={{flex: 1}} />
-      <View style={{marginVertical: 20}} />
+
       <HeaderText heading={'Your Bid'} />
       <InputComponent
         placeHolder="0.075"
@@ -107,7 +106,8 @@ const screen = ({navigation, route}) => {
         style={{marginBottom: 40}}
         textHandler={text => setBidPrice(text)}
       />
-
+      <View style={{flex: 1}} />
+      <View style={{marginVertical: 20}} />
       {yourBid != 0 && <Button text={'Cancel Bid'} style={{width: '80%'}} />}
       <Button
         text="Next"

@@ -43,7 +43,9 @@ const screen = props => {
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => {
-          navigation.navigate('WasteDetailScreen', {id: props.id});
+          navigation.navigate('WasteCollectorWasteDetailScreen', {
+            id: props.id,
+          });
         }}>
         <View
           style={{

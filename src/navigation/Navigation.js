@@ -17,8 +17,10 @@ import Splash from '../screens/splashScreen';
 import TypeOfScrap from '../screens/PublicUserChildScreen/selectTypeOfScrap';
 import ScrapDataUpload from '../screens/PublicUserChildScreen/scrapDataUpload';
 import WasteDetailScreen from '../screens/PublicUserChildScreen/wasteDetailScreen';
+import PublicUserHomeScreen from '../screens/publicUser';
 import WasteCollectorHomeScreen from '../screens/wasteCollectorHomeScreen';
 import AddBid from '../screens/WasteCollectorChildScreens/addBidScreen';
+import WasteCollectorWasteDetailScreen from '../screens/WasteCollectorChildScreens/wasteDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +42,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="WasteCollectorHomeScreen">
+        initialRouteName="Splash">
         {/* initial Route Name */}
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen
@@ -94,6 +96,14 @@ function Navigation() {
         />
         <Stack.Screen name="WasteCollector" component={WasteCollector} />
         <Stack.Screen name="AddBid" component={AddBid} />
+        <Stack.Screen
+          name="WasteCollectorWasteDetailScreen"
+          options={{
+            title: 'Scrap Detail',
+          }}
+          component={WasteCollectorWasteDetailScreen}
+        />
+        <Stack.Screen name="PublicUser" component={PublicUserHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
