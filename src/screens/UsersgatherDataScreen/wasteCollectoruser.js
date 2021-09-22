@@ -101,9 +101,11 @@ const screen = ({navigation, route}) => {
     }
     setWaitingAlertFlag(true);
     var arr = [...postCodeArray];
-    for (var i = 0; i < arr.length; i++) {
+    var i=0;
+    for (; i < arr.length; i++) {
       arr[i] = arr[i].toUpperCase();
     }
+    if(i==arr.length){
     const responce = await registerWasteCollector(
       phone, //need to change
       email,
@@ -134,6 +136,7 @@ const screen = ({navigation, route}) => {
       setAlertText('Something Went Wrong Please Try Again Later');
       setAlertModelFlag(true);
     }
+  }
   }
 
   useEffect(() => {

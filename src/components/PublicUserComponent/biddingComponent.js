@@ -31,7 +31,7 @@ const screen = props => {
       <View style={{flex: 1}} />
       <Button
         text={'Accept'}
-        onPress={() => acceptBid}
+        onPress={acceptBid}
         style={styles.buttonComponent}
       />
     </View>

@@ -73,8 +73,10 @@ export default function OtpVerificationScreen({navigation, route}) {
           ],
         });
       } else {
+        console.log("whats up dock");
         global.id = resultUserExist.data._id;
-        var role = resultUserExist.role;
+        var role = resultUserExist.data.role;
+        console.log("role get ",role);
         setWaitingAlertFlag(false);
         navigation.reset;
         if (role == 1) {
@@ -87,6 +89,7 @@ export default function OtpVerificationScreen({navigation, route}) {
             ],
           });
         } else if (role == 2) {
+          console.log("role ",role)
           navigation.reset({
             index: 0, //the stack index
             routes: [

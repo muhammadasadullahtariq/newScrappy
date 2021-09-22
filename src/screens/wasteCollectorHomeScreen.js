@@ -6,14 +6,16 @@ import getWasteData from '../Functions/wasteCollector/wasteCollectorData';
 import sellSrap from '../icons/WasteCollerTabScreen/sellScrap.png';
 import WaitingComponent from '../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
+import auth from "@react-native-firebase/auth"
 
-const screen = () => {
+const screen = ({navigation}) => {
   const isFocused = useIsFocused();
   const [topButtonArray, setTopButtonArray] = useState([
     {name: 'Metal', flag: false},
     {name: 'Paper', flag: false},
     {name: 'Plastic', flag: false},
     {name: 'Mixed', flag: false},
+    {name:"Logout",flag:false}
   ]);
   const [userData, setUserData] = useState([]);
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
@@ -41,6 +43,12 @@ const screen = () => {
   }, [isFocused]);
 
   async function filterArray(title) {
+    if(title=="Logout")
+    {
+      auth().signOut();
+      navigation.navigate("PhoneAuthScreen");
+      return;
+    }
     setWaitingAlertFlag(true);
     setUserFlag(title);
     const data = await getWasteData(global.id, title + ' Scrap');
