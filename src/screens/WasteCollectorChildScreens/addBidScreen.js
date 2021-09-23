@@ -8,6 +8,7 @@ import Alter from '../../components/GlobalComponent/singleButtonAlert';
 import WaitingAlter from '../../components/GlobalComponent/waitingAlertComponent';
 import getScrapDetail from '../../Functions/HomeUserDashBoard/wasteDetail';
 import InfoText from '../../components/GlobalComponent/infoText';
+import cancelBid from '../../Functions/wasteCollector/cancleBid';
 
 const screen = ({navigation, route}) => {
   const [bidPrice, setBidPrice] = useState('');
@@ -47,6 +48,13 @@ const screen = ({navigation, route}) => {
     setScrapDetail(val);
     setWaitingAlertFlag(false);
     console.log(scrapDetail.data);
+  }
+  async function cancelBidHandler() {
+    setWaitingAlertFlag(true);
+    var responce = await cancelBid(global.id, id, bidPrice);
+    setWaitingAlertFlag(false);
+    setAlertText(responce.message);
+    setAlertFlag(true);
   }
 
   useEffect(() => {
@@ -108,7 +116,13 @@ const screen = ({navigation, route}) => {
       />
       <View style={{flex: 1}} />
       <View style={{marginVertical: 20}} />
-      {yourBid != 0 && <Button text={'Cancel Bid'} style={{width: '80%'}} />}
+      {yourBid != 0 && (
+        <Button
+          text={'Cancel Bid'}
+          style={{width: '80%'}}
+          onPress={cancelBidHandler}
+        />
+      )}
       <Button
         text="Next"
         style={{width: '80%', marginBottom: 20}}

@@ -24,7 +24,7 @@ const screen = ({navigation, route}) => {
 
   function alertHandlerWithAction() {
     setAlertWithAction(false);
-    navigation.navigate('WasteCollectorHomeScreen');
+    navigation.navigate('PublicUser');
   }
 
   const imageContainer = responce => {

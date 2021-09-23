@@ -1,9 +1,9 @@
-const registerUser = async (userID, wasteID, bidPrice) => {
+const registerUser = async (userID, wasteID) => {
   try {
     const response = await fetch(
-      'http://scrappy.world:3000/api/v1/waste/bidding/addBiddingData',
+      'http://scrappy.world:3000/api/v1/waste/bidding/deleteBidingByBidId',
       {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           'content-type': 'application/json',
           'cache-control': 'no-cache',
@@ -11,7 +11,6 @@ const registerUser = async (userID, wasteID, bidPrice) => {
         body: JSON.stringify({
           userId: userID,
           wasteId: wasteID,
-          bidPrice: bidPrice,
         }),
       },
     );

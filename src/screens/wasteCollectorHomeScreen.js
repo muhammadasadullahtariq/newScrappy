@@ -6,7 +6,7 @@ import getWasteData from '../Functions/wasteCollector/wasteCollectorData';
 import sellSrap from '../icons/WasteCollerTabScreen/sellScrap.png';
 import WaitingComponent from '../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
-import auth from "@react-native-firebase/auth"
+import auth from '@react-native-firebase/auth';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -15,7 +15,7 @@ const screen = ({navigation}) => {
     {name: 'Paper', flag: false},
     {name: 'Plastic', flag: false},
     {name: 'Mixed', flag: false},
-    {name:"Logout",flag:false}
+    {name: 'Logout', flag: false},
   ]);
   const [userData, setUserData] = useState([]);
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
@@ -43,10 +43,9 @@ const screen = ({navigation}) => {
   }, [isFocused]);
 
   async function filterArray(title) {
-    if(title=="Logout")
-    {
+    if (title == 'Logout') {
       auth().signOut();
-      navigation.navigate("PhoneAuthScreen");
+      navigation.navigate('PhoneAuthScreen');
       return;
     }
     setWaitingAlertFlag(true);
@@ -65,11 +64,9 @@ const screen = ({navigation}) => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.mainContainer}>
+    <View contentContainerStyle={styles.mainContainer}>
       <WaitingComponent visible={waitingAlertFlag} />
-      <ScrollView
-        contentContainerStyle={styles.topButtonContainer}
-        horizontal={true}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topButtonArray.map(item => {
           return (
             <ButtonComponent
@@ -77,11 +74,11 @@ const screen = ({navigation}) => {
               text={item.name}
               onPress={() => filterArray(item.name)}
               flag={item.flag}
+              style={{marginVertical: 5, marginBottom: 15}}
             />
           );
         })}
       </ScrollView>
-      <View style={{width: '100%', height: 20}} />
       <FlatList
         data={userData}
         renderItem={items => (
@@ -100,19 +97,12 @@ const screen = ({navigation}) => {
         )}
         keyExtractor={(item, index) => item._id}
       />
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {flex: 1},
-  topButtonContainer: {flexDirection: 'row', height: 70},
-  buttonContainer: {
-    width: 100,
-    borderRadius: 10,
-    marginHorizontal: 5,
-    marginVertical: 5,
-  },
 });
 
 export default screen;
