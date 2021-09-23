@@ -123,17 +123,19 @@ const screen = ({navigation, route}) => {
   function selectImage(resonces, index) {
     setMenuFlag(false);
     console.log('asad', VideoOrImageSourceArray);
-    if (index <= 1) {
-      imageContainer(resonces);
-    } else {
-      if (!videoFlag) {
-        videoContainer(resonces);
-        setVideoFlag(true);
+    setTimeout(() => {
+      if (index <= 1) {
+        imageContainer(resonces);
       } else {
-        setAlertText('User can Only Upload One Video');
-        setAlertFlag(true);
+        if (!videoFlag) {
+          videoContainer(resonces);
+          setVideoFlag(true);
+        } else {
+          setAlertText('User can Only Upload One Video');
+          setAlertFlag(true);
+        }
       }
-    }
+    }, 500);
   }
 
   function closeMenu() {
@@ -149,20 +151,19 @@ const screen = ({navigation, route}) => {
       setAlertText('Please Enter Detail');
       setAlertFlag(true);
       return;
-    }
-    else{
-    setWaitingAlertFlag(true);
-    const responce = await scrapDataUpload(
-      global.id,
-      catagory,
-      title,
-      detail,
-      VideoOrImageSourceArray,
-    );
-    setWaitingAlertFlag(false);
-    setAlertText(responce);
-    setAlertWithAction(true);
-    console.log(responce);
+    } else {
+      setWaitingAlertFlag(true);
+      const responce = await scrapDataUpload(
+        global.id,
+        catagory,
+        title,
+        detail,
+        VideoOrImageSourceArray,
+      );
+      setWaitingAlertFlag(false);
+      setAlertText(responce);
+      setAlertWithAction(true);
+      console.log(responce);
     }
   }
   const [menuFlag, setMenuFlag] = useState(false);
@@ -192,6 +193,7 @@ const screen = ({navigation, route}) => {
         numberOfLines={5}
         text={detail}
         flag={true}
+        multiLine={true}
         style={{justifyContent: 'flex-start'}}
         style1={{marginTop: 10, height: 150, textAlign: 'left'}}
         textHandler={s => setDetail(s)}
