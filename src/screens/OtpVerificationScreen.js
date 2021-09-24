@@ -37,7 +37,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   const [alertText, setAlertText] = useState('Alter Text Here');
   const {phone} = route.params; //just for test
   //const phone = 'asad';
-  const countryCode = '+44';
+  const countryCode = '+92';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
@@ -73,10 +73,10 @@ export default function OtpVerificationScreen({navigation, route}) {
           ],
         });
       } else {
-        console.log("whats up dock");
+        console.log('whats up dock');
         global.id = resultUserExist.data._id;
         var role = resultUserExist.data.role;
-        console.log("role get ",role);
+        console.log('role get ', role);
         setWaitingAlertFlag(false);
         navigation.reset;
         if (role == 1) {
@@ -89,7 +89,7 @@ export default function OtpVerificationScreen({navigation, route}) {
             ],
           });
         } else if (role == 2) {
-          console.log("role ",role)
+          console.log('role ', role);
           navigation.reset({
             index: 0, //the stack index
             routes: [
