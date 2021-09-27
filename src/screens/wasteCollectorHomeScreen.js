@@ -13,7 +13,7 @@ const screen = ({navigation}) => {
   const [topButtonArray, setTopButtonArray] = useState([
     {name: 'Metal', flag: false},
     {name: 'Paper', flag: false},
-    {name: 'Plastic', flag: false},
+    {name: 'Plactic', flag: false},
     {name: 'Mixed', flag: false},
     {name: 'Logout', flag: false},
   ]);
@@ -39,7 +39,18 @@ const screen = ({navigation}) => {
 
   useEffect(() => {
     //global.id = '614882e461895615992ecf5f';
-    if (isFocused) getUserWasteData();
+    if (isFocused) {
+      var i;
+      for(i=0;i<topButtonArray.length;i++)
+      {
+        if(topButtonArray[i].flag)
+        {
+          fecthDataWithArgument(topButtonArray[i].name);
+          break;
+        }
+      }
+      if(i==topButtonArray.length)
+      getUserWasteData();}
   }, [isFocused]);
 
   async function filterArray(title) {
@@ -48,8 +59,13 @@ const screen = ({navigation}) => {
       navigation.navigate('PhoneAuthScreen');
       return;
     }
-    setWaitingAlertFlag(true);
+    console.error(title);
     setUserFlag(title);
+    await fecthDataWithArgument(title);
+  }
+  async function fecthDataWithArgument(title)
+  {
+    setWaitingAlertFlag(true);
     const data = await getWasteData(global.id, title + ' Scrap');
     console.log('data', data);
     setWaitingAlertFlag(false);
@@ -57,6 +73,7 @@ const screen = ({navigation}) => {
   }
 
   async function getUserWasteData() {
+    
     const data = await getWasteData(global.id);
     console.log('data', data);
     setWaitingAlertFlag(false);
