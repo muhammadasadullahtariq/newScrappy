@@ -7,15 +7,16 @@ import sellSrap from '../icons/WasteCollerTabScreen/sellScrap.png';
 import WaitingComponent from '../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import RNPickerSelect from 'react-native-picker-select';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
   const [topButtonArray, setTopButtonArray] = useState([
-    {name: 'Metal', flag: false},
-    {name: 'Paper', flag: false},
-    {name: 'Plactic', flag: false},
-    {name: 'Mixed', flag: false},
-    {name: 'Logout', flag: false},
+    {label: 'Metal', flag: false, value: 'Metal'},
+    {label: 'Paper', flag: false, value: 'Paper'},
+    {label: 'Plactic', flag: false, value: 'Plactic'},
+    {label: 'Mixed', flag: false, value: 'Mixed'},
+    {label: 'Logout', flag: false, value: 'Logout'},
   ]);
   const [userData, setUserData] = useState([]);
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
@@ -78,7 +79,8 @@ const screen = ({navigation}) => {
   return (
     <View contentContainerStyle={styles.mainContainer}>
       <WaitingComponent visible={waitingAlertFlag} />
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <RNPickerSelect onValueChange={value => filterArray(value)} />
+      {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topButtonArray.map(item => {
           return (
             <ButtonComponent
@@ -90,7 +92,7 @@ const screen = ({navigation}) => {
             />
           );
         })}
-      </ScrollView>
+      </ScrollView> */}
       <FlatList
         data={userData}
         renderItem={items => (
