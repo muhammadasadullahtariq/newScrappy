@@ -16,15 +16,16 @@ async function wasteData(id) {
         redirect: 'follow',
       },
     );
-    const j = await response.json();
-    console.log('g g ', j);
-    if (j.message != 'Waste data not found') {
-      await getAllMediaFile(j.data.images, j.data.videos);
-      j.image = images;
-      j.video = videos;
+    var responce = await response.json();
+    console.log('g g ', responce.data);
+    responce = responce.data;
+    if (responce._data.message != 'Waste data not found') {
+      await getAllMediaFile(responce._data.images, responce._data.videos);
+      responce.image = images;
+      responce.video = videos;
     }
-    console.log(j);
-    return j;
+    console.log(responce);
+    return responce;
   } catch (error) {
     console.log('asad', error);
     return 'Some internal error occure';

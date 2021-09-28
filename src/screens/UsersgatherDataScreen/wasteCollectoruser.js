@@ -12,6 +12,7 @@ import {
   validateEmail,
 } from '../../Functions/UserRegistration/codeAndEmailValidation';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
+import processPostCode from '../../Functions/Global/postCodeProcess';
 
 const screen = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
@@ -101,42 +102,41 @@ const screen = ({navigation, route}) => {
     }
     setWaitingAlertFlag(true);
     var arr = [...postCodeArray];
-    var i=0;
+    var i = 0;
     for (; i < arr.length; i++) {
-      arr[i] = arr[i].toUpperCase();
+      arr[i] = processPostCode(arr[i]);
     }
-    if(i==arr.length){
-    const responce = await registerWasteCollector(
-      phone, //need to change
-      email,
-      userPostCode.toUpperCase(),
-      firstName,
-      lastName,
-      arr,
-    );
-    if (responce.message === 'User successfully register') {
-      global.id = responce.data._id;
-      setWaitingAlertFlag(false);
-      //setActionFlag(false);
-      setAlertText(responce.message);
-      setAlertModelWithAction(true);
-      //setAlertModelAction(false);
-    } else if (responce.message === 'Phone already exists') {
-      auth().signOut();
-      setWaitingAlertFlag(false);
-      setAlertText(responce.message + ' Try Another Number');
-      setAlertModelWithAction(true);
-      setAlertModelAction(true);
-    } else if (responce.message.length < 30) {
-      setWaitingAlertFlag(false);
-      setAlertText(responce.message);
-      setAlertModelFlag(true);
-    } else {
-      setWaitingAlertFlag(false);
-      setAlertText('Something Went Wrong Please Try Again Later');
-      setAlertModelFlag(true);
+    var userPostCodeInLowerCase = processPostCode(userPostCode);
+    if (i == arr.length) {
+      const responce = await registerWasteCollector(
+        phone, //need to change
+        email,
+        userPostCodeInLowerCase,
+        firstName,
+        lastName,
+        arr,
+      );
+      if (responce.message === 'User successfully register') {
+        global.id = responce.data._id;
+        setWaitingAlertFlag(false);
+        setAlertText(responce.message);
+        setAlertModelWithAction(true);
+      } else if (responce.message === 'Phone already exists') {
+        auth().signOut();
+        setWaitingAlertFlag(false);
+        setAlertText(responce.message + ' Try Another Number');
+        setAlertModelWithAction(true);
+        setAlertModelAction(true);
+      } else if (responce.message.length < 30) {
+        setWaitingAlertFlag(false);
+        setAlertText(responce.message);
+        setAlertModelFlag(true);
+      } else {
+        setWaitingAlertFlag(false);
+        setAlertText('Something Went Wrong Please Try Again Later');
+        setAlertModelFlag(true);
+      }
     }
-  }
   }
 
   useEffect(() => {
@@ -233,7 +233,7 @@ const screen = ({navigation, route}) => {
                 setAlertText('Post Code Already Exist');
                 setAlertModelFlag(true);
               } else {
-                if (checkPostalCode(postCode)) {
+                if (postCode.length > 1 && postCode.length < 6) {
                   setPostCodeArray(s => [...s, postCode]);
                   setPostCode('');
                 } else {
@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     borderRadius: 25,
     height: 30,
+    opacity: 0.6,
   },
 });
 

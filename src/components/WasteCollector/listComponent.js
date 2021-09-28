@@ -12,7 +12,7 @@ import ButtonComponent from '../GlobalComponent/ButtonComponent';
 
 const screen = props => {
   const [backColor, setBackColor] = useState('');
-  const [textColor, setTextColor] = useState('');
+  const [textColor, setTextColor] = useState('black');
   const navigation = useNavigation();
   function statusAndBackgroundColor() {
     if (props.status == 'Active') {
@@ -131,11 +131,20 @@ const screen = props => {
             <InfroText text={props.timeLeft} style={{paddingLeft: 0}} />
           </View>
           <View style={{flex: 1}} />
-          <ButtonComponent
-            style={{borderRadius: 10}}
-            text={props.yourBid == 0 ? 'Place Bid' : 'Change Bid'}
-            onPress={placeAndChangeBid}
-          />
+          {Object.keys(props.winner).length == 0 && (
+            <ButtonComponent
+              style={{borderRadius: 10}}
+              text={props.yourBid == 0 ? 'Place Bid' : 'Change Bid'}
+              onPress={placeAndChangeBid}
+            />
+          )}
+          {Object.keys(props.winner).length != 0 && (
+            <ButtonComponent
+              style={{borderRadius: 10}}
+              text={'Collect scrap'}
+              onPress={placeAndChangeBid}
+            />
+          )}
         </View>
       </TouchableOpacity>
     </View>

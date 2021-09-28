@@ -41,16 +41,14 @@ const screen = ({navigation}) => {
     //global.id = '614882e461895615992ecf5f';
     if (isFocused) {
       var i;
-      for(i=0;i<topButtonArray.length;i++)
-      {
-        if(topButtonArray[i].flag)
-        {
+      for (i = 0; i < topButtonArray.length; i++) {
+        if (topButtonArray[i].flag) {
           fecthDataWithArgument(topButtonArray[i].name);
           break;
         }
       }
-      if(i==topButtonArray.length)
-      getUserWasteData();}
+      if (i == topButtonArray.length) getUserWasteData();
+    }
   }, [isFocused]);
 
   async function filterArray(title) {
@@ -59,12 +57,10 @@ const screen = ({navigation}) => {
       navigation.navigate('PhoneAuthScreen');
       return;
     }
-    console.error(title);
     setUserFlag(title);
     await fecthDataWithArgument(title);
   }
-  async function fecthDataWithArgument(title)
-  {
+  async function fecthDataWithArgument(title) {
     setWaitingAlertFlag(true);
     const data = await getWasteData(global.id, title + ' Scrap');
     console.log('data', data);
@@ -73,9 +69,8 @@ const screen = ({navigation}) => {
   }
 
   async function getUserWasteData() {
-    
     const data = await getWasteData(global.id);
-    console.log('data', data);
+    console.warn('data array', data);
     setWaitingAlertFlag(false);
     setUserData(data.data.data);
   }
@@ -108,6 +103,7 @@ const screen = ({navigation}) => {
             higestBid={items.item.highestBid}
             bidCount={items.item.biddingCount}
             yourBid={items.item.yourApplyBid}
+            winner={items.item.winner}
             timeLeft={items.item.timeLeft.substring(0, 10)}
             userId={global.id}
           />

@@ -9,13 +9,15 @@ import ImageComponent from '../../components/GlobalComponent/MediaComponent/imag
 import Video from 'react-native-video';
 import loadBiddingData from '../../Functions/HomeUserDashBoard/lodeBiddingData';
 import BiddingComponent from '../../components/PublicUserComponent/biddingComponent';
+import DisableButton from '../../components/PublicUserComponent/biddDisabledButton';
 
 const screen = ({navigation, route}) => {
   const {id} = route.params;
   const [scrapDetail, setScrapDetail] = useState({
-    data: {title: '', description: '', wasteType: ''},
+    _data: {title: '', description: '', wasteType: ''},
     image: [],
     video: [],
+    _winner_data: {},
   });
   const [biddingData, setBiddingData] = useState([]);
   const [waitingFlag, setWaitingFlag] = useState(true);
@@ -28,21 +30,20 @@ const screen = ({navigation, route}) => {
     var dat = await loadBiddingData(id);
     console.log('bidding data', dat);
     setBiddingData(dat.data);
-    console.log(`val`, val);
+    console.error(`val`, val);
     setScrapDetail(val);
     setWaitingFlag(false);
-    console.log(scrapDetail.data);
   }
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
       <HeaderText
-        heading={scrapDetail.data.title}
+        heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}
       />
-      <InfoText text={scrapDetail.data.wasteType} style={{fontSize: 17}} />
+      <InfoText text={scrapDetail._data.wasteType} style={{fontSize: 17}} />
       <InfoText
-        text={scrapDetail.data.description}
+        text={scrapDetail._data.description}
         style={{
           textAlign: 'left',
           marginTop: 20,
@@ -66,9 +67,24 @@ const screen = ({navigation, route}) => {
       )}
       <View style={{marginBottom: 10}} />
       {biddingData.map(item => {
-        return (
-          <BiddingComponent key={item._id} id={item._id} bid={item.bidPrice} />
-        );
+        console.error(scrapDetail._winner_data, 'Asad');
+        if (Object.keys(scrapDetail._winner_data).length == 0) {
+          return (
+            <View>
+              <BiddingComponent
+                key={item._id}
+                id={item._id}
+                bid={item.bidPrice}
+              />
+            </View>
+          );
+        } else {
+          return (
+            <View>
+              <DisableButton key={item._id} id={item._id} bid={item.bidPrice} />
+            </View>
+          );
+        }
       })}
       <View style={{marginBottom: 10}}></View>
     </ScrollView>
