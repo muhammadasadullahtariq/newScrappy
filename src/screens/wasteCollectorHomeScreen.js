@@ -7,58 +7,45 @@ import sellSrap from '../icons/WasteCollerTabScreen/sellScrap.png';
 import WaitingComponent from '../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import RNPickerSelect from 'react-native-picker-select';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
-  const [topButtonArray, setTopButtonArray] = useState([
-    {label: 'Metal', flag: false, value: 'Metal'},
-    {label: 'Paper', flag: false, value: 'Paper'},
-    {label: 'Plactic', flag: false, value: 'Plactic'},
-    {label: 'Mixed', flag: false, value: 'Mixed'},
-    {label: 'Logout', flag: false, value: 'Logout'},
+  const [optionsArray, setOptionsArray] = useState([
+    'All',
+    'Metal',
+    'Paper',
+    'Plastic',
+    'Mixed',
+    'Logout',
   ]);
   const [userData, setUserData] = useState([]);
+  const [option, setOption] = useState('');
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
-
-  function setUserFlag(user) {
-    console.log(user);
-    var arr = [...topButtonArray];
-    var i;
-    for (i = 0; i < arr.length; i++) {
-      if (arr[i].name == user) {
-        arr[i].flag = true;
-      } else {
-        arr[i].flag = false;
-      }
-      //arr[i].flag = false;
-    }
-    if (i == arr.length) {
-      setTopButtonArray(arr);
-    }
-  }
 
   useEffect(() => {
     //global.id = '614882e461895615992ecf5f';
     if (isFocused) {
-      var i;
-      for (i = 0; i < topButtonArray.length; i++) {
-        if (topButtonArray[i].flag) {
-          fecthDataWithArgument(topButtonArray[i].name);
-          break;
-        }
+      if (option == 'All') {
+        getUserWasteData();
+      } else {
+        fecthDataWithArgument(option);
       }
-      if (i == topButtonArray.length) getUserWasteData();
     }
   }, [isFocused]);
 
   async function filterArray(title) {
+    console.log(title);
+    setOption(title);
     if (title == 'Logout') {
       auth().signOut();
       navigation.navigate('PhoneAuthScreen');
       return;
     }
-    setUserFlag(title);
+    if (title == 'All') {
+      await getUserWasteData();
+      return;
+    }
     await fecthDataWithArgument(title);
   }
   async function fecthDataWithArgument(title) {
@@ -71,7 +58,7 @@ const screen = ({navigation}) => {
 
   async function getUserWasteData() {
     const data = await getWasteData(global.id);
-    console.warn('data array', data);
+    console.log('data array', data);
     setWaitingAlertFlag(false);
     setUserData(data.data.data);
   }
@@ -79,7 +66,22 @@ const screen = ({navigation}) => {
   return (
     <View contentContainerStyle={styles.mainContainer}>
       <WaitingComponent visible={waitingAlertFlag} />
-      <RNPickerSelect onValueChange={value => filterArray(value)} />
+      <SelectDropdown
+        data={optionsArray}
+        onSelect={(value, inde) => filterArray(value)}
+        defaultButtonText={'Select scrap type'}
+        buttonStyle={{
+          borderWidth: 1,
+          width: '95%',
+          height: 50,
+          borderRadius: 10,
+          alignSelf: 'center',
+          marginVertical: 5,
+        }}
+        dropdownStyle={{
+          borderRadius: 5,
+        }}
+      />
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topButtonArray.map(item => {
           return (
