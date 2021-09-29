@@ -9,10 +9,12 @@ import {
 import InfroText from '../GlobalComponent/infoText';
 import {useNavigation} from '@react-navigation/native';
 import ButtonComponent from '../GlobalComponent/ButtonComponent';
+import Alert from '../GlobalComponent/singleButtonAlert';
 
 const screen = props => {
   const [backColor, setBackColor] = useState('');
   const [textColor, setTextColor] = useState('black');
+  const [alertFlag, setAlertFlag] = useState(false);
   const navigation = useNavigation();
   function statusAndBackgroundColor() {
     if (props.status == 'Active') {
@@ -35,11 +37,22 @@ const screen = props => {
     });
   }
 
+  function collectScap() {
+    setAlertFlag(true);
+  }
+
   useEffect(() => {
     statusAndBackgroundColor();
   }, []);
   return (
     <View style={styles.mainContainer}>
+      <Alert
+        visibal={alertFlag}
+        onPress={() => {
+          setAlertFlag(false);
+        }}
+        text={'Scrap Collected'}
+      />
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => {
@@ -131,18 +144,19 @@ const screen = props => {
             <InfroText text={props.timeLeft} style={{paddingLeft: 0}} />
           </View>
           <View style={{flex: 1}} />
-          {Object.keys(props.winner).length == 0 && (
-            <ButtonComponent
-              style={{borderRadius: 10}}
-              text={props.yourBid == 0 ? 'Place Bid' : 'Change Bid'}
-              onPress={placeAndChangeBid}
-            />
-          )}
+          {Object.keys(props.winner).length == 0 &&
+            props.status == 'Active' && (
+              <ButtonComponent
+                style={{borderRadius: 10}}
+                text={props.yourBid == 0 ? 'Place Bid' : 'Change Bid'}
+                onPress={placeAndChangeBid}
+              />
+            )}
           {Object.keys(props.winner).length != 0 && (
             <ButtonComponent
               style={{borderRadius: 10}}
               text={'Collect scrap'}
-              onPress={placeAndChangeBid}
+              onPress={collectScap}
             />
           )}
         </View>

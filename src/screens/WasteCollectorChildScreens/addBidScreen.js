@@ -60,9 +60,6 @@ const screen = ({navigation, route}) => {
 
   useEffect(() => {
     getWasteDetail();
-    if (yourBid != 0) {
-      setBidPlaceHolder(yourBid);
-    }
     setTime(timeLeft.split('-'));
   }, []);
 
@@ -73,7 +70,7 @@ const screen = ({navigation, route}) => {
         visibal={alertFlag}
         onPress={() => {
           setAlertFlag(false);
-          navigation.back();
+          navigation.goBack();
         }}
         text={alertText}
       />
@@ -113,6 +110,17 @@ const screen = ({navigation, route}) => {
           />
         </View>
       </View>
+      {yourBid != 0 && (
+        <View
+          style={{
+            marginVertical: 10,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <HeaderText heading={'Your Current Bid:' + yourBid} />
+        </View>
+      )}
 
       <HeaderText heading={'Your Bid'} />
       <InputComponent
