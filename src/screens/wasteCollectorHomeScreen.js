@@ -26,7 +26,7 @@ const screen = ({navigation}) => {
   useEffect(() => {
     //global.id = '614882e461895615992ecf5f';
     if (isFocused) {
-      if (option == 'All') {
+      if (option == 'All'||option=='') {
         getUserWasteData();
       } else {
         fecthDataWithArgument(option);

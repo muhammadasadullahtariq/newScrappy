@@ -37,7 +37,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   const [alertText, setAlertText] = useState('Alter Text Here');
   const {phone} = route.params; //just for test
   //const phone = 'asad';
-  const countryCode = '+92';
+  const countryCode = '+44';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
