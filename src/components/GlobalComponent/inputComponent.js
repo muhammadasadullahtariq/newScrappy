@@ -32,7 +32,7 @@ const style = StyleSheet.create({
     padding: 5,
     ...Platform.select({
       ios: {
-        paddingTop: 15,
+        paddingTop: 5,
       },
       android: {},
     }),

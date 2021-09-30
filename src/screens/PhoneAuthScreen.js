@@ -99,7 +99,7 @@ export default function PhoneAuthScreen({navigation}) {
             style={styles.down}
             source={require('../icons/Login/down1.png')}
           />
-          <Text style={styles.code}>+44</Text>
+          <Text style={styles.code}>+92</Text>
         </View>
 
         <TextInput

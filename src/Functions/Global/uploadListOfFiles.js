@@ -5,6 +5,7 @@ var count = 0;
 const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
   console.log(arr);
   if(arr.length!=1){
+    arr.splice(arr.length-1, 0,arr[arr.length-1]);
   for (var i = 0; i < arr.length ; i++) {
     if (arr[i].flag &&arr[i].path!="") {
       var result = await videoUpload(arr[i]);
@@ -14,7 +15,7 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
         count += 1;
       }
     } else if(!arr[i].flag&&arr[i].path!="") {
-      console.log(arr[i],"here see ");
+      console.log("Calling Image Upload Function ",arr[i]);
       var result = await imageUpload(arr[i]);
       console.log("waiting");
       if (result.status == 'OK') {
@@ -24,7 +25,7 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
       }
     }
     console.log(i);
-    if (i == arr.length - 1) {
+    if (i == arr.length - 2) {
       console.log('here i am');
       if (count == 0) {
         var res = await uploadScrapData(id, catagory, title, detail);
@@ -44,7 +45,6 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
         return 'Fail to Upload';
       }
     }
-    setTimeout(()=>{},10000);
   }
 }else{
   var res = await uploadScrapData(id, catagory, title, detail);

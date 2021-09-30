@@ -33,11 +33,14 @@ async function upload(imageSur) {
     return error.message;
   }
 }
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const imageUpload = async image => {
   //console.log(image);
-  console.log("called and waiting")
-  return await registerUser(image.responce);
+  console.log("called and waiting");
+  const result=await registerUser(image.responce);
+  //await sleep(1000);
+  return result;
 };
 
 export const registerUser = async imageSur => {
@@ -62,6 +65,7 @@ export const registerUser = async imageSur => {
       },
     );
     console.log("here and i");
+    console.log(JSON.stringify(formdata))
     const json = await response.json();
     console.log(json);
     return json;

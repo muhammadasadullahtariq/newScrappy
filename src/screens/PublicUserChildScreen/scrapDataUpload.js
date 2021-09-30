@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import ContextMenu from '../../components/uploadImageAndVideo/contextMenu';
@@ -8,8 +8,10 @@ import SingleButtonAlert from '../../components/GlobalComponent/singleButtonAler
 import WaitAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import InputTextComponent from '../../components/GlobalComponent/inputComponent';
 import scrapDataUpload from '../../Functions/Global/uploadListOfFiles';
+import {useIsFocused} from '@react-navigation/native';
 
 const screen = ({navigation, route}) => {
+  const isFocused = useIsFocused();
   const [alertFlag, setAlertFlag] = useState(false);
   const [alertText, setAlertText] = useState('User Can Only Upload 5 Pictures');
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
@@ -17,6 +19,10 @@ const screen = ({navigation, route}) => {
   const [alertWithAction, setAlertWithAction] = useState(false);
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
+  const [menuFlag, setMenuFlag] = useState(false);
+  const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
+    {path: ''},
+  ]);
   const {catagory} = route.params;
   function alertHandler() {
     setAlertFlag(false);
@@ -26,7 +32,6 @@ const screen = ({navigation, route}) => {
     setAlertWithAction(false);
     navigation.navigate('PublicUser');
   }
-
   const imageContainer = responce => {
     try {
       if (responce == 'Take Photo') {
@@ -166,10 +171,14 @@ const screen = ({navigation, route}) => {
       console.log(responce);
     }
   }
-  const [menuFlag, setMenuFlag] = useState(false);
-  const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
-    {path: ''},
-  ]);
+
+  useEffect(()=>{
+    if(isFocused)
+    {
+      setVideoORImageSourceArray([{path: ''},])
+    }
+  },[isFocused])
+  
   return (
     <View style={styles.mainContainer}>
       <VideoOrImage
