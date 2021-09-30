@@ -52,12 +52,12 @@ export default function PhoneAuthScreen({navigation}) {
           onPress={hideAlert}
           text={'Please Enter Valid Number'}
         />
-        <HeaderText heading="Enter your phone number" />
-        <InfoText
+        <HeaderText heading="Enter mobile number to register or login in Scrappy" />
+        {/* <InfoText
           text="Use the phone number to register or"
           style={{marginBottom: 1}}
         />
-        <InfoText text="login in Scrappy" style={{marginBottom: 5}} />
+        <InfoText text="login in Scrappy" style={{marginBottom: 5}} /> */}
       </View>
 
       {/* <PhoneInput

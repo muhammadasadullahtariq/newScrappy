@@ -26,10 +26,10 @@ const screen = ({navigation, route}) => {
   const [alertModelAction, setAlertModelAction] = useState(false);
 
   function firsNameHandler(text) {
-    setFirstName(text);
+    setFirstName(text.replace(/[ X][ X]*[^A-Za-z]/g, ''));
   }
   function lastNameHandler(text) {
-    setLastName(text);
+    setLastName(text.replace(/[ X][ X]*[^A-Za-z]/g, ''));
   }
   function emailHandler(text) {
     setEmail(text);
@@ -135,31 +135,31 @@ const screen = ({navigation, route}) => {
       />
       <WaitingAlert visible={waitingAlertFlag} />
       <View style={{flex: 3, justifyContent: 'center'}}>
-        <HeaderText heading="Information" />
+        <HeaderText heading="About yourself" />
         <InfoText
           text="This information is used to authenticate and protect your account better"
           style={{marginBottom: 30}}
         />
         <InputComponent
-          placeHolder="Enter First Name"
+          placeHolder="First Name"
           text={firstName}
           textHandler={firsNameHandler}
           style={{marginBottom: 10}}
         />
         <InputComponent
-          placeHolder="Enter Last Name"
+          placeHolder="Last Name"
           text={lastName}
           textHandler={lastNameHandler}
           style={{marginBottom: 10}}
         />
         <InputComponent
-          placeHolder="Enter Email"
+          placeHolder="Email ID"
           text={email}
           textHandler={emailHandler}
           style={{marginBottom: 10}}
         />
         <InputComponent
-          placeHolder="Enter PostCode"
+          placeHolder="Your post code"
           text={postCode}
           textHandler={postCodeHandler}
           style={{marginBottom: 10}}

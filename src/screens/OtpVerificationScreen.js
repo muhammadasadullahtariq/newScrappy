@@ -182,7 +182,7 @@ export default function OtpVerificationScreen({navigation, route}) {
         onPress={changeModelFlagWithAction}
         text={alertText}></ModalComponent>
       <View style={styles.mainTextContainer}>
-        <HeaderText heading="Verification codes OTP" />
+        <HeaderText heading="OTP Verification" />
         <Text style={{...styles.title, fontSize: 15, marginTop: 15}}>
           A verification codes has been sent{'\n'}
           to{' '}
@@ -200,7 +200,7 @@ export default function OtpVerificationScreen({navigation, route}) {
           </Text>
         </Text>
       </View>
-
+      <HeaderText heading={'Please enter:'} />
       <View style={styles.otpConatiner}>
         <SmoothPinCodeInput
           codeLength={7}
