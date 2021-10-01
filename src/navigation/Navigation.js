@@ -44,26 +44,45 @@ function Navigation() {
         }}
         initialRouteName="Splash">
         {/* initial Route Name */}
-        <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
+        <Stack.Screen
+          name="PhoneAuthScreen"
+          component={PhoneAuthScreen}
+          options={{
+            title: 'Welcome to Scrappy',
+          }}
+        />
         <Stack.Screen
           name="OtpVerificationScreen"
           component={OtpVerificationScreen}
+          options={{title: 'Phone verification'}}
         />
         <Stack.Screen
           name="Registration"
           component={UserSelectionScreen}
           options={{
-            title: 'Register',
+            title: 'Registration',
           }}
         />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="HomeUser" component={HomeUser} />
-        <Stack.Screen name="YardUser" component={YardUser} />
+        <Stack.Screen
+          name="HomeUser"
+          component={HomeUser}
+          options={{title: 'Details'}}
+        />
+        <Stack.Screen
+          name="YardUser"
+          component={YardUser}
+          options={{title: 'Details'}}
+        />
         <Stack.Screen
           name="WasteCollectorHomeScreen"
           component={WasteCollectorHomeScreen}
         />
-        <Stack.Screen name="WasteBuyer" component={WasteBuyer} />
+        <Stack.Screen
+          name="WasteBuyer"
+          component={WasteBuyer}
+          options={{title: 'Details'}}
+        />
         {/* <Stack.Screen
           name="WasteCollectorHomeScreen"
           component={WasteCollecterHomeScreen}
@@ -94,7 +113,11 @@ function Navigation() {
           }}
           component={WasteDetailScreen}
         />
-        <Stack.Screen name="WasteCollector" component={WasteCollector} />
+        <Stack.Screen
+          name="WasteCollector"
+          component={WasteCollector}
+          options={{title: 'Details'}}
+        />
         <Stack.Screen name="AddBid" component={AddBid} />
         <Stack.Screen
           name="WasteCollectorWasteDetailScreen"

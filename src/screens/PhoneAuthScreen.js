@@ -22,16 +22,18 @@ import HeaderText from '../components/GlobalComponent/headerText';
 import InfoText from '../components/GlobalComponent/infoText';
 //import InputComponent from '../../components/GlobalComponent/inputComponent';
 
-export default function PhoneAuthScreen({navigation}) {
+export default function PhoneAuthScreen({navigation,route}) {
   const [checked, onChange] = useState(false);
   const [phone, setPhone] = React.useState('');
   const [modelFlag, setAlertModelFlag] = useState(false);
+  const {role}=route.params;
 
   //  const phoneInput = useRef(null);
 
   const signInWithPhoneNumber = () => {
     navigation.navigate('OtpVerificationScreen', {
       phone,
+      role
     });
   };
   function hideAlert() {
@@ -42,7 +44,7 @@ export default function PhoneAuthScreen({navigation}) {
     onChange(!checked);
   }
 
-  useEffect(() => {});
+  useEffect(() => {console.warn("role",role)});
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,12 +54,12 @@ export default function PhoneAuthScreen({navigation}) {
           onPress={hideAlert}
           text={'Please Enter Valid Number'}
         />
-        <HeaderText heading="Enter your phone number" />
-        <InfoText
+        <HeaderText heading="Enter mobile number to register or login in Scrappy" />
+        {/* <InfoText
           text="Use the phone number to register or"
           style={{marginBottom: 1}}
         />
-        <InfoText text="login in Scrappy" style={{marginBottom: 5}} />
+        <InfoText text="login in Scrappy" style={{marginBottom: 5}} /> */}
       </View>
 
       {/* <PhoneInput
@@ -99,7 +101,7 @@ export default function PhoneAuthScreen({navigation}) {
             style={styles.down}
             source={require('../icons/Login/down1.png')}
           />
-          <Text style={styles.code}>+92</Text>
+          <Text style={styles.code}>+44</Text>
         </View>
 
         <TextInput

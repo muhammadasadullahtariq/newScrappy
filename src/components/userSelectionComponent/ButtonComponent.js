@@ -27,7 +27,7 @@ const component = props => {
             textAlign: 'center',
             color: props.flag ? '#186BFE' : 'white',
             marginBottom: 10,
-            width: '80%',
+            width: '60%',
             overflow: 'hidden',
           },
           props.style,

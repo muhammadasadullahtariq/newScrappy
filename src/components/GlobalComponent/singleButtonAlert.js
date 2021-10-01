@@ -21,11 +21,20 @@ const screen = props => {
             borderRadius: 22,
           }}>
           <Text style={styles.textContainer}>{props.text}</Text>
-          <ButtonComponent
-            text="OK"
-            style={{width: '80%', marginBottom: 40}}
-            onPress={props.onPress}
-          />
+          <View
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'center',
+            }}>
+            <View style={{width: '40%'}}>
+              <ButtonComponent
+                text="OK"
+                style={{width: '100%', marginBottom: 40}}
+                onPress={props.onPress}
+              />
+            </View>
+          </View>
         </View>
       </View>
     </Modal>

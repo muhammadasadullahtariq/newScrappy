@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import ContextMenu from '../../components/uploadImageAndVideo/contextMenu';
@@ -37,10 +37,15 @@ const screen = ({navigation, route}) => {
       if (responce == 'Take Photo') {
         try {
           ImagePicker.openCamera({
-            width: 400,
-            height: 400,
+            width: 500,
+            height: 500,
+            cropperCircleOverlay: true,
+            compressImageMaxWidth: 640,
+            compressImageMaxHeight: 480,
+            freeStyleCropEnabled: true,
           }).then(image => {
             console.log('asad', image);
+            console.log('size', image.size);
             setVideoORImageSourceArray(s => {
               s.splice(VideoOrImageSourceArray.length - 1, 1);
               return [
@@ -55,11 +60,18 @@ const screen = ({navigation, route}) => {
         }
       } else {
         ImagePicker.openPicker({
-          width: 400,
+          width: 300,
           height: 400,
+          cropperCircleOverlay: true,
+          freeStyleCropEnabled: true,
+          compressImageMaxWidth: 640,
+          compressImageMaxHeight: 480,
+          avoidEmptySpaceAroundImage: true,
+          maxFiles: 5,
           multiple: true,
         }).then(image => {
           console.log('asad', image);
+          console.log('size', image.size);
           if (image.length > 5) {
             setAlertText('Please select only five pictures');
             setAlertFlag(true);
@@ -98,8 +110,15 @@ const screen = ({navigation, route}) => {
     if (responce == 'Record Video') {
       ImagePicker.openCamera({
         mediaType: 'video',
+        compressVideoPreset: 'LowQuality',
       }).then(video => {
         console.log('asad', video);
+        console.log('size', video.size);
+        if (video.size > 15000000) {
+          setAlertText('Image size Cannot be greater than 15mb');
+          setAlertFlag(true);
+          return;
+        }
         setVideoORImageSourceArray(s => {
           s.splice(VideoOrImageSourceArray.length - 1, 1);
           return [
@@ -112,8 +131,15 @@ const screen = ({navigation, route}) => {
     } else {
       ImagePicker.openPicker({
         mediaType: 'video',
+        compressVideoPreset: 'LowQuality',
       }).then(video => {
         console.log('asad', video.path);
+        console.log('size', video.size);
+        if (video.size > 15000000) {
+          setAlertText('Image size Cannot be greater than 15mb');
+          setAlertFlag(true);
+          return;
+        }
         setVideoORImageSourceArray(s => {
           s.splice(VideoOrImageSourceArray.length - 1, 1);
           return [
@@ -171,14 +197,11 @@ const screen = ({navigation, route}) => {
       console.log(responce);
     }
   }
-
-  useEffect(()=>{
-    if(isFocused)
-    {
-      setVideoORImageSourceArray([{path: ''},])
+  useEffect(() => {
+    if (isFocused) {
+      setVideoORImageSourceArray([{path: ''}]);
     }
-  },[isFocused])
-  
+  }, [isFocused]);
   return (
     <View style={styles.mainContainer}>
       <VideoOrImage

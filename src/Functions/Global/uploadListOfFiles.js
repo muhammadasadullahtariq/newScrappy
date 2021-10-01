@@ -3,57 +3,57 @@ var videoArray = [];
 var imageArray = [];
 var count = 0;
 const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
-  console.log(arr);
-  if(arr.length!=1){
-    arr.splice(arr.length-1, 0,arr[arr.length-1]);
-  for (var i = 0; i < arr.length ; i++) {
-    if (arr[i].flag &&arr[i].path!="") {
-      var result = await videoUpload(arr[i]);
-      if (result.status == 'OK') {
-        videoArray.push(result.data);
-      } else {
-        count += 1;
+  console.log('Array in List Function ', arr);
+  if (arr.length != 1) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].flag && arr[i].path != '') {
+        var result = await videoUpload(arr[i]);
+        if (result.status == 'OK') {
+          videoArray.push(result.data);
+        } else {
+          count += 1;
+        }
+      } else if (!arr[i].flag && arr[i].path != '') {
+        console.log(arr[i], 'Image Address before Calling the Function');
+        var result = await imageUpload(arr[i]);
+        console.log('waiting');
+        if (result.status == 'OK') {
+          imageArray.push(result.data);
+        } else {
+          count += 1;
+        }
       }
-    } else if(!arr[i].flag&&arr[i].path!="") {
-      console.log("Calling Image Upload Function ",arr[i]);
-      var result = await imageUpload(arr[i]);
-      console.log("waiting");
-      if (result.status == 'OK') {
-        imageArray.push(result.data);
-      } else {
-        count += 1;
+      console.log(i);
+      if (i == arr.length - 1) {
+        console.log('here i am');
+        if (count == 0) {
+          var res = await uploadScrapData(id, catagory, title, detail);
+          if (res.message == 'WasteCollector data successfully added') {
+            return 'Data Uploaded Successfully';
+          } else {
+            return 'Some Error occure try again latter';
+          }
+        } else if (count < arr.length) {
+          var res = await uploadScrapData(id, catagory, title, detail);
+          if (res.message == 'WasteCollector data successfully added') {
+            return 'WasteCollector Uploaded Successfully some mediua fail to upload';
+          } else {
+            return 'Some Error occure try again latter';
+          }
+        } else {
+          return 'Fail to Upload';
+        }
       }
+      setTimeout(() => {}, 10000);
     }
-    console.log(i);
-    if (i == arr.length - 2) {
-      console.log('here i am');
-      if (count == 0) {
-        var res = await uploadScrapData(id, catagory, title, detail);
-        if (res.message == 'WasteCollector data successfully added') {
-          return 'Data Uploaded Successfully';
-        } else {
-          return 'Some Error occure try again latter';
-        }
-      } else if (count < arr.length) {
-        var res = await uploadScrapData(id, catagory, title, detail);
-        if (res.message == 'WasteCollector data successfully added') {
-          return 'WasteCollector Uploaded Successfully some mediua fail to upload';
-        } else {
-          return 'Some Error occure try again latter';
-        }
-      } else {
-        return 'Fail to Upload';
-      }
+  } else {
+    var res = await uploadScrapData(id, catagory, title, detail);
+    if (res.message == 'WasteCollector data successfully added') {
+      return 'Data Uploaded Successfully';
+    } else {
+      return 'Some Error occure try again latter';
     }
   }
-}else{
-  var res = await uploadScrapData(id, catagory, title, detail);
-        if (res.message == 'WasteCollector data successfully added') {
-          return 'Data Uploaded Successfully';
-        } else {
-          return 'Some Error occure try again latter';
-        }
-}
 };
 
 async function uploadScrapData(id, catagory, title, detail) {

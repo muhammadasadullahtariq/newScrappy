@@ -11,7 +11,7 @@ import Video from 'react-native-video';
 const screen = ({navigation, route}) => {
   const {id} = route.params;
   const [scrapDetail, setScrapDetail] = useState({
-    data: {title: '', description: '', wasteType: ''},
+    _data: {title: '', description: '', wasteType: ''},
     image: [],
     video: [],
   });
@@ -31,12 +31,12 @@ const screen = ({navigation, route}) => {
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
       <HeaderText
-        heading={scrapDetail.data.title}
+        heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}
       />
-      <InfoText text={scrapDetail.data.wasteType} style={{fontSize: 17}} />
+      <InfoText text={scrapDetail._data.wasteType} style={{fontSize: 17}} />
       <InfoText
-        text={scrapDetail.data.description}
+        text={scrapDetail._data.description}
         style={{
           textAlign: 'left',
           marginTop: 20,

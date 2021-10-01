@@ -37,7 +37,8 @@ export default function OtpVerificationScreen({navigation, route}) {
   const [alertText, setAlertText] = useState('Alter Text Here');
   const {phone} = route.params; //just for test
   //const phone = 'asad';
-  const countryCode = '+92';
+  const {role}=route.params;
+  const countryCode = '+44';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
@@ -52,6 +53,8 @@ export default function OtpVerificationScreen({navigation, route}) {
     Navigation.navigate('PhoneAuthScreen');
   }
   const confirmCode = async () => {
+    clearInterval(interval);
+    console.log("enter confrm code");
     try {
       let cellPhone = phone;
       if (phone[0] == 0) {
@@ -61,8 +64,9 @@ export default function OtpVerificationScreen({navigation, route}) {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
       setWaitingAlertFlag(true);
-      let resultUserExist = await CheckUserExist(countryCode + cellPhone);
-      if (resultUserExist == 'User not found') {
+      // let resultUserExist = await CheckUserExist(countryCode + cellPhone);
+      // console.warn("result",resultUserExist)
+      if (role==-5) {
         setWaitingAlertFlag(false);
 
         navigation.reset;
@@ -73,10 +77,10 @@ export default function OtpVerificationScreen({navigation, route}) {
           ],
         });
       } else {
-        console.log("whats up dock");
-        global.id = resultUserExist.data._id;
-        var role = resultUserExist.data.role;
-        console.log("role get ",role);
+        console.log('whats up dock');
+        // global.id = resultUserExist.data._id;
+        // var role = resultUserExist.data.role;
+        // console.log('role get ', role);
         setWaitingAlertFlag(false);
         navigation.reset;
         if (role == 1) {
@@ -89,7 +93,7 @@ export default function OtpVerificationScreen({navigation, route}) {
             ],
           });
         } else if (role == 2) {
-          console.log("role ",role)
+          console.log('role ', role);
           navigation.reset({
             index: 0, //the stack index
             routes: [
@@ -116,7 +120,6 @@ export default function OtpVerificationScreen({navigation, route}) {
       setSeconds(s => {
         if (s == 1) {
           clearInterval(interval);
-          setTimeout(()=>{},5000);
           signInWithPhoneNumber();
         }
         return s - 1;
@@ -183,7 +186,7 @@ export default function OtpVerificationScreen({navigation, route}) {
         onPress={changeModelFlagWithAction}
         text={alertText}></ModalComponent>
       <View style={styles.mainTextContainer}>
-        <HeaderText heading="Verification codes OTP" />
+        <HeaderText heading="OTP Verification" />
         <Text style={{...styles.title, fontSize: 15, marginTop: 15}}>
           A verification codes has been sent{'\n'}
           to{' '}
@@ -201,7 +204,7 @@ export default function OtpVerificationScreen({navigation, route}) {
           </Text>
         </Text>
       </View>
-
+      <HeaderText heading={'Please enter:'} />
       <View style={styles.otpConatiner}>
         <SmoothPinCodeInput
           codeLength={7}

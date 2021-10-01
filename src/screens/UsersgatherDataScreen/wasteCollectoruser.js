@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Pressable} from 'react-native';
-import InputComponent from '../../components/GlobalComponent/inputComponent';
+import {StyleSheet, View, Text, Pressable, KeyboardAvoidingView,ScrollView} from 'react-native';
+import InputComponent from '../../components/GlobalComponent/inputComponentWithTag';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
 import HeaderText from '../../components/GlobalComponent/headerText';
@@ -12,17 +12,23 @@ import {
   validateEmail,
 } from '../../Functions/UserRegistration/codeAndEmailValidation';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
+import processPostCode from '../../Functions/Global/postCodeProcess';
 
 const screen = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
+  const [firstNameFlag, setFirstNameFlag] = useState(false);
   const [lastName, setLastName] = useState('');
+  const [lastNameFlag, setLastNameFlag] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailFlag, setEmailFlag] = useState(false);
   const [postCode, setPostCode] = useState('');
+  const [postCodeFlag, setPostCodeFlag] = useState(false);
   const [userPostCode, setUserPostCode] = useState('');
   const [alertText, setAlertText] = useState('Please Enter Valid Code');
   const [modelFlag, setAlertModelFlag] = useState(false);
   const [flag, setFlag] = useState(true);
   const [postCodeArray, setPostCodeArray] = useState([]);
+  const [servicePostCodeFlag, setServicePostCodeFlag] = useState(false);
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
   const {phone} = route.params;
   //const phone = 'asad';
@@ -30,10 +36,10 @@ const screen = ({navigation, route}) => {
   const [alertModelAction, setAlertModelAction] = useState(false);
 
   function firsNameHandler(text) {
-    setFirstName(text);
+    setFirstName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
   }
   function lastNameHandler(text) {
-    setLastName(text);
+    setLastName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
   }
   function emailHandler(text) {
     setEmail(text);
@@ -71,72 +77,95 @@ const screen = ({navigation, route}) => {
   }
 
   async function userValidate() {
+    var valueFlag = false;
     if (firstName == '') {
-      setAlertText('Please Enter First Name');
-      setAlertModelFlag(true);
-      return;
+      // setAlertText('Please Enter First Name');
+      // setAlertModelFlag(true);
+      valueFlag = true;
+      setFirstNameFlag(true);
+      //return;
+    } else {
+      setFirstNameFlag(false);
     }
     if (lastName == '') {
-      setAlertText('Please Enter Last Name');
+      setLastNameFlag(true);
+      //return;
+    } else {
+      setLastNameFlag(false);
+    }
+    if (email == '') {
+      valueFlag = true;
+      setEmailFlag(true);
+    } else {
+      setEmailFlag(false);
+    }
+    if (postCodeArray.length > 0) {
+      setServicePostCodeFlag(false);
+    } else {
+      valueFlag = true;
+      setServicePostCodeFlag(true);
+    }
+    if (userPostCode == '') {
+      setPostCodeFlag(true);
+      valueFlag = true;
+    } else {
+      setPostCodeFlag(false);
+    }
+    if (valueFlag) {
+      setAlertText('Please enter all value');
       setAlertModelFlag(true);
       return;
     }
     if (validateEmail(email));
     else {
-      setAlertText('Please Enter Valid Email');
+      setAlertText('Please enter valid email');
       setAlertModelFlag(true);
       return;
     }
     if (checkPostalCode(userPostCode));
     else {
-      setAlertText('Please Enter Valid Code');
+      setAlertText('Please enter your valid post code');
       setAlertModelFlag(true);
       return;
     }
-    if (postCodeArray.length > 0);
-    else {
-      setAlertText('Please Enter atleast one Code');
-      setAlertModelFlag(true);
-      return;
-    }
+
     setWaitingAlertFlag(true);
     var arr = [...postCodeArray];
-    var i=0;
+    var i = 0;
     for (; i < arr.length; i++) {
-      arr[i] = arr[i].toUpperCase();
+      arr[i] = processPostCode(arr[i]);
     }
-    if(i==arr.length){
-    const responce = await registerWasteCollector(
-      phone, //need to change
-      email,
-      userPostCode.toUpperCase(),
-      firstName,
-      lastName,
-      arr,
-    );
-    if (responce.message === 'User successfully register') {
-      global.id = responce.data._id;
-      setWaitingAlertFlag(false);
-      //setActionFlag(false);
-      setAlertText(responce.message);
-      setAlertModelWithAction(true);
-      //setAlertModelAction(false);
-    } else if (responce.message === 'Phone already exists') {
-      auth().signOut();
-      setWaitingAlertFlag(false);
-      setAlertText(responce.message + ' Try Another Number');
-      setAlertModelWithAction(true);
-      setAlertModelAction(true);
-    } else if (responce.message.length < 30) {
-      setWaitingAlertFlag(false);
-      setAlertText(responce.message);
-      setAlertModelFlag(true);
-    } else {
-      setWaitingAlertFlag(false);
-      setAlertText('Something Went Wrong Please Try Again Later');
-      setAlertModelFlag(true);
+    var userPostCodeInLowerCase = processPostCode(userPostCode);
+    if (i == arr.length) {
+      const responce = await registerWasteCollector(
+        phone, //need to change
+        email,
+        userPostCodeInLowerCase,
+        firstName,
+        lastName,
+        arr,
+      );
+      if (responce.message === 'User successfully register') {
+        global.id = responce.data._id;
+        setWaitingAlertFlag(false);
+        setAlertText(responce.message);
+        setAlertModelWithAction(true);
+      } else if (responce.message === 'Phone already exists') {
+        auth().signOut();
+        setWaitingAlertFlag(false);
+        setAlertText(responce.message + ' Try Another Number');
+        setAlertModelWithAction(true);
+        setAlertModelAction(true);
+      } else if (responce.message.length < 30) {
+        setWaitingAlertFlag(false);
+        setAlertText(responce.message);
+        setAlertModelFlag(true);
+      } else {
+        setWaitingAlertFlag(false);
+        setAlertText('Something Went Wrong Please Try Again Later');
+        setAlertModelFlag(true);
+      }
     }
-  }
   }
 
   useEffect(() => {
@@ -144,7 +173,8 @@ const screen = ({navigation, route}) => {
   }, [flag]);
 
   return (
-    <View style={styles.mainContainer}>
+    <ScrollView contentContainerStyle={{flexGrow:1}}>
+      <KeyboardAvoidingView behavior="padding"  enabled style={styles.mainContainer}> 
       <SingleButtonAllert
         visibal={modelFlag}
         onPress={hideAlert}
@@ -157,31 +187,39 @@ const screen = ({navigation, route}) => {
       />
       <WaitingAlert visible={waitingAlertFlag} />
       <View style={{flex: 3, justifyContent: 'center'}}>
-        <HeaderText heading="Information" />
+        <HeaderText heading="About yourself" />
         <InfoText
           text="This information is used to authenticate and protect your account better"
           style={{marginBottom: 30}}
         />
         <InputComponent
-          placeHolder="Enter First Name"
+          tag="First Name"
+          placeHolder="First Name"
+          flag={firstNameFlag}
           text={firstName}
           textHandler={firsNameHandler}
           style={{marginBottom: 10}}
         />
         <InputComponent
-          placeHolder="Enter Last Name"
+          tag="Last Name"
+          flag={lastNameFlag}
+          placeHolder="Last Name"
           text={lastName}
           textHandler={lastNameHandler}
           style={{marginBottom: 10}}
         />
         <InputComponent
-          placeHolder="Enter Email"
+          tag="Email ID"
+          flag={emailFlag}
+          placeHolder="Email ID"
           text={email}
           textHandler={emailHandler}
           style={{marginBottom: 10}}
         />
         <InputComponent
-          placeHolder="Enter Your PostCode"
+          tag="Your post code"
+          flag={postCodeFlag}
+          placeHolder="Your post code"
           text={userPostCode}
           textHandler={userPostCodeHandler}
           style={{marginBottom: 10}}
@@ -192,9 +230,10 @@ const screen = ({navigation, route}) => {
               <View
                 key={item}
                 style={{
-                  backgroundColor: '#c4c4c4',
+                  backgroundColor: '#cccaca',
                   flexDirection: 'row',
                   justifyContent: 'center',
+                  alignItems:"center",
                   marginLeft: 1,
                   borderRadius: 2,
                   marginBottom: 10,
@@ -203,6 +242,7 @@ const screen = ({navigation, route}) => {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'center',
+                    alignItems:"center",
                   }}
                   onPress={() => {
                     console.log(item);
@@ -220,7 +260,9 @@ const screen = ({navigation, route}) => {
           })}
         </View>
         <InputComponent
-          placeHolder="Enter Services PostCode"
+          tag="Post codes you serve"
+          flag={servicePostCodeFlag}
+          placeHolder="Post codes you serve"
           text={postCode}
           textHandler={postCodeHandler}
           style={{marginBottom: 10}}
@@ -233,7 +275,7 @@ const screen = ({navigation, route}) => {
                 setAlertText('Post Code Already Exist');
                 setAlertModelFlag(true);
               } else {
-                if (checkPostalCode(postCode)) {
+                if (postCode.length > 1 && postCode.length < 6) {
                   setPostCodeArray(s => [...s, postCode]);
                   setPostCode('');
                 } else {
@@ -248,34 +290,43 @@ const screen = ({navigation, route}) => {
       <View style={{flex: 1, justifyContent: 'flex-end'}}>
         <ButtonComponent
           text="Next"
-          style={{marginBottom: 30, width: '70%'}}
+          style={{
+            marginBottom: 30,
+            width: '70%',
+            fontWeight: 'bold',
+            marginTop: 20,
+          }}
           onPress={userValidate}
         />
       </View>
-    </View>
+      
+      </KeyboardAvoidingView>
+      </ScrollView>
+    
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 4,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    
+    flex: 1,
   },
   cancelTextContainer: {
     borderColor: '#a1ffba',
     height: 30,
-    textAlignVertical: 'center',
+    paddingTop:5,
     paddingRight: 5,
     color: 'black',
+    fontWeight:"bold",
     width: 13,
     borderRadius: 25,
   },
   textContainer: {
     borderColor: '#a1ffba',
-    textAlignVertical: 'center',
+    paddingTop:5,
     borderRadius: 25,
     height: 30,
+    opacity: 0.6,
   },
 });
 

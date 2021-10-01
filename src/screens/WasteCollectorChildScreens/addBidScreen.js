@@ -16,8 +16,9 @@ const screen = ({navigation, route}) => {
   const [alertFlag, setAlertFlag] = useState(false);
   const [time, setTime] = useState([]);
   const [alertText, setAlertText] = useState('Please Enter Valid Bid');
+  const [bidPlaceHolder, setBidPlaceHolder] = useState('0.075');
   const [scrapDetail, setScrapDetail] = useState({
-    data: {title: '', description: '', wasteType: ''},
+    _data: {title: '', description: '', wasteType: ''},
     image: [],
     video: [],
   });
@@ -47,7 +48,7 @@ const screen = ({navigation, route}) => {
     console.log(`val`, val);
     setScrapDetail(val);
     setWaitingAlertFlag(false);
-    console.log(scrapDetail.data);
+    console.log(scrapDetail._data);
   }
   async function cancelBidHandler() {
     setWaitingAlertFlag(true);
@@ -67,16 +68,19 @@ const screen = ({navigation, route}) => {
       <WaitingAlter visible={waitingAlterFlag} />
       <Alter
         visibal={alertFlag}
-        onPress={() => setAlertFlag(false)}
+        onPress={() => {
+          setAlertFlag(false);
+          navigation.goBack();
+        }}
         text={alertText}
       />
       <HeaderText
-        heading={scrapDetail.data.title}
+        heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}
       />
-      <InfoText text={scrapDetail.data.wasteType} style={{fontSize: 17}} />
+      <InfoText text={scrapDetail._data.wasteType} style={{fontSize: 17}} />
       <InfoText
-        text={scrapDetail.data.description}
+        text={scrapDetail._data.description}
         style={{
           marginTop: 20,
           marginBottom: 20,
@@ -106,16 +110,31 @@ const screen = ({navigation, route}) => {
           />
         </View>
       </View>
+      {yourBid != 0 && (
+        <View
+          style={{
+            marginVertical: 10,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <HeaderText heading={'Your Current Bid:' + yourBid} />
+        </View>
+      )}
 
       <HeaderText heading={'Your Bid'} />
       <InputComponent
-        placeHolder="0.075"
+        placeHolder={String(bidPlaceHolder)}
         text={bidPrice}
         style={{marginBottom: 40}}
         textHandler={text => setBidPrice(text)}
       />
-      <View style={{flex: 1}} />
-      <View style={{marginVertical: 20}} />
+      <View style={{marginVertical: '10%'}} />
+      <Button
+        text="Next"
+        style={{width: '80%', marginBottom: 20}}
+        onPress={PlaceBid}
+      />
       {yourBid != 0 && (
         <Button
           text={'Cancel Bid'}
@@ -123,11 +142,6 @@ const screen = ({navigation, route}) => {
           onPress={cancelBidHandler}
         />
       )}
-      <Button
-        text="Next"
-        style={{width: '80%', marginBottom: 20}}
-        onPress={PlaceBid}
-      />
     </ScrollView>
   );
 };

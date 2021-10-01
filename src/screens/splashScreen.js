@@ -19,29 +19,34 @@ import checkUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 
 const screen = ({navigation, route}) => {
   let userFlag = false;
-  let role = 1;
+  var userDataGetFlag=false;
+  let role ;
   const [screenTime, setScreenTime] = useState(3);
   let interval;
   async function getUserDetail() {
     auth().onAuthStateChanged(async user => {
       if (user) {
-        console.log('here am i');
+        console.log('here am i',user.phoneNumber);
         try {
           let resultUserExist = await checkUserExist(user.phoneNumber);
+          console.log("result:",resultUserExist);
           console.log(resultUserExist);
           if (resultUserExist == 'User not found') {
             userFlag = false;
+            role=-5;
           } else {
             global.id = resultUserExist.data._id;
             userFlag = true;
             role = resultUserExist.data.role;
           }
+          
         } catch (err) {
           console.log(err);
         }
       } else {
         userFlag = false;
       }
+      userDataGetFlag=true;
     });
   }
 
@@ -49,6 +54,7 @@ const screen = ({navigation, route}) => {
     interval = setInterval(() => {
       setScreenTime(s => {
         if (s == 1) {
+          do{}while(!userDataGetFlag);
           clearInterval(interval);
           console.log(userFlag);
           if (userFlag) {
@@ -73,9 +79,10 @@ const screen = ({navigation, route}) => {
               });
             }
           } else {
+            //navigation.setParams({role});
             navigation.reset({
               index: 0,
-              routes: [{name: 'PhoneAuthScreen'}],
+              routes: [{name: 'PhoneAuthScreen',params:{role}}],
             });
           }
           //   auth().onAuthStateChanged(user => {
