@@ -42,7 +42,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="Splash">
+        initialRouteName="Registration">
         {/* initial Route Name */}
         <Stack.Screen
           name="PhoneAuthScreen"

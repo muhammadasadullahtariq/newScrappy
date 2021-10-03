@@ -35,7 +35,7 @@ const screen = ({navigation, route}) => {
 
   function firsNameHandler(text) {
     //const regex = '/^[a-zA-Z-,]+(s{0,1}[a-zA-Z-, ])*$/;';
-    setFirstName(text.replace(/[ X][ X]*[^A-Za-z]/g, ''));
+    setFirstName(text.replace(/[^A-Za-z]/g, ''));
   }
   function lastNameHandler(text) {
     setLastName(text.replace(/[ X][ X]*[^A-Za-z]/g, ''));
