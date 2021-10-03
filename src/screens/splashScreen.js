@@ -19,42 +19,42 @@ import checkUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 
 const screen = ({navigation, route}) => {
   let userFlag = false;
-  var userDataGetFlag=false;
-  let role ;
+  var userDataGetFlag = false;
+  let role=-5;
   const [screenTime, setScreenTime] = useState(3);
   let interval;
   async function getUserDetail() {
-    auth().onAuthStateChanged(async user => {
-      if (user) {
-        console.log('here am i',user.phoneNumber);
-        try {
+    console.log('i called');
+    try {
+      auth().onAuthStateChanged(async user => {
+        if (user) {
+          console.log('here am i', user.phoneNumber);
           let resultUserExist = await checkUserExist(user.phoneNumber);
-          console.log("result:",resultUserExist);
+          console.log('result:', resultUserExist);
           console.log(resultUserExist);
           if (resultUserExist == 'User not found') {
             userFlag = false;
-            role=-5;
+            role = -5;
           } else {
             global.id = resultUserExist.data._id;
             userFlag = true;
             role = resultUserExist.data.role;
           }
-          
-        } catch (err) {
-          console.log(err);
+        } else {
+          userFlag = false;
         }
-      } else {
-        userFlag = false;
-      }
-      userDataGetFlag=true;
-    });
+      });
+    } catch (err) {
+      console.warn('error', err);
+    }
+    userDataGetFlag = true;
   }
 
   function timerForotp() {
     interval = setInterval(() => {
       setScreenTime(s => {
         if (s == 1) {
-          do{}while(!userDataGetFlag);
+          do {} while (!userDataGetFlag);
           clearInterval(interval);
           console.log(userFlag);
           if (userFlag) {
@@ -80,9 +80,10 @@ const screen = ({navigation, route}) => {
             }
           } else {
             //navigation.setParams({role});
+            console.warn('role', role);
             navigation.reset({
               index: 0,
-              routes: [{name: 'PhoneAuthScreen',params:{role}}],
+              routes: [{name: 'PhoneAuthScreen', params: {role}}],
             });
           }
           //   auth().onAuthStateChanged(user => {

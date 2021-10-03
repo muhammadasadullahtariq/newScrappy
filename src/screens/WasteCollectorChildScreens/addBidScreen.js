@@ -16,7 +16,7 @@ const screen = ({navigation, route}) => {
   const [alertFlag, setAlertFlag] = useState(false);
   const [time, setTime] = useState([]);
   const [alertText, setAlertText] = useState('Please Enter Valid Bid');
-  const [bidPlaceHolder, setBidPlaceHolder] = useState('0.075');
+  const [bidPlaceHolder, setBidPlaceHolder] = useState('1234');
   const [scrapDetail, setScrapDetail] = useState({
     _data: {title: '', description: '', wasteType: ''},
     image: [],

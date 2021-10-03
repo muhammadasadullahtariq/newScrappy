@@ -9,10 +9,12 @@ import {
 import InfroText from '../../GlobalComponent/infoText';
 import reNew from '../../../icons/WasteCollerTabScreen/reNew.png';
 import {useNavigation} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 
 const screen = props => {
-  const [backColor, setBackColor] = useState('');
-  const [textColor, setTextColor] = useState('');
+  const isFocused = useIsFocused();
+  const [backColor, setBackColor] = useState('#e9f8e5');
+  const [textColor, setTextColor] = useState('#2ba84e');
   const navigation = useNavigation();
   function statusAndBackgroundColor() {
     if (props.status == 'Active') {
@@ -28,8 +30,8 @@ const screen = props => {
     }
   }
   useEffect(() => {
-    statusAndBackgroundColor();
-  }, []);
+    if (isFocused) statusAndBackgroundColor();
+  }, [isFocused]);
   return (
     <View style={styles.mainContainer}>
       <TouchableOpacity

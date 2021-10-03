@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Button, ScrollView, StyleSheet, View, FlatList} from 'react-native';
+import {Image, ScrollView, StyleSheet, View, FlatList} from 'react-native';
 import ButtonComponent from '../components/WasteCollector/buttonComponent';
 import FlatListItemView from '../components/WasteCollector/listComponent';
 import getWasteData from '../Functions/wasteCollector/wasteCollectorData';
@@ -8,6 +8,7 @@ import WaitingComponent from '../components/GlobalComponent/waitingAlertComponen
 import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import SelectDropdown from 'react-native-select-dropdown';
+import InfoText from '../components/GlobalComponent/infoText';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -26,7 +27,7 @@ const screen = ({navigation}) => {
   useEffect(() => {
     //global.id = '614882e461895615992ecf5f';
     if (isFocused) {
-      if (option == 'All'||option=='') {
+      if (option == 'All' || option == '') {
         getUserWasteData();
       } else {
         fecthDataWithArgument(option);
@@ -64,22 +65,41 @@ const screen = ({navigation}) => {
   }
 
   return (
-    <View contentContainerStyle={styles.mainContainer}>
+    <View style={styles.mainContainer}>
       <WaitingComponent visible={waitingAlertFlag} />
       <SelectDropdown
         data={optionsArray}
         onSelect={(value, inde) => filterArray(value)}
         defaultButtonText={'Select scrap type'}
+        renderCustomizedButtonChild={() => {
+          return (
+            <View style={{flexDirection: 'row'}}>
+              <InfoText text="Select Scrap Type" style={{textAlign: 'left'}} />
+              <View style={{flex: 1}} />
+              <Image
+                style={{width: 15, height: 15, marginRight: 10, marginTop: 5}}
+                source={require('../icons/Login/down1.png')}
+              />
+            </View>
+          );
+        }}
+        buttonTextStyle={{
+          fontSize: 15,
+          color: '#4F6C8D',
+          textAlign: 'left',
+          fontFamily: 'Montserrat',
+          paddingHorizontal: 20,
+        }}
         buttonStyle={{
-          borderWidth: 1,
           width: '95%',
-          height: 50,
-          borderRadius: 10,
           alignSelf: 'center',
+          height: 50,
+          borderRadius: 11,
           marginVertical: 5,
+          backgroundColor: '#ffffffff',
         }}
         dropdownStyle={{
-          borderRadius: 5,
+          borderRadius: 11,
         }}
       />
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -114,6 +134,7 @@ const screen = ({navigation}) => {
         )}
         keyExtractor={(item, index) => item._id}
       />
+      
     </View>
   );
 };

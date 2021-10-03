@@ -22,18 +22,17 @@ import HeaderText from '../components/GlobalComponent/headerText';
 import InfoText from '../components/GlobalComponent/infoText';
 //import InputComponent from '../../components/GlobalComponent/inputComponent';
 
-export default function PhoneAuthScreen({navigation,route}) {
+export default function PhoneAuthScreen({navigation, route}) {
   const [checked, onChange] = useState(false);
   const [phone, setPhone] = React.useState('');
   const [modelFlag, setAlertModelFlag] = useState(false);
-  const {role}=route.params;
+  //const {role}=route.params;
 
   //  const phoneInput = useRef(null);
 
   const signInWithPhoneNumber = () => {
     navigation.navigate('OtpVerificationScreen', {
       phone,
-      role
     });
   };
   function hideAlert() {
@@ -44,7 +43,9 @@ export default function PhoneAuthScreen({navigation,route}) {
     onChange(!checked);
   }
 
-  useEffect(() => {console.warn("role",role)});
+  useEffect(() => {
+    //console.warn('role', role);
+  });
 
   return (
     <SafeAreaView style={styles.container}>

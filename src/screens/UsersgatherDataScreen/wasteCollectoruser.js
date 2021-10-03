@@ -1,10 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Pressable, KeyboardAvoidingView,ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import InputComponent from '../../components/GlobalComponent/inputComponentWithTag';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
+import postCodeListDownload from '../../Functions/UserRegistration/fetchPostCode';
 import {registerWasteCollector} from '../../Functions/Global/postRequest';
 import auth from '@react-native-firebase/auth';
 import {
@@ -13,6 +21,7 @@ import {
 } from '../../Functions/UserRegistration/codeAndEmailValidation';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import processPostCode from '../../Functions/Global/postCodeProcess';
+import MultiSelect from 'react-native-multiple-select';
 
 const screen = ({navigation, route}) => {
   const [firstName, setFirstName] = useState('');
@@ -34,12 +43,17 @@ const screen = ({navigation, route}) => {
   //const phone = 'asad';
   const [alertModelWithAction, setAlertModelWithAction] = useState(false);
   const [alertModelAction, setAlertModelAction] = useState(false);
+  const [postCodeList, setPostCodeList] = useState([]);
 
   function firsNameHandler(text) {
-    setFirstName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
+    setFirstName(
+      text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),
+    );
   }
   function lastNameHandler(text) {
-    setLastName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
+    setLastName(
+      text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),
+    );
   }
   function emailHandler(text) {
     setEmail(text);
@@ -167,166 +181,185 @@ const screen = ({navigation, route}) => {
       }
     }
   }
+  const onSelectedItemsChange = selectedItems => {
+    setPostCodeArray(selectedItems);
+    //this.setState({selectedItems});
+  };
+
+  async function getPostCodeList() {
+    var data = await postCodeListDownload();
+    console.log(data);
+    setPostCodeList(data);
+  }
 
   useEffect(() => {
     console.log('ws', phone);
+    getPostCodeList();
   }, [flag]);
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow:1}}>
-      <KeyboardAvoidingView behavior="padding"  enabled style={styles.mainContainer}> 
-      <SingleButtonAllert
-        visibal={modelFlag}
-        onPress={hideAlert}
-        text={alertText}
-      />
-      <SingleButtonAllert
-        visibal={alertModelWithAction}
-        onPress={hideAlertWithAction}
-        text={alertText}
-      />
-      <WaitingAlert visible={waitingAlertFlag} />
-      <View style={{flex: 3, justifyContent: 'center'}}>
-        <HeaderText heading="About yourself" />
-        <InfoText
-          text="This information is used to authenticate and protect your account better"
-          style={{marginBottom: 30}}
+    <ScrollView
+      contentContainerStyle={{flexGrow: 1}}
+      nestedScrollEnabled={true}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        enabled
+        style={styles.mainContainer}>
+        <SingleButtonAllert
+          visibal={modelFlag}
+          onPress={hideAlert}
+          text={alertText}
         />
-        <InputComponent
-          tag="First Name"
-          placeHolder="First Name"
-          flag={firstNameFlag}
-          text={firstName}
-          textHandler={firsNameHandler}
-          style={{marginBottom: 10}}
+        <SingleButtonAllert
+          visibal={alertModelWithAction}
+          onPress={hideAlertWithAction}
+          text={alertText}
         />
-        <InputComponent
-          tag="Last Name"
-          flag={lastNameFlag}
-          placeHolder="Last Name"
-          text={lastName}
-          textHandler={lastNameHandler}
-          style={{marginBottom: 10}}
-        />
-        <InputComponent
-          tag="Email ID"
-          flag={emailFlag}
-          placeHolder="Email ID"
-          text={email}
-          textHandler={emailHandler}
-          style={{marginBottom: 10}}
-        />
-        <InputComponent
-          tag="Your post code"
-          flag={postCodeFlag}
-          placeHolder="Your post code"
-          text={userPostCode}
-          textHandler={userPostCodeHandler}
-          style={{marginBottom: 10}}
-        />
-        <View style={{flexDirection: 'row'}}>
-          {postCodeArray.map(item => {
-            return (
-              <View
-                key={item}
-                style={{
-                  backgroundColor: '#cccaca',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems:"center",
-                  marginLeft: 1,
-                  borderRadius: 2,
-                  marginBottom: 10,
-                }}>
-                <Pressable
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems:"center",
-                  }}
-                  onPress={() => {
-                    console.log(item);
-                    let array = postCodeArray;
-                    console.log(array.indexOf(item));
-                    array.splice(array.indexOf(item), 1);
-                    setFlag(!flag);
-                    setPostCodeArray(array);
-                  }}>
-                  <Text style={styles.textContainer}>{item}</Text>
-                  <Text style={styles.cancelTextContainer}>X</Text>
-                </Pressable>
-              </View>
-            );
-          })}
+        <WaitingAlert visible={waitingAlertFlag} />
+        <View style={{flex: 3, justifyContent: 'center'}}>
+          <HeaderText heading="About yourself" />
+          <InfoText
+            text="This information is used to authenticate and protect your account better"
+            style={{marginBottom: 30}}
+          />
+          <InputComponent
+            tag="First Name"
+            placeHolder="First Name"
+            flag={firstNameFlag}
+            text={firstName}
+            textHandler={firsNameHandler}
+            style={{marginBottom: 10}}
+          />
+          <InputComponent
+            tag="Last Name"
+            flag={lastNameFlag}
+            placeHolder="Last Name"
+            text={lastName}
+            textHandler={lastNameHandler}
+            style={{marginBottom: 10}}
+          />
+          <InputComponent
+            tag="Email ID"
+            flag={emailFlag}
+            placeHolder="Email ID"
+            text={email}
+            textHandler={emailHandler}
+            style={{marginBottom: 10}}
+          />
+          <InputComponent
+            tag="Your post code"
+            flag={postCodeFlag}
+            placeHolder="Your post code"
+            text={userPostCode}
+            textHandler={userPostCodeHandler}
+            style={{marginBottom: 10}}
+          />
+          <View
+            style={{
+              width: '80%',
+              height: 200,
+              alignSelf: 'center',
+            }}>
+            <InfoText
+              text={'Post codes you serve'}
+              style={{
+                paddingHorizontal: 10,
+                paddingLeft: 5,
+                marginVertical: 10,
+              }}
+            />
+            <MultiSelect
+              styleSelectorContainer={[
+                styles.multiSelectContainer,
+                {height: '100%'},
+              ]}
+              styleItemsContainer={[
+                styles.multiSelectContainer,
+                {width: '100%', height: '100%'},
+              ]}
+              styleDropdownMenu={[
+                styles.multiSelectContainer,
+                {
+                  height: '60%',
+                  paddingLeft: 10,
+                  borderWidth: 1,
+                  borderColor: servicePostCodeFlag ? 'red' : '#ffffff',
+                },
+              ]}
+              hideTags
+              items={postCodeList}
+              uniqueKey="id"
+              onSelectedItemsChange={onSelectedItemsChange}
+              selectedItems={postCodeArray}
+              selectText="Post codes you serve"
+              searchInputPlaceholderText="Search post code"
+              onChangeInput={text => console.log(text)}
+              altFontFamily="ProximaNova-Light"
+              tagRemoveIconColor="#CCC"
+              tagBorderColor="#CCC"
+              tagTextColor="#CCC"
+              selectedItemTextColor="#CCC"
+              selectedItemIconColor="#CCC"
+              itemTextColor="#000"
+              displayKey="name"
+              searchInputStyle={{color: '#CCC'}}
+              submitButtonText=""
+              submitButtonColor="#00000000"
+            />
+          </View>
         </View>
-        <InputComponent
-          tag="Post codes you serve"
-          flag={servicePostCodeFlag}
-          placeHolder="Post codes you serve"
-          text={postCode}
-          textHandler={postCodeHandler}
-          style={{marginBottom: 10}}
-          onSubmit={() => {
-            if (postCodeArray.length > 7) {
-              setAlertText('User can only add upto 7 Services Area');
-              setAlertModelFlag(true);
-            } else {
-              if (postCodeArray.indexOf(postCode) != -1) {
-                setAlertText('Post Code Already Exist');
-                setAlertModelFlag(true);
-              } else {
-                if (postCode.length > 1 && postCode.length < 6) {
-                  setPostCodeArray(s => [...s, postCode]);
-                  setPostCode('');
-                } else {
-                  setAlertText('Please Enter Valid Code');
-                  setAlertModelFlag(true);
-                }
-              }
-            }
-          }}
-        />
-      </View>
-      <View style={{flex: 1, justifyContent: 'flex-end'}}>
-        <ButtonComponent
-          text="Next"
+        <View
           style={{
-            marginBottom: 30,
-            width: '70%',
-            fontWeight: 'bold',
-            marginTop: 20,
-          }}
-          onPress={userValidate}
-        />
-      </View>
-      
+            marginTop: 50,
+            flex: 1,
+            justifyContent: 'flex-end',
+          }}>
+          <ButtonComponent
+            text="Next"
+            style={{
+              marginBottom: 10,
+              width: '70%',
+              fontWeight: 'bold',
+            }}
+            onPress={userValidate}
+          />
+        </View>
       </KeyboardAvoidingView>
-      </ScrollView>
-    
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    
     flex: 1,
   },
   cancelTextContainer: {
     borderColor: '#a1ffba',
     height: 30,
-    paddingTop:5,
+    paddingTop: 5,
     paddingRight: 5,
     color: 'black',
-    fontWeight:"bold",
+    fontWeight: 'bold',
     width: 13,
     borderRadius: 25,
   },
   textContainer: {
     borderColor: '#a1ffba',
-    paddingTop:5,
+    paddingTop: 5,
     borderRadius: 25,
     height: 30,
     opacity: 0.6,
+  },
+  multiSelectContainer: {
+    width: '80%',
+    borderRadius: 11,
+    backgroundColor: '#ffffff',
+    textAlign: 'center',
+    overflow: 'hidden',
+    fontFamily: 'Montserrat',
+    fontWeight: '500',
+    alignSelf: 'center',
+    height: '100%',
   },
 });
 

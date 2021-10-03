@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, ScrollView,KeyboardAvoidingView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import InputComponent from '../../components/GlobalComponent/inputComponentWithTag';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
@@ -35,10 +41,14 @@ const screen = ({navigation, route}) => {
 
   function firsNameHandler(text) {
     //const regex = '/^[a-zA-Z-,]+(s{0,1}[a-zA-Z-, ])*$/;';
-    setFirstName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
+    setFirstName(
+      text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),
+    );
   }
   function lastNameHandler(text) {
-    setLastName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
+    setLastName(
+      text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),
+    );
   }
   function emailHandler(text) {
     setEmail(text);
@@ -58,7 +68,7 @@ const screen = ({navigation, route}) => {
       navigation.reset({
         index: 0, //the stack index
         routes: [
-          {name: 'WasteCollectorHomeScreen'}, //to go to initial stack screen
+          {name: 'PublicUser'}, //to go to initial stack screen
         ],
       });
     } else {
@@ -154,69 +164,69 @@ const screen = ({navigation, route}) => {
   }, []);
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
-      <KeyboardAvoidingView behavior="padding"  enabled style={{flex:1}}> 
-      <SingleButtonAllert
-        visibal={modelFlag}
-        onPress={hideAlert}
-        text={alertText}
-      />
-      <SingleButtonAllert
-        visibal={alertModelWithAction}
-        onPress={hideAlertWithAction}
-        text={alertText}
-      />
-      <WaitingAlert visible={waitingAlertFlag} />
-      <View style={{flex: 3, justifyContent: 'center'}}>
-        <HeaderText heading="About yourself" />
-        <InfoText
-          text="This information is used to authenticate and protect your account better"
-          style={{marginBottom: 30}}
+      <KeyboardAvoidingView behavior="padding" enabled style={{flex: 1}}>
+        <SingleButtonAllert
+          visibal={modelFlag}
+          onPress={hideAlert}
+          text={alertText}
         />
-        <InputComponent
-          tag="First Name"
-          placeHolder="First Name"
-          flag={firstNameFlag}
-          text={firstName}
-          textHandler={firsNameHandler}
-          style={{marginBottom: 10}}
+        <SingleButtonAllert
+          visibal={alertModelWithAction}
+          onPress={hideAlertWithAction}
+          text={alertText}
         />
-        <InputComponent
-          tag="Last Name"
-          flag={lastNameFlag}
-          placeHolder="Last Name"
-          text={lastName}
-          textHandler={lastNameHandler}
-          style={{marginBottom: 10}}
-        />
-        <InputComponent
-          tag="Email ID"
-          flag={emailFlag}
-          placeHolder="Email ID"
-          text={email}
-          textHandler={emailHandler}
-          style={{marginBottom: 10}}
-        />
-        <InputComponent
-          tag="Your post code"
-          flag={postCodeFlag}
-          placeHolder="Your post code"
-          text={postCode}
-          textHandler={postCodeHandler}
-          style={{marginBottom: 10}}
-        />
-      </View>
-      <View style={{flex: 1, justifyContent: 'flex-end'}}>
-        <ButtonComponent
-          text="Next"
-          style={{
-            marginBottom: 30,
-            width: '70%',
-            fontWeight: 'bold',
-            marginTop: 20,
-          }}
-          onPress={userValidate}
-        />
-      </View>
+        <WaitingAlert visible={waitingAlertFlag} />
+        <View style={{flex: 3, justifyContent: 'center'}}>
+          <HeaderText heading="About yourself" />
+          <InfoText
+            text="This information is used to authenticate and protect your account better"
+            style={{marginBottom: 30}}
+          />
+          <InputComponent
+            tag="First Name"
+            placeHolder="First Name"
+            flag={firstNameFlag}
+            text={firstName}
+            textHandler={firsNameHandler}
+            style={{marginBottom: 10}}
+          />
+          <InputComponent
+            tag="Last Name"
+            flag={lastNameFlag}
+            placeHolder="Last Name"
+            text={lastName}
+            textHandler={lastNameHandler}
+            style={{marginBottom: 10}}
+          />
+          <InputComponent
+            tag="Email ID"
+            flag={emailFlag}
+            placeHolder="Email ID"
+            text={email}
+            textHandler={emailHandler}
+            style={{marginBottom: 10}}
+          />
+          <InputComponent
+            tag="Your post code"
+            flag={postCodeFlag}
+            placeHolder="Your post code"
+            text={postCode}
+            textHandler={postCodeHandler}
+            style={{marginBottom: 10}}
+          />
+        </View>
+        <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          <ButtonComponent
+            text="Next"
+            style={{
+              marginBottom: 30,
+              width: '70%',
+              fontWeight: 'bold',
+              marginTop: 20,
+            }}
+            onPress={userValidate}
+          />
+        </View>
       </KeyboardAvoidingView>
     </ScrollView>
   );
@@ -225,7 +235,6 @@ const screen = ({navigation, route}) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flexGrow: 1,
-    
   },
 });
 

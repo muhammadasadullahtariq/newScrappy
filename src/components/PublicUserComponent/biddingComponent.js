@@ -5,8 +5,10 @@ import InfoText from '../GlobalComponent/infoText';
 import Alter from '../../components/GlobalComponent/singleButtonAlert';
 import WaitingAlter from '../../components/GlobalComponent/waitingAlertComponent';
 import soldWaste from '../../Functions/HomeUserDashBoard/acceptBid';
+import {useNavigation} from '@react-navigation/core';
 
 const screen = props => {
+  const navigate = useNavigation();
   const [waitingAlterFlag, setWaitingAlertFlag] = useState(false);
   const [alertFlag, setAlertFlag] = useState(false);
   const [alertText, setAlertText] = useState('Bid Accepted');
@@ -24,7 +26,10 @@ const screen = props => {
       <WaitingAlter visible={waitingAlterFlag} />
       <Alter
         visibal={alertFlag}
-        onPress={() => setAlertFlag(false)}
+        onPress={() => {
+          setAlertFlag(false);
+          navigate.goBack();
+        }}
         text={alertText}
       />
       <InfoText

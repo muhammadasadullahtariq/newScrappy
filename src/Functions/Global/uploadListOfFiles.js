@@ -3,6 +3,8 @@ var videoArray = [];
 var imageArray = [];
 var count = 0;
 const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
+  videoArray = [];
+  imageArray = [];
   console.log('Array in List Function ', arr);
   if (arr.length != 1) {
     for (var i = 0; i < arr.length; i++) {

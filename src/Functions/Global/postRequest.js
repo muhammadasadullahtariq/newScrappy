@@ -47,6 +47,8 @@ export const registerWasteCollector = async (
   lName,
   servicePostalCodes,
 ) => {
+  console.log('service post code', servicePostalCodes);
+  console.log('post code', postalCode);
   try {
     const response = await fetch(
       'http://scrappy.world:3000/api/v1/user/register',
