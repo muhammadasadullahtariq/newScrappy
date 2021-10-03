@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Pressable, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, Pressable, KeyboardAvoidingView,ScrollView} from 'react-native';
 import InputComponent from '../../components/GlobalComponent/inputComponentWithTag';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import SingleButtonAllert from '../../components/GlobalComponent/singleButtonAlert';
@@ -36,10 +36,10 @@ const screen = ({navigation, route}) => {
   const [alertModelAction, setAlertModelAction] = useState(false);
 
   function firsNameHandler(text) {
-    setFirstName(text);
+    setFirstName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
   }
   function lastNameHandler(text) {
-    setLastName(text);
+    setLastName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
   }
   function emailHandler(text) {
     setEmail(text);
@@ -173,7 +173,8 @@ const screen = ({navigation, route}) => {
   }, [flag]);
 
   return (
-    <ScrollView contentContainerStyle={styles.mainContainer}>
+    <ScrollView contentContainerStyle={{flexGrow:1}}>
+      <KeyboardAvoidingView behavior="padding"  enabled style={styles.mainContainer}> 
       <SingleButtonAllert
         visibal={modelFlag}
         onPress={hideAlert}
@@ -229,9 +230,10 @@ const screen = ({navigation, route}) => {
               <View
                 key={item}
                 style={{
-                  backgroundColor: '#c4c4c4',
+                  backgroundColor: '#cccaca',
                   flexDirection: 'row',
                   justifyContent: 'center',
+                  alignItems:"center",
                   marginLeft: 1,
                   borderRadius: 2,
                   marginBottom: 10,
@@ -240,6 +242,7 @@ const screen = ({navigation, route}) => {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'center',
+                    alignItems:"center",
                   }}
                   onPress={() => {
                     console.log(item);
@@ -296,28 +299,31 @@ const screen = ({navigation, route}) => {
           onPress={userValidate}
         />
       </View>
-    </ScrollView>
+      
+      </KeyboardAvoidingView>
+      </ScrollView>
+    
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    flexGrow: 1,
+    
+    flex: 1,
   },
   cancelTextContainer: {
     borderColor: '#a1ffba',
     height: 30,
-    textAlignVertical: 'center',
+    paddingTop:5,
     paddingRight: 5,
     color: 'black',
+    fontWeight:"bold",
     width: 13,
     borderRadius: 25,
   },
   textContainer: {
     borderColor: '#a1ffba',
-    textAlignVertical: 'center',
+    paddingTop:5,
     borderRadius: 25,
     height: 30,
     opacity: 0.6,

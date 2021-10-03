@@ -26,7 +26,13 @@ export const component = props => {
           props.style1,
           {
             borderColor: props.flag ? 'red' : '#ffffff',
-            paddingTop: props.flag ? 15 : 0,
+            
+            ...Platform.select({
+              ios: {
+                paddingTop: 5,
+              },
+              android: {paddingTop: props.flag ? 15 : 0,},
+            }),
           },
         ]}
         textAlignVertical={props.flag ? 'top' : 'center'}

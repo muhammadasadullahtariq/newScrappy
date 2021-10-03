@@ -32,7 +32,6 @@ const screen = ({navigation, route}) => {
     setAlertWithAction(false);
     navigation.navigate('PublicUser');
   }
-
   const imageContainer = responce => {
     try {
       if (responce == 'Take Photo') {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView,KeyboardAvoidingView} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import InputComponent from '../../components/GlobalComponent/inputComponentWithTag';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
@@ -35,10 +35,10 @@ const screen = ({navigation, route}) => {
 
   function firsNameHandler(text) {
     //const regex = '/^[a-zA-Z-,]+(s{0,1}[a-zA-Z-, ])*$/;';
-    setFirstName(text.replace(/[^A-Za-z]/g, ''));
+    setFirstName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
   }
   function lastNameHandler(text) {
-    setLastName(text.replace(/[ X][ X]*[^A-Za-z]/g, ''));
+    setLastName(text.replace(/[`~0-9!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
   }
   function emailHandler(text) {
     setEmail(text);
@@ -154,6 +154,7 @@ const screen = ({navigation, route}) => {
   }, []);
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
+      <KeyboardAvoidingView behavior="padding"  enabled style={{flex:1}}> 
       <SingleButtonAllert
         visibal={modelFlag}
         onPress={hideAlert}
@@ -216,6 +217,7 @@ const screen = ({navigation, route}) => {
           onPress={userValidate}
         />
       </View>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };
@@ -223,8 +225,7 @@ const screen = ({navigation, route}) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flexGrow: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    
   },
 });
 

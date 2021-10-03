@@ -37,6 +37,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   const [alertText, setAlertText] = useState('Alter Text Here');
   const {phone} = route.params; //just for test
   //const phone = 'asad';
+  const {role}=route.params;
   const countryCode = '+44';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
@@ -52,6 +53,8 @@ export default function OtpVerificationScreen({navigation, route}) {
     Navigation.navigate('PhoneAuthScreen');
   }
   const confirmCode = async () => {
+    clearInterval(interval);
+    console.log("enter confrm code");
     try {
       let cellPhone = phone;
       if (phone[0] == 0) {
@@ -61,8 +64,9 @@ export default function OtpVerificationScreen({navigation, route}) {
       const result = await confirmation.confirm(code);
       console.log('our result', result);
       setWaitingAlertFlag(true);
-      let resultUserExist = await CheckUserExist(countryCode + cellPhone);
-      if (resultUserExist == 'User not found') {
+      // let resultUserExist = await CheckUserExist(countryCode + cellPhone);
+      // console.warn("result",resultUserExist)
+      if (role==-5) {
         setWaitingAlertFlag(false);
 
         navigation.reset;
@@ -74,9 +78,9 @@ export default function OtpVerificationScreen({navigation, route}) {
         });
       } else {
         console.log('whats up dock');
-        global.id = resultUserExist.data._id;
-        var role = resultUserExist.data.role;
-        console.log('role get ', role);
+        // global.id = resultUserExist.data._id;
+        // var role = resultUserExist.data.role;
+        // console.log('role get ', role);
         setWaitingAlertFlag(false);
         navigation.reset;
         if (role == 1) {
