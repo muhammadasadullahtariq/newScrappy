@@ -294,7 +294,7 @@ const screen = ({navigation, route}) => {
               selectText="Post codes you serve"
               searchInputPlaceholderText="Search post code"
               onChangeInput={text => console.log(text)}
-              altFontFamily="ProximaNova-Light"
+              
               tagRemoveIconColor="#CCC"
               tagBorderColor="#CCC"
               tagTextColor="#CCC"
@@ -354,7 +354,6 @@ const styles = StyleSheet.create({
     width: '80%',
     borderRadius: 11,
     backgroundColor: '#ffffff',
-    textAlign: 'center',
     overflow: 'hidden',
     fontFamily: 'Montserrat',
     fontWeight: '500',

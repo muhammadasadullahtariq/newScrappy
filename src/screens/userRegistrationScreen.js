@@ -66,9 +66,9 @@ const screen = ({navigation, route}) => {
   useEffect(() => {
     Orientation.lockToPortrait();
     console.log(phone);
-    auth().onAuthStateChanged(user => {
-      console.log(user.phoneNumber);
-    });
+    // auth().onAuthStateChanged(user => {
+    //   console.log(user.phoneNumber);
+    // });
   });
 
   //FrontEnd
