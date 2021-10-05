@@ -12,7 +12,10 @@ target 'Scrappy' do
     :hermes_enabled => false
   )
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ac36b98988da433b2872f1c8921cff756bbc8b0
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'ScrappyTests' do

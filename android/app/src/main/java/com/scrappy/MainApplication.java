@@ -5,7 +5,10 @@ import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+<<<<<<< HEAD
 import com.oblador.vectoricons.VectorIconsPackage;
+=======
+>>>>>>> 2ac36b98988da433b2872f1c8921cff756bbc8b0
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
