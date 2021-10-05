@@ -24,6 +24,7 @@ import WaitingAlert from '../components/GlobalComponent/waitingAlertComponent';
 import HeaderText from '../components/GlobalComponent/headerText';
 import InfoText from '../components/GlobalComponent/infoText';
 import CheckUserExist from '../Functions/Login/userExistInDataBaseOrNot';
+import InputContainer from '../components/GlobalComponent/inputComponent';
 
 export default function OtpVerificationScreen({navigation, route}) {
   const Navigation = useNavigation();
@@ -38,7 +39,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   const {phone} = route.params; //just for test
   //const phone = 'asad';
   //const {role}=route.params;
-  const countryCode = '+44';
+  const countryCode = '+92';
   const [optResendCount, setoptResendCount] = useState(0);
   //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
   let alterOnpressAction = changeModelFlag;
@@ -206,30 +207,19 @@ export default function OtpVerificationScreen({navigation, route}) {
       </View>
       <HeaderText heading={'Please enter:'} />
       <View style={styles.otpConatiner}>
-        <SmoothPinCodeInput
-          animationFocused={null}
-          codeLength={7}
-          textStyle={{
-            fontSize: 15,
-            color: '#092058',
-            marginTop: 20,
-          }}
-          cellStyle={{
-            borderBottomWidth: 2,
-            borderColor: '#092058',
-            width: 12,
-            marginRight: 6,
-          }}
-          restrictToNumbers
-          autoFocus
-          cellStyleFocused={{
-            borderBottomWidth: 0,
-          }}
-          textStyleFocused={{borderBottomWidth: 0, color: 'red'}}
-          containerStyle={{alignSelf: 'center', paddingBottom: 25}}
-          value={code}
-          onTextChange={code => setCode(code)}
-          onBackspace={() => console.log('No more back.')}
+        <InputContainer
+          textHandler={code =>
+            setCode(
+              code.replace(
+                /[`~a-zA-Z!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+                '',
+              ),
+            )
+          }
+          text={code}
+          placeHolder="Enter OTP"
+          keyBoadType="Numeric"
+          style={{}}
         />
       </View>
 

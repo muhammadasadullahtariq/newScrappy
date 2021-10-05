@@ -106,6 +106,8 @@ const screen = ({navigation}) => {
         }}
         dropdownStyle={{
           borderRadius: 11,
+          
+          backgroundColor: '#FFFFFF',
         }}
         rowStyle={{marginBottom: 0}}
       />
