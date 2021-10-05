@@ -294,7 +294,6 @@ const screen = ({navigation, route}) => {
               selectText="Post codes you serve"
               searchInputPlaceholderText="Search post code"
               onChangeInput={text => console.log(text)}
-              altFontFamily="ProximaNova-Light"
               tagRemoveIconColor="#CCC"
               tagBorderColor="#CCC"
               tagTextColor="#CCC"
