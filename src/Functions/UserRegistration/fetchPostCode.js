@@ -31,9 +31,7 @@ function arrayBuilt(responce) {
   var array = [];
   data.forEach(item => array.push({id: item, name: item}));
   console.log('Array', array);
-  array.push({id: '1', name: ''});
-  array.push({id: '2', name: ''});
-  array.push({id: '3', name: ''});
+  
   return array;
 }
 

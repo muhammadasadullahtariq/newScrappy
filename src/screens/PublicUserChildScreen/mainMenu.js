@@ -9,14 +9,12 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   TextInput,
   TouchableOpacity,
   ScrollView,
   FlatList,
-  Dimensions,
   Platform,
 } from 'react-native';
 import optionArrayImported, {

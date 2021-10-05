@@ -85,7 +85,7 @@ const screen = ({navigation, route}) => {
         okOnPress={() => {
           setConfrmAlertFlag(false);
           navigation.reset;
-          navigation.setParams({role:-5});
+          navigation.setParams({role: -5});
           navigation.reset({
             index: 0, //the stack index
             routes: [

@@ -5,6 +5,7 @@ export const component = props => {
   return (
     <View style={[style.mainView, props.style, style.shadow]}>
       <TextInput
+        autoCorrect={false}
         placeholder={props.placeHolder}
         value={props.text}
         returnKeyType="go"

@@ -207,6 +207,7 @@ export default function OtpVerificationScreen({navigation, route}) {
       <HeaderText heading={'Please enter:'} />
       <View style={styles.otpConatiner}>
         <SmoothPinCodeInput
+          animationFocused={null}
           codeLength={7}
           textStyle={{
             fontSize: 15,

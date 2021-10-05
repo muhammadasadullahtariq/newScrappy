@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, StyleSheet, View, FlatList} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+} from 'react-native';
 import ButtonComponent from '../components/WasteCollector/buttonComponent';
 import FlatListItemView from '../components/WasteCollector/listComponent';
 import getWasteData from '../Functions/wasteCollector/wasteCollectorData';
@@ -18,7 +25,6 @@ const screen = ({navigation}) => {
     'Paper',
     'Plastic',
     'Mixed',
-    'Logout',
   ]);
   const [userData, setUserData] = useState([]);
   const [option, setOption] = useState('');
@@ -101,6 +107,7 @@ const screen = ({navigation}) => {
         dropdownStyle={{
           borderRadius: 11,
         }}
+        rowStyle={{marginBottom: 0}}
       />
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topButtonArray.map(item => {
@@ -134,7 +141,6 @@ const screen = ({navigation}) => {
         )}
         keyExtractor={(item, index) => item._id}
       />
-      
     </View>
   );
 };

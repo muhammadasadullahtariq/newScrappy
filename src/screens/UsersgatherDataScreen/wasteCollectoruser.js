@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -24,6 +24,7 @@ import processPostCode from '../../Functions/Global/postCodeProcess';
 import MultiSelect from 'react-native-multiple-select';
 
 const screen = ({navigation, route}) => {
+  const multiSelect = useRef(null);
   const [firstName, setFirstName] = useState('');
   const [firstNameFlag, setFirstNameFlag] = useState(false);
   const [lastName, setLastName] = useState('');
@@ -254,6 +255,12 @@ const screen = ({navigation, route}) => {
             textHandler={userPostCodeHandler}
             style={{marginBottom: 10}}
           />
+          <View style={{marginHorizontal: 20}}>
+            {console.log(postCodeArray)}
+            {multiSelect.current &&
+              multiSelect.current.getSelectedItemsExt &&
+              multiSelect.current.getSelectedItemsExt(postCodeArray)}
+          </View>
           <View
             style={{
               width: '80%',
@@ -275,7 +282,12 @@ const screen = ({navigation, route}) => {
               ]}
               styleItemsContainer={[
                 styles.multiSelectContainer,
-                {width: '100%', height: '100%'},
+                {
+                  width: '100%',
+                  height: '100%',
+
+                  marginBottom: -45,
+                },
               ]}
               styleDropdownMenu={[
                 styles.multiSelectContainer,
@@ -294,7 +306,7 @@ const screen = ({navigation, route}) => {
               selectText="Post codes you serve"
               searchInputPlaceholderText="Search post code"
               onChangeInput={text => console.log(text)}
-              
+              ref={multiSelect}
               tagRemoveIconColor="#CCC"
               tagBorderColor="#CCC"
               tagTextColor="#CCC"
@@ -305,6 +317,9 @@ const screen = ({navigation, route}) => {
               searchInputStyle={{color: '#CCC'}}
               submitButtonText=""
               submitButtonColor="#00000000"
+              hideSubmitButton={true}
+              fixedHeight={true}
+              tagContainerStyle={{width: 80, fontFamily: 'Montserrat'}}
             />
           </View>
         </View>
