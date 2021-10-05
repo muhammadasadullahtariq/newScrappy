@@ -40,6 +40,7 @@ const screen = ({navigation, route}) => {
   const [postCodeArray, setPostCodeArray] = useState([]);
   const [servicePostCodeFlag, setServicePostCodeFlag] = useState(false);
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
+  const [flagMultipleValue,setFlagMultipleValue]=useState(false)
   const {phone} = route.params;
   //const phone = 'asad';
   const [alertModelWithAction, setAlertModelWithAction] = useState(false);
@@ -225,6 +226,7 @@ const screen = ({navigation, route}) => {
           />
           <InputComponent
             tag="First Name"
+            keyBoard="visible-password"
             placeHolder="First Name"
             flag={firstNameFlag}
             text={firstName}
@@ -255,12 +257,7 @@ const screen = ({navigation, route}) => {
             textHandler={userPostCodeHandler}
             style={{marginBottom: 10}}
           />
-          <View style={{marginHorizontal: 20}}>
-            {console.log(postCodeArray)}
-            {multiSelect.current &&
-              multiSelect.current.getSelectedItemsExt &&
-              multiSelect.current.getSelectedItemsExt(postCodeArray)}
-          </View>
+          
           <View
             style={{
               width: '80%',
@@ -285,7 +282,8 @@ const screen = ({navigation, route}) => {
                 {
                   width: '100%',
                   height: '100%',
-
+                  borderBottomLeftRadius:0,
+                  borderBottomRightRadius:0,
                   marginBottom: -45,
                 },
               ]}
@@ -319,10 +317,18 @@ const screen = ({navigation, route}) => {
               submitButtonColor="#00000000"
               hideSubmitButton={true}
               fixedHeight={true}
+              hideDropdown
+              onToggleList={()=>setFlagMultipleValue((flag)=>!flag)}
               tagContainerStyle={{width: 80, fontFamily: 'Montserrat'}}
             />
           </View>
         </View>
+        <View style={{marginHorizontal: 20,marginTop:flagMultipleValue?50:-100}}>
+            {console.log(postCodeArray)}
+            {multiSelect.current &&
+              multiSelect.current.getSelectedItemsExt &&
+              multiSelect.current.getSelectedItemsExt(postCodeArray)}
+          </View>
         <View
           style={{
             marginTop: 50,

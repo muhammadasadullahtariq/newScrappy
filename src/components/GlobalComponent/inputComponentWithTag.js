@@ -14,6 +14,7 @@ export const component = props => {
         }}
       />
       <TextInput
+      autoCorrect={false}
         placeholder={props.placeHolder}
         value={props.text}
         returnKeyType="go"

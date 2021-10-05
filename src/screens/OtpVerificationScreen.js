@@ -218,7 +218,7 @@ export default function OtpVerificationScreen({navigation, route}) {
           }
           text={code}
           placeHolder="Enter OTP"
-          keyBoadType="Numeric"
+          Keyboard="numeric"
           style={{}}
         />
       </View>

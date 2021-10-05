@@ -11,7 +11,7 @@ export const component = props => {
         returnKeyType="go"
         multiline={props.multiLine}
         numberOfLines={props.numberOfLines}
-        keyboardType={props.keyBoadType}
+        keyboardType={props.Keyboard==null?"default":props.Keyboard}
         onChangeText={props.textHandler}
         style={[style.textCointaner, props.style1]}
         textAlignVertical={props.flag ? 'top' : 'center'}

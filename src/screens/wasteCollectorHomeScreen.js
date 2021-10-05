@@ -25,6 +25,7 @@ const screen = ({navigation}) => {
     'Paper',
     'Plastic',
     'Mixed',
+    'Logout'
   ]);
   const [userData, setUserData] = useState([]);
   const [option, setOption] = useState('');
