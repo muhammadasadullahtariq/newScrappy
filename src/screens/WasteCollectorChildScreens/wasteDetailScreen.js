@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {useState, useEffect,useRef} from 'react';
+import {ScrollView, StyleSheet, View,Dimensions} from 'react-native';
 import getScrapDetail from '../../Functions/HomeUserDashBoard/wasteDetail';
 import WaitingComponent from '../../components/GlobalComponent/waitingAlertComponent';
 import HeaderText from '../../components/GlobalComponent/headerText';
@@ -7,10 +7,12 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import VideoComponent from '../../components/GlobalComponent/MediaComponent/videoComponent';
 import ImageComponent from '../../components/GlobalComponent/MediaComponent/imageComponent';
 import Video from 'react-native-video';
-import combineImagesAndVideos from '../../Functions/Global/combineImagesAndVideos';
+import combineVideoAndImages from '../../Functions/Global/combineImagesAndVideos';
+import Carousel from 'react-native-snap-carousel';
 
 const screen = ({navigation, route}) => {
   const {id} = route.params;
+  const c=useRef()
   const [scrapDetail, setScrapDetail] = useState({
     _data: {title: '', description: '', wasteType: ''},
     image: [],
@@ -53,13 +55,16 @@ const screen = ({navigation, route}) => {
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
+      <View style={{}}>
       <Carousel
         ref={c}
         data={imageAndVideoArr}
         renderItem={renderData}
         sliderWidth={windowWidth}
         itemWidth={windowWidth - 100}
+        
       />
+      </View>
       <HeaderText
         heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}

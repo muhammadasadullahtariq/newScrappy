@@ -62,6 +62,7 @@ const screen = ({navigation, route}) => {
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
+      <View>
       <Carousel
         ref={c}
         data={imageAndVideoArr}
@@ -69,6 +70,7 @@ const screen = ({navigation, route}) => {
         sliderWidth={windowWidth}
         itemWidth={windowWidth - 100}
       />
+      </View>
       <HeaderText
         heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}

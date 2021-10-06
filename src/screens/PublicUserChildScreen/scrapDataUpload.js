@@ -24,8 +24,8 @@ const screen = ({navigation, route}) => {
   const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
     {path: ''},
   ]);
-  //const {catagory} = route.params;
-  const catagory = 'test';
+  const {catagory} = route.params;
+  //const catagory = 'test';
   function alertHandler() {
     setAlertFlag(false);
   }
