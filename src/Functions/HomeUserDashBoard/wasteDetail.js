@@ -44,7 +44,7 @@ async function getAllMediaFile(imageArr, videoArr) {
   }
   for (var i = 0; i < videoArr.length; i++) {
     videos.push({
-      uri: 'http://scrappy.world:3000/api/v1/file/get/file/' + videoArr[i],
+      uri: 'http://scrappy.world:3000/api/v1/file/video/' + videoArr[i],
     });
   }
 }
