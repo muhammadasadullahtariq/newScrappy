@@ -9,7 +9,7 @@ const screen = props => {
   return (
     <View style={styles.mainContainer}>
       <Video
-        controls={true}
+        controls={false}
         repeat={true}
         resizeMode={'contain'}
         source={{uri: props.path.uri}} // Can be a URL or a local file.
@@ -32,7 +32,12 @@ const screen = props => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {},
+  mainContainer: {
+    borderRadius: 5,
+    backgroundColor: '#F7F8FA',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   imageContainer: {
     aspectRatio: 1,
     width: 80,
@@ -42,12 +47,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   backgroundVideo: {
+    width: '100%',
     alignSelf: 'center',
-    width: '99%',
-    height: 300,
-    borderRadius: 10,
-    marginTop: 10,
-    marginRight: 10,
+    height: 400,
+    borderRadius: 30,
   },
   addImageButtonContainer: {
     backgroundColor: 'white',

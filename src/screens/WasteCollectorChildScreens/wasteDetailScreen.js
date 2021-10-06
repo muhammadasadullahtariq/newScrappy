@@ -7,6 +7,7 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import VideoComponent from '../../components/GlobalComponent/MediaComponent/videoComponent';
 import ImageComponent from '../../components/GlobalComponent/MediaComponent/imageComponent';
 import Video from 'react-native-video';
+import combineImagesAndVideos from '../../Functions/Global/combineImagesAndVideos';
 
 const screen = ({navigation, route}) => {
   const {id} = route.params;
@@ -15,6 +16,10 @@ const screen = ({navigation, route}) => {
     image: [],
     video: [],
   });
+  const [windowWidth, setWindowWidth] = useState(
+    Dimensions.get('window').width,
+  );
+  const [imageAndVideoArr, setVideoAndImages] = useState([]);
   const [waitingFlag, setWaitingFlag] = useState(true);
   useEffect(() => {
     console.log(id, '\tid');
@@ -24,12 +29,37 @@ const screen = ({navigation, route}) => {
     let val = await getScrapDetail(id);
     console.log(`val`, val);
     setScrapDetail(val);
+    var data = await combineVideoAndImages(val);
+    setVideoAndImages(data);
     setWaitingFlag(false);
     console.log(scrapDetail.data);
   }
+
+  function renderData(item) {
+    console.error('this is what', item);
+    if (!item.item.flag) {
+      return (
+        <ImageComponent
+          key={item.item.path.uri}
+          path={item.item.path}
+          flag={true}
+        />
+      );
+    } else {
+      return <VideoComponent path={item.item.path} />;
+    }
+  }
+
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
+      <Carousel
+        ref={c}
+        data={imageAndVideoArr}
+        renderItem={renderData}
+        sliderWidth={windowWidth}
+        itemWidth={windowWidth - 100}
+      />
       <HeaderText
         heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}
@@ -43,15 +73,6 @@ const screen = ({navigation, route}) => {
           fontSize: 15,
         }}
       />
-      {scrapDetail.image.map((imag, index) => {
-        console.log('image data', imag);
-        console.log(index);
-        return <ImageComponent key={imag.uri} path={imag} flag={true} />;
-      })}
-      {scrapDetail.video.map(video => {
-        console.log('Video', video);
-        return <VideoComponent path={video} />;
-      })}
       <View style={{marginBottom: 10}}></View>
     </ScrollView>
   );

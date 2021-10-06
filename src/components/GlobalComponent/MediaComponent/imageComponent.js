@@ -27,12 +27,16 @@ const screen = props => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {},
+  mainContainer: {
+    backgroundColor: '#F7F8FA',
+    borderRadius: 5,
+
+    justifyContent: 'center',
+  },
   imageContainer: {
-    width: '99%',
+    width: '100%',
     alignSelf: 'center',
     height: 400,
-    marginTop: 10,
     borderRadius: 5,
   },
   backgroundVideo: {

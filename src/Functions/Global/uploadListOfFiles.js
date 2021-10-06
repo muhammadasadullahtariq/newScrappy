@@ -51,7 +51,7 @@ const UploadVideosAndImages = async (id, catagory, title, detail, arr) => {
   } else {
     var res = await uploadScrapData(id, catagory, title, detail);
     if (res.message == 'WasteCollector data successfully added') {
-      return 'Data Uploaded Successfully';
+      return 'Your listing added successfully';
     } else {
       return 'Some Error occure try again latter';
     }

@@ -20,7 +20,7 @@ const component = props => {
           borderColor: '#186BFE',
           borderWidth: 1,
           backgroundColor: props.flag ? 'white' : '#186BFE',
-          width: '80%',
+          width: '60%',
           alignSelf: 'center',
           borderRadius: 30,
           marginBottom: 10,

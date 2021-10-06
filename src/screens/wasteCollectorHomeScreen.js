@@ -16,6 +16,7 @@ import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import SelectDropdown from 'react-native-select-dropdown';
 import InfoText from '../components/GlobalComponent/infoText';
+import reverseDate from '../Functions/Global/dateReverse';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -25,7 +26,7 @@ const screen = ({navigation}) => {
     'Paper',
     'Plastic',
     'Mixed',
-    'Logout'
+    'Logout',
   ]);
   const [userData, setUserData] = useState([]);
   const [option, setOption] = useState('');
@@ -107,7 +108,7 @@ const screen = ({navigation}) => {
         }}
         dropdownStyle={{
           borderRadius: 11,
-          
+
           backgroundColor: '#FFFFFF',
         }}
         rowStyle={{marginBottom: 0}}
@@ -138,7 +139,7 @@ const screen = ({navigation}) => {
             bidCount={items.item.biddingCount}
             yourBid={items.item.yourApplyBid}
             winner={items.item.winner}
-            timeLeft={items.item.timeLeft.substring(0, 10)}
+            timeLeft={reverseDate(items.item.timeLeft.substring(0, 10))}
             userId={global.id}
           />
         )}

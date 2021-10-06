@@ -108,7 +108,7 @@ const screen = props => {
             flexDirection: 'row',
           }}>
           <View style={{flexDirection: 'row', marginTop: 12}}>
-            <InfroText text={'Higest bid'} style={{color: '#ca2a33'}} />
+            <InfroText text={'Higest'} style={{color: '#ca2a33'}} />
             <InfroText
               text={'£  ' + props.higestBid}
               style={{color: '#092058', paddingLeft: 0}}

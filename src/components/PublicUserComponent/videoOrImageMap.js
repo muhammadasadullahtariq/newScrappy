@@ -27,6 +27,7 @@ const screen = props => {
           />
         )}
         numColumns={columNum}
+        columnWrapperStyle={{justifyContent: 'center'}}
         key={columNum}
         keyExtractor={(item, index) => item.path}
         style={{marginHorizontal: 20}}
@@ -38,6 +39,9 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

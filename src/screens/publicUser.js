@@ -24,6 +24,7 @@ function MyTabs() {
   return (
     <Tab.Navigator
       //Bottom Navigation
+      initialRouteName={'MainMenu'}
       tabBarOptions={{
         showLabel: false,
         style: {

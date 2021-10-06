@@ -9,6 +9,7 @@ import WaitAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import InputTextComponent from '../../components/GlobalComponent/inputComponent';
 import scrapDataUpload from '../../Functions/Global/uploadListOfFiles';
 import {useIsFocused} from '@react-navigation/native';
+import HeaderText from '../../components/GlobalComponent/headerText';
 
 const screen = ({navigation, route}) => {
   const isFocused = useIsFocused();
@@ -23,7 +24,8 @@ const screen = ({navigation, route}) => {
   const [VideoOrImageSourceArray, setVideoORImageSourceArray] = useState([
     {path: ''},
   ]);
-  const {catagory} = route.params;
+  //const {catagory} = route.params;
+  const catagory = 'test';
   function alertHandler() {
     setAlertFlag(false);
   }
@@ -213,12 +215,21 @@ const screen = ({navigation, route}) => {
           } else setMenuFlag(true);
         }}
       />
+      <HeaderText
+        heading="Add upto 5 pictures and video"
+        style={{marginTop: 20}}
+      />
+      <HeaderText heading="Enter Title" style={{marginTop: 20}} />
       <InputTextComponent
         placeHolder="Enter Title"
         value={title}
-        style={{marginTop: 10}}
+        style={{marginTop: 10, justifyContent: 'center'}}
         style1={{textAlign: 'left'}}
         textHandler={s => setTitle(s)}
+      />
+      <HeaderText
+        heading="Enter Detail"
+        style={{marginTop: 20, marginBottom: 40}}
       />
       <InputTextComponent
         placeHolder="Detail"
@@ -226,7 +237,7 @@ const screen = ({navigation, route}) => {
         text={detail}
         flag={true}
         multiLine={true}
-        style={{justifyContent: 'flex-start'}}
+        style={{justifyContent: 'center', marginTop: 20}}
         style1={{marginTop: 10, height: 150, textAlign: 'left'}}
         textHandler={s => setDetail(s)}
       />

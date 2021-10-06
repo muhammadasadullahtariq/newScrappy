@@ -95,7 +95,7 @@ function Navigation() {
         <Stack.Screen
           name="TypeOfScrap"
           options={{
-            title: 'Sell your scrap',
+            title: 'Select scrap category',
           }}
           component={TypeOfScrap}
         />
@@ -126,7 +126,11 @@ function Navigation() {
           }}
           component={WasteCollectorWasteDetailScreen}
         />
-        <Stack.Screen name="PublicUser" component={PublicUserHomeScreen} />
+        <Stack.Screen
+          name="PublicUser"
+          component={PublicUserHomeScreen}
+          options={{title: 'Your Dashboard'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

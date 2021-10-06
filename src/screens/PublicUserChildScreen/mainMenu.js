@@ -33,6 +33,7 @@ import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import reverseDate from '../../Functions/Global/dateReverse';
 
 const App = () => {
   const isFocused = useIsFocused();
@@ -66,26 +67,26 @@ const App = () => {
         <View style={styles.backgroundBoxContainer}>
           {/*Top Blue View containe search Tab and notification */}
           <View style={styles.searchViewContainer}>
-            <Image style={{marginLeft: '5%'}} source={searchImage} />
+            {/* <Image style={{marginLeft: '5%'}} source={searchImage} />
             <TextInput
               style={styles.textInputContainer}
               placeholder="Search"
               placeholderTextColor="white"
-            />
-            <View style={styles.notificationAndLogoutContainer}>
-              <TouchableOpacity onPress={readUserData}>
-                {/* Notiification Action */}
-                <Image source={notification} />
+            /> */}
+            {/* <View style={styles.notificationAndLogoutContainer}>
+              <TouchableOpacity onPress={readUserData}> */}
+            {/* Notiification Action */}
+            {/* <Image source={notification} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   auth().signOut();
                   navigation.navigate('PhoneAuthScreen');
-                }}>
-                {/* Logout Action */}
-                <Image source={logOut} />
+                }}> */}
+            {/* Logout Action */}
+            {/* <Image source={logOut} />
               </TouchableOpacity>
-            </View>
+            </View> */}
             {/*End of Search and Notification View */}
           </View>
         </View>
@@ -135,7 +136,7 @@ const App = () => {
             text={items.item.name}
             image={sellSrap}
             id={items.item._id}
-            date={items.item.date.substring(0, 10)}
+            date={reverseDate(items.item.date.substring(0, 10))}
             status={items.item.status}
             higestBid={items.item.biddingPrice}
             bidCount={items.item.biddingCount}
