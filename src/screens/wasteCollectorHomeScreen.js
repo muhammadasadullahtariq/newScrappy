@@ -14,9 +14,8 @@ import sellSrap from '../icons/WasteCollerTabScreen/sellScrap.png';
 import WaitingComponent from '../components/GlobalComponent/waitingAlertComponent';
 import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import SelectDropdown from 'react-native-select-dropdown';
-import InfoText from '../components/GlobalComponent/infoText';
 import reverseDate from '../Functions/Global/dateReverse';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -31,6 +30,15 @@ const screen = ({navigation}) => {
   const [userData, setUserData] = useState([]);
   const [option, setOption] = useState('');
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('Select Scrap Type');
+  const [items, setItems] = useState([
+    {label: 'All', value: 'All'},
+    {label: 'Metal', value: 'Metal'},
+    {label: 'Paper', value: 'Paper'},
+    {label: 'Plastic', value: 'Plastic'},
+    {label: 'Mixed', value: 'Mixed'},
+  ]);
 
   useEffect(() => {
     //global.id = '614882e461895615992ecf5f';
@@ -75,43 +83,32 @@ const screen = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <WaitingComponent visible={waitingAlertFlag} />
-      <SelectDropdown
-        data={optionsArray}
-        onSelect={(value, inde) => filterArray(value)}
-        defaultButtonText={'Select scrap type'}
-        renderCustomizedButtonChild={() => {
-          return (
-            <View style={{flexDirection: 'row'}}>
-              <InfoText text="Select Scrap Type" style={{textAlign: 'left'}} />
-              <View style={{flex: 1}} />
-              <Image
-                style={{width: 15, height: 15, marginRight: 10, marginTop: 5}}
-                source={require('../icons/Login/down1.png')}
-              />
-            </View>
-          );
-        }}
-        buttonTextStyle={{
-          fontSize: 15,
-          color: '#4F6C8D',
-          textAlign: 'left',
-          fontFamily: 'Montserrat',
-          paddingHorizontal: 20,
-        }}
-        buttonStyle={{
-          width: '95%',
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        placeholder={'Select scrap type'}
+        setOpen={setOpen}
+        disableBorderRadius={true}
+        setValue={setValue}
+        onChangeValue={item => filterArray(item)}
+        setItems={setItems}
+        style={{
+          width: '100%',
           alignSelf: 'center',
-          height: 50,
+
           borderRadius: 11,
           marginVertical: 5,
           backgroundColor: '#ffffffff',
+          borderColor: '#ffffffff',
         }}
-        dropdownStyle={{
-          borderRadius: 11,
-
-          backgroundColor: '#FFFFFF',
+        containerStyle={{width: '95%', alignSelf: 'center', marginVertical: 5}}
+        dropDownContainerStyle={{
+          backgroundColor: '#ffffffff',
+          borderColor: '#ffffffff',
+          width: '100%',
+          alignSelf: 'center',
         }}
-        rowStyle={{marginBottom: 0}}
       />
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topButtonArray.map(item => {

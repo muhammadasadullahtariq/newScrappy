@@ -77,16 +77,17 @@ const App = () => {
               <TouchableOpacity onPress={readUserData}> */}
             {/* Notiification Action */}
             {/* <Image source={notification} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  auth().signOut();
-                  navigation.navigate('PhoneAuthScreen');
-                }}> */}
-            {/* Logout Action */}
-            {/* <Image source={logOut} />
-              </TouchableOpacity>
-            </View> */}
+              </TouchableOpacity> */}
+              {/* Commit This code */}
+            <TouchableOpacity
+              onPress={() => {
+                auth().signOut();
+                navigation.navigate('PhoneAuthScreen');
+              }}>
+              {/* Logout Action */}
+              <Image source={logOut} />
+            </TouchableOpacity>
+            {/* </View> */}
             {/*End of Search and Notification View */}
           </View>
         </View>

@@ -58,6 +58,11 @@ const screen = props => {
         onPress={() => {
           navigation.navigate('WasteCollectorWasteDetailScreen', {
             id: props.id,
+            yourBid: props.yourBid,
+            timeLeft: props.timeLeft,
+            higestBid: props.higestBid,
+            winner: props.winner,
+            status: props.status,
           });
         }}>
         <View
@@ -108,7 +113,7 @@ const screen = props => {
             flexDirection: 'row',
           }}>
           <View style={{flexDirection: 'row', marginTop: 12}}>
-            <InfroText text={'Higest'} style={{color: '#ca2a33'}} />
+            <InfroText text={'Highest'} style={{color: '#ca2a33'}} />
             <InfroText
               text={'£  ' + props.higestBid}
               style={{color: '#092058', paddingLeft: 0}}

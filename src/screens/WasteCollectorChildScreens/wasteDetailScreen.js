@@ -1,18 +1,24 @@
-import React, {useState, useEffect,useRef} from 'react';
-import {ScrollView, StyleSheet, View,Dimensions} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {ScrollView, StyleSheet, View, Dimensions} from 'react-native';
 import getScrapDetail from '../../Functions/HomeUserDashBoard/wasteDetail';
 import WaitingComponent from '../../components/GlobalComponent/waitingAlertComponent';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import InfoText from '../../components/GlobalComponent/infoText';
 import VideoComponent from '../../components/GlobalComponent/MediaComponent/videoComponent';
 import ImageComponent from '../../components/GlobalComponent/MediaComponent/imageComponent';
-import Video from 'react-native-video';
 import combineVideoAndImages from '../../Functions/Global/combineImagesAndVideos';
 import Carousel from 'react-native-snap-carousel';
+import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
+import Alert from '../../components/GlobalComponent/singleButtonAlert';
 
 const screen = ({navigation, route}) => {
   const {id} = route.params;
-  const c=useRef()
+  const {yourBid} = route.params;
+  const {timeLeft} = route.params;
+  const {higestBid} = route.params;
+  const {winner} = route.params;
+  const {status} = route.params;
+  const c = useRef();
   const [scrapDetail, setScrapDetail] = useState({
     _data: {title: '', description: '', wasteType: ''},
     image: [],
@@ -23,6 +29,7 @@ const screen = ({navigation, route}) => {
   );
   const [imageAndVideoArr, setVideoAndImages] = useState([]);
   const [waitingFlag, setWaitingFlag] = useState(true);
+  const [alertFlag, setAlertFlag] = useState(false);
   useEffect(() => {
     console.log(id, '\tid');
     getWasteDetail();
@@ -35,6 +42,18 @@ const screen = ({navigation, route}) => {
     setVideoAndImages(data);
     setWaitingFlag(false);
     console.log(scrapDetail.data);
+  }
+
+  function placeAndChangeBid() {
+    navigation.navigate('AddBid', {
+      id: id,
+      yourBid: yourBid,
+      timeLeft: timeLeft,
+    });
+  }
+
+  function collectScap() {
+    setAlertFlag(true);
   }
 
   function renderData(item) {
@@ -55,21 +74,29 @@ const screen = ({navigation, route}) => {
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
-      <View style={{}}>
-      <Carousel
-        ref={c}
-        data={imageAndVideoArr}
-        renderItem={renderData}
-        sliderWidth={windowWidth}
-        itemWidth={windowWidth - 100}
-        
+      <Alert
+        visibal={alertFlag}
+        onPress={() => {
+          setAlertFlag(false);
+        }}
+        text={'Scrap Collected'}
       />
-      </View>
       <HeaderText
         heading={scrapDetail._data.title}
         style={{marginVertical: 10, fontSize: 22}}
       />
       <InfoText text={scrapDetail._data.wasteType} style={{fontSize: 17}} />
+
+      <View style={{marginBottom: 10}}></View>
+      <View style={{}}>
+        <Carousel
+          ref={c}
+          data={imageAndVideoArr}
+          renderItem={renderData}
+          sliderWidth={windowWidth}
+          itemWidth={windowWidth - 100}
+        />
+      </View>
       <InfoText
         text={scrapDetail._data.description}
         style={{
@@ -78,7 +105,34 @@ const screen = ({navigation, route}) => {
           fontSize: 15,
         }}
       />
-      <View style={{marginBottom: 10}}></View>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 12,
+          alignSelf: 'center',
+          alignItems: 'center',
+          marginBottom: 20,
+        }}>
+        <InfoText text={'Highest'} style={{color: '#ca2a33'}} />
+        <InfoText
+          text={'£  ' + higestBid}
+          style={{color: '#092058', paddingLeft: 0}}
+        />
+      </View>
+      {Object.keys(winner).length == 0 && status == 'Active' && (
+        <ButtonComponent
+          style={{borderRadius: 10}}
+          text={yourBid == 0 ? 'Place Bid' : 'Change Bid'}
+          onPress={placeAndChangeBid}
+        />
+      )}
+      {Object.keys(winner).length != 0 && (
+        <ButtonComponent
+          style={{borderRadius: 10}}
+          text={'Collect scrap'}
+          onPress={collectScap}
+        />
+      )}
     </ScrollView>
   );
 };
