@@ -13,7 +13,6 @@ import WasteCollector from '../screens/UsersgatherDataScreen/wasteCollectoruser'
 import WasteBuyer from '../screens/UsersgatherDataScreen/wasteBuyeruser';
 import icon from '../icons/Navigation/Back.png';
 import Splash from '../screens/splashScreen';
-//import WasteCollecterHomeScreen from '../screens/wasteCollector';
 import TypeOfScrap from '../screens/PublicUserChildScreen/selectTypeOfScrap';
 import ScrapDataUpload from '../screens/PublicUserChildScreen/scrapDataUpload';
 import WasteDetailScreen from '../screens/PublicUserChildScreen/wasteDetailScreen';

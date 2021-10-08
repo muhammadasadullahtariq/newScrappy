@@ -14,6 +14,7 @@ import thirdTabImageSelected from '../icons/TabScreen/bottomNavigation3changed.p
 import forthTabImageSelected from '../icons/TabScreen/bottomNavigation4changed.png';
 import histroyScreen from './PublicUserChildScreen/histroyScreen';
 import Orientation from 'react-native-orientation';
+
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {

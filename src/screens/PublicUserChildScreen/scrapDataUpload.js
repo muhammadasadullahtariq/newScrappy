@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import ContextMenu from '../../components/uploadImageAndVideo/contextMenu';
-import ImagePicker from 'react-native-image-crop-picker';
 import VideoOrImage from '../../components/PublicUserComponent/videoOrImageMap';
 import SingleButtonAlert from '../../components/GlobalComponent/singleButtonAlert';
 import WaitAlert from '../../components/GlobalComponent/waitingAlertComponent';
@@ -10,6 +9,9 @@ import InputTextComponent from '../../components/GlobalComponent/inputComponent'
 import scrapDataUpload from '../../Functions/Global/uploadListOfFiles';
 import {useIsFocused} from '@react-navigation/native';
 import HeaderText from '../../components/GlobalComponent/headerText';
+import imageContainer from '../../Functions/Global/MediaFunctions/imagePicker';
+import videoContainer from '../../Functions/Global/MediaFunctions/videoPicker';
+//import auth from '@react-native-firebase/auth';
 
 const screen = ({navigation, route}) => {
   const isFocused = useIsFocused();
@@ -34,134 +36,24 @@ const screen = ({navigation, route}) => {
     setAlertWithAction(false);
     navigation.navigate('PublicUser');
   }
-  const imageContainer = responce => {
-    try {
-      if (responce == 'Take Photo') {
-        try {
-          ImagePicker.openCamera({
-            width: 500,
-            height: 500,
-            cropperCircleOverlay: true,
-            compressImageMaxWidth: 640,
-            compressImageMaxHeight: 480,
-            freeStyleCropEnabled: true,
-          }).then(image => {
-            console.log('asad', image);
-            console.log('size', image.size);
-            setVideoORImageSourceArray(s => {
-              s.splice(VideoOrImageSourceArray.length - 1, 1);
-              return [
-                ...s,
-                {flag: false, path: {uri: image.path}, responce: image},
-                {path: ''},
-              ];
-            });
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      } else {
-        ImagePicker.openPicker({
-          width: 300,
-          height: 400,
-          cropperCircleOverlay: true,
-          freeStyleCropEnabled: true,
-          compressImageMaxWidth: 640,
-          compressImageMaxHeight: 480,
-          avoidEmptySpaceAroundImage: true,
-          maxFiles: 5,
-          multiple: true,
-        }).then(image => {
-          console.log('asad', image);
-          console.log('size', image.size);
-          if (image.length > 5) {
-            setAlertText('Please select only five pictures');
-            setAlertFlag(true);
-          } else {
-            VideoOrImageSourceArray.splice(
-              VideoOrImageSourceArray.length - 1,
-              1,
-            );
-            for (var i = 0; i < image.length; i++) {
-              setVideoORImageSourceArray(s => {
-                return [
-                  ...s,
-                  {
-                    flag: false,
-                    path: {uri: image[i].path},
-                    responce: image[i],
-                  },
-                ];
-              });
-              if (i == image.length - 1) {
-                setVideoORImageSourceArray(s => {
-                  return [...s, {path: ''}];
-                });
-              }
-            }
-          }
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  const videoContainer = responce => {
-    console.log('Video container');
-    if (responce == 'Record Video') {
-      ImagePicker.openCamera({
-        mediaType: 'video',
-        compressVideoPreset: 'LowQuality',
-      }).then(video => {
-        console.log('asad', video);
-        console.log('size', video.size);
-        if (video.size > 15000000) {
-          setAlertText('Image size Cannot be greater than 15mb');
-          setAlertFlag(true);
-          return;
-        }
-        setVideoORImageSourceArray(s => {
-          s.splice(VideoOrImageSourceArray.length - 1, 1);
-          return [
-            ...s,
-            {flag: true, path: {uri: video.path}, responce: video},
-            {path: ''},
-          ];
-        });
-      });
-    } else {
-      ImagePicker.openPicker({
-        mediaType: 'video',
-        compressVideoPreset: 'LowQuality',
-      }).then(video => {
-        console.log('asad', video.path);
-        console.log('size', video.size);
-        if (video.size > 15000000) {
-          setAlertText('Image size Cannot be greater than 15mb');
-          setAlertFlag(true);
-          return;
-        }
-        setVideoORImageSourceArray(s => {
-          s.splice(VideoOrImageSourceArray.length - 1, 1);
-          return [
-            ...s,
-            {flag: true, path: {uri: video.path, responce: video}},
-            {path: ''},
-          ];
-        });
-      });
-    }
-  };
   function selectImage(resonces, index) {
     setMenuFlag(false);
     console.log('asad', VideoOrImageSourceArray);
     setTimeout(() => {
       if (index <= 1) {
-        imageContainer(resonces);
+        imageContainer(
+          resonces,
+          setVideoORImageSourceArray,
+          VideoOrImageSourceArray,
+        );
       } else {
         if (!videoFlag) {
-          videoContainer(resonces);
+          videoContainer(
+            resonces,
+            setVideoORImageSourceArray,
+            VideoOrImageSourceArray,
+          );
           setVideoFlag(true);
         } else {
           setAlertText('User can Only Upload One Video');

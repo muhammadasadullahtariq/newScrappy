@@ -56,44 +56,7 @@ export default function PhoneAuthScreen({navigation, route}) {
           text={'Please Enter Valid Number'}
         />
         <HeaderText heading="Enter mobile number to register or login in Scrappy" />
-        {/* <InfoText
-          text="Use the phone number to register or"
-          style={{marginBottom: 1}}
-        />
-        <InfoText text="login in Scrappy" style={{marginBottom: 5}} /> */}
       </View>
-
-      {/* <PhoneInput
-       
-          keyboardType="numeric"
-          ref={phoneInput}
-          defaultValue={phone}
-          defaultCode="GB"
-          layout="first"
-          textInputProps={{placeholderTextColor: '#7D90AA'}}
-          placeholder=""
-          codeTextStyle={{color: '#092058'}}
-          containerStyle={{
-            borderRadius: 10,
-            height: 55,
-            marginTop: 35,
-            backgroundColor: '#ffffff',
-            borderWidth: 1,
-            borderColor: '#ffffff',
-            alignSelf: 'center',
-            width: '85%',
-          }}
-          autoFocus
-          textContainerStyle={{
-            borderRadius: 10,
-            backgroundColor: '#ffffff',
-            marginLeft: -10,
-          }}
-          textInputStyle={{color: '#7D90AA', height: 55}}
-          onChangeText={verificationCode => {
-            setPhone(verificationCode);
-          }}
-        />  */}
 
       <View style={styles.phoneInputContainer}>
         <View style={styles.flagContainer}>
@@ -157,6 +120,7 @@ export default function PhoneAuthScreen({navigation, route}) {
   );
 }
 
+//Styles for all compnents
 const styles = StyleSheet.create({
   container: {
     flex: 1,

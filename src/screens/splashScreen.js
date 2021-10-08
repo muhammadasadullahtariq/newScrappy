@@ -20,7 +20,7 @@ import checkUserExist from '../Functions/Login/userExistInDataBaseOrNot';
 const screen = ({navigation, route}) => {
   let userFlag = false;
   var userDataGetFlag = false;
-  let role=-5;
+  let role = -5;
   const [screenTime, setScreenTime] = useState(3);
   let interval;
   async function getUserDetail() {
@@ -86,19 +86,6 @@ const screen = ({navigation, route}) => {
               routes: [{name: 'PhoneAuthScreen', params: {role}}],
             });
           }
-          //   auth().onAuthStateChanged(user => {
-          //     if (user) {
-          //       navigation.reset({
-          //         index: 0,
-          //         routes: [{name: 'HomeScreen'}],
-          //       });
-          //     } else {
-          //       navigation.reset({
-          //         index: 0,
-          //         routes: [{name: 'PhoneAuthScreen'}],
-          //       });
-          //     }
-          //   });
         }
         return s - 1;
       });

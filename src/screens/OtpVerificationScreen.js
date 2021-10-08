@@ -8,8 +8,6 @@ import {
   StatusBar,
   Platform,
   Dimensions,
-  Image,
-  Alert,
 } from 'react-native';
 
 const WIDTH = Dimensions.get('window').width;
@@ -41,7 +39,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   //const {role}=route.params;
   const countryCode = '+44';
   const [optResendCount, setoptResendCount] = useState(0);
-  //const [alterOnpressAction, setAlertOnPressAction] = useState(changeModelFlag);
+
   let alterOnpressAction = changeModelFlag;
   function changeModelFlag() {
     console.log('change Model Flag');
@@ -246,6 +244,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   );
 }
 
+//Styles for all components
 const styles = StyleSheet.create({
   container: {
     flex: 1,

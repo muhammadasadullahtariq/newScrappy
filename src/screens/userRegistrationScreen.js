@@ -151,6 +151,8 @@ const screen = ({navigation, route}) => {
   );
 };
 
+//Styles for all components
+
 const styles = StyleSheet.create({
   mainContainer: {flex: 1, backgroundColor: '#F7F8FA'},
   textContainer: {

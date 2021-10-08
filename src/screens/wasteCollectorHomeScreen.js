@@ -19,14 +19,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 const screen = ({navigation}) => {
   const isFocused = useIsFocused();
-  const [optionsArray, setOptionsArray] = useState([
-    'All',
-    'Metal',
-    'Paper',
-    'Plastic',
-    'Mixed',
-    'Logout',
-  ]);
   const [userData, setUserData] = useState([]);
   const [option, setOption] = useState('');
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(true);
@@ -110,6 +102,7 @@ const screen = ({navigation}) => {
           alignSelf: 'center',
         }}
       />
+      {/* horizontal ScrollView that containe the buttons insted of dropDown list */}
       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topButtonArray.map(item => {
           return (
