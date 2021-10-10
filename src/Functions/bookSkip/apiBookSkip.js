@@ -11,8 +11,7 @@ const bookSkip = async (arr, flag, date) => {
     startTime = '07:00AM';
     endTime = '12:00PM';
   }
-  var dataArr = arr;
-  dataArr = await repalceKey(dataArr);
+  dataArr = await repalceKey(arr);
   console.log(dataArr);
 
   try {
@@ -48,6 +47,7 @@ async function repalceKey(arr) {
   var i;
   for (i = 0; i < arr.length; i++) {
     arr[i].quantity = arr[i]['count'];
+    arr[i].price=arr[i].price.slice(1);
     delete arr[i].count;
   }
   console.log(arr);

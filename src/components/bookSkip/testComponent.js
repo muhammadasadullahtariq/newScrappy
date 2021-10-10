@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
-import dataArr from '../../Functions/bookSkip/skipSizeDataArray';
+
 import HeaderText from '../GlobalComponent/headerText';
 import InfoText from '../GlobalComponent/infoText';
 

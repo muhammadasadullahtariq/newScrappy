@@ -30,9 +30,19 @@ const screen = ({navigation, route}) => {
     var total = await totalBillFunction(data);
     setTotalBill(total);
   }
+
+async function makeCopy()
+{
+  var arr=data.map(a => {return {...a}});
+  return arr;
+}
+
   async function placeOrder() {
     setWaitingAlertFlag(true);
-    const responce = await apiBookSkip(data, time, Object.keys(date));
+    var val=Object.keys(date)
+    var array=await makeCopy();
+    console.log("clone array ",array)
+    const responce = await apiBookSkip(array, time, val);
     setWaitingAlertFlag(false);
     setAlertFlag(true);
     setAlertText(responce.message);
@@ -43,7 +53,7 @@ const screen = ({navigation, route}) => {
       <WaitingAlert visible={waitingAlertFlag} />
       <Alert
         visible={alertFlag}
-        onPress={() => setAlertFlag(false)}
+        onPress={() => {setAlertFlag(false);console.log("Data is ",data)}}
         text={alertText}
       />
       <BookedSkip data={data} />

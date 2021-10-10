@@ -11,7 +11,7 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import SkipSizeListComponent from '../../components/bookSkip/skipSizeListComponent';
-import skipSizeData from '../../Functions/bookSkip/skipSizeDataArray';
+import skipSizeData from '../../Functions/bookSkip/SkipSizeDataArray';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import Alert from '../../components/GlobalComponent/singleButtonAlert';
 
@@ -116,6 +116,7 @@ const screen = ({navigation, route}) => {
           })}
           <ButtonComponent
             onPress={() => {
+              refRBSheet.current.close();
               checkValidation();
             }}
             text={'Confirm'}
