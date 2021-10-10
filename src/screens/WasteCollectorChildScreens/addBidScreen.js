@@ -67,7 +67,7 @@ const screen = ({navigation, route}) => {
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingAlter visible={waitingAlterFlag} />
       <Alter
-        visibal={alertFlag}
+        visible={alertFlag}
         onPress={() => {
           setAlertFlag(false);
           navigation.goBack();

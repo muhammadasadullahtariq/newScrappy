@@ -135,17 +135,17 @@ const screen = ({navigation, route}) => {
       />
       <WaitAlert visible={waitingAlertFlag} />
       <SingleButtonAlert
-        visibal={alertFlag}
+        visible={alertFlag}
         text={alertText}
         onPress={alertHandler}
       />
       <SingleButtonAlert
-        visibal={alertWithAction}
+        visible={alertWithAction}
         text={alertText}
         onPress={alertHandlerWithAction}
       />
       <ContextMenu
-        visibal={menuFlag}
+        visible={menuFlag}
         array={[
           'Take Photo',
           'Choose From Gallery',

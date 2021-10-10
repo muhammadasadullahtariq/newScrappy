@@ -51,7 +51,7 @@ export default function PhoneAuthScreen({navigation, route}) {
     <SafeAreaView style={styles.container}>
       <View style={styles.mainTextContainer}>
         <SingleButtonAllert
-          visibal={modelFlag}
+          visible={modelFlag}
           onPress={hideAlert}
           text={'Please Enter Valid Number'}
         />

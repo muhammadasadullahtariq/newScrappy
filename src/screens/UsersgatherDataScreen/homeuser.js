@@ -166,12 +166,12 @@ const screen = ({navigation, route}) => {
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <KeyboardAvoidingView behavior="padding" enabled style={{flex: 1}}>
         <SingleButtonAllert
-          visibal={modelFlag}
+          visible={modelFlag}
           onPress={hideAlert}
           text={alertText}
         />
         <SingleButtonAllert
-          visibal={alertModelWithAction}
+          visible={alertModelWithAction}
           onPress={hideAlertWithAction}
           text={alertText}
         />

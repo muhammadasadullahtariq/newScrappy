@@ -75,7 +75,7 @@ const screen = ({navigation, route}) => {
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <WaitingComponent visible={waitingFlag} />
       <Alert
-        visibal={alertFlag}
+        visible={alertFlag}
         onPress={() => {
           setAlertFlag(false);
         }}

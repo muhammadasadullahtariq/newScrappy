@@ -40,7 +40,7 @@ const screen = ({navigation, route}) => {
   const [postCodeArray, setPostCodeArray] = useState([]);
   const [servicePostCodeFlag, setServicePostCodeFlag] = useState(false);
   const [waitingAlertFlag, setWaitingAlertFlag] = useState(false);
-  const [flagMultipleValue,setFlagMultipleValue]=useState(false)
+  const [flagMultipleValue, setFlagMultipleValue] = useState(false);
   const {phone} = route.params;
   //const phone = 'asad';
   const [alertModelWithAction, setAlertModelWithAction] = useState(false);
@@ -208,12 +208,12 @@ const screen = ({navigation, route}) => {
         enabled
         style={styles.mainContainer}>
         <SingleButtonAllert
-          visibal={modelFlag}
+          visible={modelFlag}
           onPress={hideAlert}
           text={alertText}
         />
         <SingleButtonAllert
-          visibal={alertModelWithAction}
+          visible={alertModelWithAction}
           onPress={hideAlertWithAction}
           text={alertText}
         />
@@ -257,7 +257,7 @@ const screen = ({navigation, route}) => {
             textHandler={userPostCodeHandler}
             style={{marginBottom: 10}}
           />
-          
+
           <View
             style={{
               width: '80%',
@@ -282,8 +282,8 @@ const screen = ({navigation, route}) => {
                 {
                   width: '100%',
                   height: '100%',
-                  borderBottomLeftRadius:0,
-                  borderBottomRightRadius:0,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
                   marginBottom: -45,
                 },
               ]}
@@ -318,17 +318,21 @@ const screen = ({navigation, route}) => {
               hideSubmitButton={true}
               fixedHeight={true}
               hideDropdown
-              onToggleList={()=>setFlagMultipleValue((flag)=>!flag)}
+              onToggleList={() => setFlagMultipleValue(flag => !flag)}
               tagContainerStyle={{width: 80, fontFamily: 'Montserrat'}}
             />
           </View>
         </View>
-        <View style={{marginHorizontal: 20,marginTop:flagMultipleValue?50:-100}}>
-            {console.log(postCodeArray)}
-            {multiSelect.current &&
-              multiSelect.current.getSelectedItemsExt &&
-              multiSelect.current.getSelectedItemsExt(postCodeArray)}
-          </View>
+        <View
+          style={{
+            marginHorizontal: 20,
+            marginTop: flagMultipleValue ? 50 : -100,
+          }}>
+          {console.log(postCodeArray)}
+          {multiSelect.current &&
+            multiSelect.current.getSelectedItemsExt &&
+            multiSelect.current.getSelectedItemsExt(postCodeArray)}
+        </View>
         <View
           style={{
             marginTop: 50,

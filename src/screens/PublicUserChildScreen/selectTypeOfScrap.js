@@ -78,7 +78,7 @@ const screen = ({navigation, route}) => {
   return (
     <View style={styles.mainContainer}>
       <SingleButtonAllert
-        visibal={modelFlag}
+        visible={modelFlag}
         onPress={hideAlert}
         text={alertText}
       />

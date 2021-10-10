@@ -47,7 +47,7 @@ const screen = props => {
   return (
     <View style={styles.mainContainer}>
       <Alert
-        visibal={alertFlag}
+        visible={alertFlag}
         onPress={() => {
           setAlertFlag(false);
         }}

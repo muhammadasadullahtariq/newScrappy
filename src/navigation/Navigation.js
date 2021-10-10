@@ -2,7 +2,6 @@ import * as React from 'react';
 import {View, Text, StatusBar, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackground} from '@react-navigation/stack';
-
 import PhoneAuthScreen from '../screens/PhoneAuthScreen';
 import OtpVerificationScreen from '../screens/OtpVerificationScreen';
 import HomeScreen from '../screens/tabHomeScreen';
@@ -20,6 +19,11 @@ import PublicUserHomeScreen from '../screens/publicUser';
 import WasteCollectorHomeScreen from '../screens/wasteCollectorHomeScreen';
 import AddBid from '../screens/WasteCollectorChildScreens/addBidScreen';
 import WasteCollectorWasteDetailScreen from '../screens/WasteCollectorChildScreens/wasteDetailScreen';
+import BookSkip from '../screens/bookSkip';
+import SearchArea from '../screens/BookSkip/searchArea';
+import SkipService from '../screens/BookSkip/selecTypeOfSkipService';
+import SelectDateAndTime from '../screens/BookSkip/selectDateOfBooking';
+import PlaceSkipOrder from '../screens/BookSkip/placeOrder';
 
 const Stack = createStackNavigator();
 
@@ -41,7 +45,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="Splash">
+        initialRouteName="BookSkip">
         {/* initial Route Name */}
         <Stack.Screen
           name="PhoneAuthScreen"
@@ -129,6 +133,31 @@ function Navigation() {
           name="PublicUser"
           component={PublicUserHomeScreen}
           options={{title: 'Your Dashboard'}}
+        />
+        <Stack.Screen
+          name="BookSkip"
+          component={BookSkip}
+          options={{title: 'Book your skip'}}
+        />
+        <Stack.Screen
+          name="SearchArea"
+          component={SearchArea}
+          options={{title: 'Book your skip'}}
+        />
+        <Stack.Screen
+          name="SkipService"
+          component={SkipService}
+          options={{title: 'Skip Service'}}
+        />
+        <Stack.Screen
+          name="SelectDateAndTime"
+          component={SelectDateAndTime}
+          options={{title: 'Pick Date'}}
+        />
+        <Stack.Screen
+          name="PlaceSkipOrder"
+          component={PlaceSkipOrder}
+          options={{title: 'Place Order'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -14,7 +14,7 @@ import InfoText from '../../components/GlobalComponent/infoText';
 const screen = props => {
   return (
     <Modal
-      visible={props.visibal}
+      visible={props.visible}
       transparent={true}
       style={{height: 3}}
       onRequestClose={props.closeMenu}>

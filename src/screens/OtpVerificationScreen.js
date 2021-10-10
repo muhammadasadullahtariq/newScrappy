@@ -177,11 +177,11 @@ export default function OtpVerificationScreen({navigation, route}) {
     <SafeAreaView style={styles.container}>
       <WaitingAlert visible={waitingAlertFlag} />
       <ModalComponent
-        visibal={alterModelFlag}
+        visible={alterModelFlag}
         onPress={changeModelFlag}
         text={alertText}></ModalComponent>
       <ModalComponent
-        visibal={alterModelFlagWithAction}
+        visible={alterModelFlagWithAction}
         onPress={changeModelFlagWithAction}
         text={alertText}></ModalComponent>
       <View style={styles.mainTextContainer}>

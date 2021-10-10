@@ -25,7 +25,7 @@ const screen = props => {
     <View style={styles.mainContainer}>
       <WaitingAlter visible={waitingAlterFlag} />
       <Alter
-        visibal={alertFlag}
+        visible={alertFlag}
         onPress={() => {
           setAlertFlag(false);
           navigate.goBack();

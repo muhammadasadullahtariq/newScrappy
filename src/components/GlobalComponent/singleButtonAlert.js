@@ -4,7 +4,7 @@ import ButtonComponent from './ButtonComponent';
 
 const screen = props => {
   return (
-    <Modal visible={props.visibal} transparent={true} style={{height: 3}}>
+    <Modal visible={props.visible} transparent={true} style={{height: 3}}>
       <View
         style={{
           flex: 1,
@@ -17,7 +17,7 @@ const screen = props => {
           style={{
             width: '80%',
             backgroundColor: 'white',
-            marginBottom: 300,
+            marginBottom: "20%",
             borderRadius: 22,
           }}>
           <Text style={styles.textContainer}>{props.text}</Text>
