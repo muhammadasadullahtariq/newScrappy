@@ -11,17 +11,42 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import SkipSizeListComponent from '../../components/bookSkip/skipSizeListComponent';
-import skipSizeData from '../../Functions/bookSkip/SkipSizeDataArray';
-import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
+import skipSizeData from '../../Functions/bookSkip/skipSizeDataArray';
 import Alert from '../../components/GlobalComponent/singleButtonAlert';
+import ConfrmAndCancleButton from '../../components/GlobalComponent/confirmAndCancleButton';
+import dimensionHandler from '../../Functions/Global/dimensionHandler';
 
 const screen = ({navigation, route}) => {
   const [areaAddress, setAreaAddress] = useState('');
   const [dataArray, setDataArray] = useState(['sw1ab', 'sw2ab', 'abc', 'cdf']);
   const refRBSheet = useRef();
-  const [skipSizeDataArr, setSkipSizeDataArr] = useState(skipSizeData);
+  const [skipSizeDataArr, setSkipSizeDataArr] = useState([
+    {name: '6 Yard Skip', price: '£300', alert: 'Collect 6 yard', count: 0},
+    {
+      name: '8 Yard Skip',
+      price: '£500',
+      alert: 'Collect * Yard Skip',
+      count: 0,
+    },
+    {
+      name: '12 Yard Skip',
+      price: '£900',
+      alert: 'Collect 12 Yard Skip',
+      count: 0,
+    },
+    {
+      name: '16 Yard Skip',
+      price: '£1300',
+      alert: 'Collect 16 Yard Skip',
+      count: 0,
+    },
+  ]);
   const [alertFlag, setAlertFlag] = useState(false);
+  const [screenHeight, setScreenHeight] = useState(0);
 
+  useEffect(() => {
+    dimensionHandler(setScreenHeight);
+  }, [screenHeight]);
   function listFunction(item) {
     return (
       <TouchableOpacity
@@ -69,6 +94,7 @@ const screen = ({navigation, route}) => {
         closeOnDragDown={true}
         closeOnPressMask={false}
         dragFromTopOnly={true}
+        height={screenHeight - 150}
         customStyles={{
           wrapper: {
             backgroundColor: 'transparent',
@@ -114,14 +140,20 @@ const screen = ({navigation, route}) => {
               </View>
             );
           })}
-          <ButtonComponent
-            onPress={() => {
+          <ConfrmAndCancleButton
+            confirmOnPress={() => {
               refRBSheet.current.close();
               checkValidation();
             }}
+            cancleOnPress={() => {
+              refRBSheet.current.close();
+            }}
+          />
+          {/* <ButtonComponent
+            onPress={}
             text={'Confirm'}
             style={{width: '80%', marginTop: 20}}
-          />
+          /> */}
         </ScrollView>
       </RBSheet>
     </View>

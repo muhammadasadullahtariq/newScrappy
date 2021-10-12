@@ -11,6 +11,7 @@ import totalBillFunction from '../../Functions/bookSkip/calculateTotalbill';
 import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent';
 import apiBookSkip from '../../Functions/bookSkip/apiBookSkip';
 import Alert from '../../components/GlobalComponent/singleButtonAlert';
+import ConfirmAndCancleButton from '../../components/GlobalComponent/confirmAndCancleButton';
 
 const screen = ({navigation, route}) => {
   const {data} = route.params;
@@ -31,18 +32,19 @@ const screen = ({navigation, route}) => {
     setTotalBill(total);
   }
 
-async function makeCopy()
-{
-  var arr=data.map(a => {return {...a}});
-  return arr;
-}
+  async function makeCopy() {
+    var arr = data.map(a => {
+      return {...a};
+    });
+    return arr;
+  }
 
   async function placeOrder() {
     setWaitingAlertFlag(true);
-    var val=Object.keys(date)
-    var array=await makeCopy();
-    console.log("clone array ",array)
-    const responce = await apiBookSkip(array, time, val);
+    var val = Object.keys(date);
+    var array = await makeCopy();
+    console.log('clone array ', array);
+    const responce = await apiBookSkip(global.id, array, time, val);
     setWaitingAlertFlag(false);
     setAlertFlag(true);
     setAlertText(responce.message);
@@ -53,7 +55,10 @@ async function makeCopy()
       <WaitingAlert visible={waitingAlertFlag} />
       <Alert
         visible={alertFlag}
-        onPress={() => {setAlertFlag(false);console.log("Data is ",data)}}
+        onPress={() => {
+          setAlertFlag(false);
+          console.log('Data is ', data);
+        }}
         text={alertText}
       />
       <BookedSkip data={data} />
@@ -64,13 +69,19 @@ async function makeCopy()
       <ListComponent name={'Purchase Order'} text={'SKIP1234'} />
       <ListComponent name={'Promo Code'} text={'SKIP123'} />
       <TotalBill name="Sub Total" text={totalBill} />
-      <ButtonComponent
-        text="Confirm"
-        style={{width: '60%', marginTop: 60}}
-        onPress={() => {
+      <ConfirmAndCancleButton
+        confirmOnPress={() => {
           placeOrder();
         }}
+        cancleOnPress={() => {
+          navigation.pop(3);
+        }}
       />
+      {/* <ButtonComponent
+        text="Confirm"
+        style={{width: '60%', marginTop: 60}}
+        onPress={}
+      /> */}
     </ScrollView>
   );
 };

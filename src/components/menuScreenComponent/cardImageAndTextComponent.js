@@ -2,12 +2,23 @@
 
 import React from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 export default function (props) {
+  const Navigation = useNavigation();
+
+  function navigationHandler() {
+    if (props.text == 'Sell Scrap') {
+      Navigation.navigate('TypeOfScrap');
+    } else if (props.text == 'Book Skip') {
+      Navigation.navigate('BookSkip');
+    }
+  }
+
   return (
     <TouchableOpacity
       style={[styles.mainContainer, props.style]}
-      onPress={props.onPress}>
+      onPress={() => navigationHandler()}>
       <View style={styles.imageViewContainer}>
         <Image source={props.image} />
       </View>
@@ -25,6 +36,7 @@ const styles = StyleSheet.create({
     width: 66,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 40,
   },
   imageViewContainer: {
     height: 34,

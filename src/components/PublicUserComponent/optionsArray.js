@@ -2,7 +2,8 @@
 
 import reNew from '../../icons/WasteCollerTabScreen/reNew.png';
 import orderImage from '../../icons/WasteCollerTabScreen/postImage.png';
-import sellSrap from '../../icons/WasteCollerTabScreen/sellScrap.png';
+import sellScrap from '../../icons/WasteCollerTabScreen/sellScrap.png';
+import bookSkip from '../../icons/PublicUser/truck.png';
 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -41,5 +42,13 @@ export default arr = [
   },
 ];
 
-const cardOptionArray = [{text: 'Sell Scrap', image: sellSrap, Key: '0'}];
-export {cardOptionArray};
+const cardOptionArray = [
+  {text: 'Sell Scrap', image: sellScrap, Key: '0'},
+  {text: 'Book Skip', image: bookSkip, Key: '1'},
+];
+
+const menuArray = [
+  {text: 'View Scrap', image: sellScrap, key: '0'},
+  {text: 'View Skip', image: bookSkip, key: '1'},
+];
+export {cardOptionArray, menuArray};

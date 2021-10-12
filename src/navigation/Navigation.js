@@ -24,6 +24,8 @@ import SearchArea from '../screens/BookSkip/searchArea';
 import SkipService from '../screens/BookSkip/selecTypeOfSkipService';
 import SelectDateAndTime from '../screens/BookSkip/selectDateOfBooking';
 import PlaceSkipOrder from '../screens/BookSkip/placeOrder';
+import PostedScrap from '../screens/PublicUserChildScreen/postedScrap';
+import BookedSkip from '../screens/PublicUserChildScreen/bookedSkip';
 
 const Stack = createStackNavigator();
 
@@ -45,7 +47,7 @@ function Navigation() {
           },
           headerBackImage: () => <Image source={icon} />,
         }}
-        initialRouteName="BookSkip">
+        initialRouteName="Splash">
         {/* initial Route Name */}
         <Stack.Screen
           name="PhoneAuthScreen"
@@ -129,11 +131,8 @@ function Navigation() {
           }}
           component={WasteCollectorWasteDetailScreen}
         />
-        <Stack.Screen
-          name="PublicUser"
-          component={PublicUserHomeScreen}
-          options={{title: 'Your Dashboard'}}
-        />
+
+        {/*Book Skip Related Screens */}
         <Stack.Screen
           name="BookSkip"
           component={BookSkip}
@@ -158,6 +157,22 @@ function Navigation() {
           name="PlaceSkipOrder"
           component={PlaceSkipOrder}
           options={{title: 'Place Order'}}
+        />
+        {/*Public User Related Screens*/}
+        <Stack.Screen
+          name="PostedScrap"
+          component={PostedScrap}
+          options={{title: 'Posted Scrap'}}
+        />
+        <Stack.Screen
+          name="PublicUser"
+          component={PublicUserHomeScreen}
+          options={{title: 'Your Dashboard'}}
+        />
+        <Stack.Screen
+          name="BookedSkip"
+          component={BookedSkip}
+          options={{title: 'Booked Skip'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

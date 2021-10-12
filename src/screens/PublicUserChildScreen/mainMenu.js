@@ -16,10 +16,13 @@ import {
   ScrollView,
   FlatList,
   Platform,
+  Dimensions,
 } from 'react-native';
 import optionArrayImported, {
   cardOptionArray,
+  menuArray,
 } from '../../components/PublicUserComponent/optionsArray';
+import {NumberOfColumn} from '../../components/menuScreenComponent/calculateWidth';
 import FlatListItemView from '../../components/PublicUserComponent/MainMenu/flatlistItem';
 import CardImageTextComponent from '../../components/menuScreenComponent/cardImageAndTextComponent';
 import searchImage from '../../icons/MainMenu/search.png';
@@ -34,17 +37,26 @@ import WaitingAlert from '../../components/GlobalComponent/waitingAlertComponent
 import {useIsFocused} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import reverseDate from '../../Functions/Global/dateReverse';
+import ImageTextComponent from '../../components/menuScreenComponent/imageTextComponent';
 
 const App = () => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [cardArray, setCardArray] = useState(cardOptionArray);
-  const [optionArray, setOptionArray] = useState([]);
+  const [optionArray, setOptionArray] = useState(menuArray);
   const [balance, setBalance] = useState('');
-  const [waitingFlag, setWaitingFlag] = useState(true);
+  const [waitingFlag, setWaitingFlag] = useState(false);
+  const [columNum, setColumnNum] = useState(3);
+  const [windowWidth, setWindowWidth] = useState(
+    Dimensions.get('window').width,
+  );
   useEffect(() => {
     if (isFocused) readUserData();
-  }, [isFocused]);
+    setColumnNum(() => NumberOfColumn(windowWidth));
+  }, [windowWidth, isFocused]);
+  Dimensions.addEventListener('change', () => {
+    setWindowWidth(() => Dimensions.get('window').width);
+  });
   async function readUserData() {
     console.log('user data called');
     const responce = await userDashBoard(global.id);
@@ -56,7 +68,7 @@ const App = () => {
       setBalance(0);
     }
     console.log(responce.data.data.user_data);
-    setOptionArray(responce.data.data.user_data);
+    //setOptionArray(responce.data.data.user_data);
     setWaitingFlag(false);
   }
   return (
@@ -78,15 +90,15 @@ const App = () => {
             {/* Notiification Action */}
             {/* <Image source={notification} />
               </TouchableOpacity> */}
-              {/* Commit This code */}
-            <TouchableOpacity
+            {/* Commit This code */}
+            {/* <TouchableOpacity
               onPress={() => {
                 auth().signOut();
                 navigation.navigate('PhoneAuthScreen');
-              }}>
-              {/* Logout Action */}
-              <Image source={logOut} />
-            </TouchableOpacity>
+              }}> */}
+            {/* Logout Action */}
+            {/* <Image source={logOut} />
+            </TouchableOpacity> */}
             {/* </View> */}
             {/*End of Search and Notification View */}
           </View>
@@ -98,7 +110,7 @@ const App = () => {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              //justifyContent: 'space-between',
               width: '100%',
               marginHorizontal: 20,
             }}>
@@ -108,7 +120,7 @@ const App = () => {
                   image={item.image}
                   text={item.text}
                   key={item.Key}
-                  onPress={() => navigation.navigate('TypeOfScrap')}
+                  //onPress={() => navigation.navigate('TypeOfScrap')}
                 />
               );
             })}
@@ -130,7 +142,7 @@ const App = () => {
         {/*End Of Card And Search View */}
       </View>
       {/*End of Main View  */}
-      <FlatList
+      {/* <FlatList
         data={optionArray}
         renderItem={items => (
           <FlatListItemView
@@ -144,6 +156,16 @@ const App = () => {
           />
         )}
         keyExtractor={(item, index) => item._id}
+      /> */}
+      <FlatList
+        data={optionArray}
+        columnWrapperStyle={{}}
+        renderItem={items => (
+          <ImageTextComponent text={items.item.text} image={items.item.image} />
+        )}
+        numColumns={columNum}
+        key={columNum}
+        keyExtractor={(item, index) => +item.Key}
       />
     </ScrollView>
   );

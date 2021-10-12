@@ -1,5 +1,5 @@
-const bookSkip = async (arr, flag, date) => {
-  var userID = '6159beb5c7b5a92a216c13e0';
+const bookSkip = async (id,arr, flag, date) => {
+  var userID = id;
   var skipID = '6162f31ee4b8637f76455253';
   var startTime = '';
   var endTime = '';

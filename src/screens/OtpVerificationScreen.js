@@ -37,7 +37,7 @@ export default function OtpVerificationScreen({navigation, route}) {
   const {phone} = route.params; //just for test
   //const phone = 'asad';
   //const {role}=route.params;
-  const countryCode = '+44';
+  const countryCode = '+92';
   const [optResendCount, setoptResendCount] = useState(0);
 
   let alterOnpressAction = changeModelFlag;

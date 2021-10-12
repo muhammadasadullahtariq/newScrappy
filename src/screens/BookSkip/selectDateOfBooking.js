@@ -6,6 +6,7 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import Icon from 'react-native-vector-icons/Feather';
 import ButtonComponent from '../../components/GlobalComponent/ButtonComponent';
 import BookedSkip from '../../components/bookSkip/bookedSkipComponent';
+import ConfirmAndCancleButton from '../../components/GlobalComponent/confirmAndCancleButton';
 
 const screen = ({navigation, route}) => {
   const {data} = route.params;
@@ -107,10 +108,8 @@ const screen = ({navigation, route}) => {
           </View>
         </Pressable>
       </View>
-      <ButtonComponent
-        text="Confirm"
-        style={{width: '60%', marginTop: 60}}
-        onPress={() => {
+      <ConfirmAndCancleButton
+        confirmOnPress={() => {
           navigation.navigate('PlaceSkipOrder', {
             data: data,
             serviceData: serviceData,
@@ -118,7 +117,13 @@ const screen = ({navigation, route}) => {
             time: check,
           });
         }}
+        cancleOnPress={() => navigation.pop(2)}
       />
+      {/* <ButtonComponent
+        text="Confirm"
+        style={{width: '60%', marginTop: 60}}
+        onPress={}
+      /> */}
     </ScrollView>
   );
 };

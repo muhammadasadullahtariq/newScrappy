@@ -2,10 +2,22 @@
 
 import React from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 export default function (props) {
+  const Navigation = useNavigation();
+  function navigationHandler() {
+    if (props.text == 'View Scrap') {
+      Navigation.navigate('PostedScrap');
+    } else if (props.text == 'View Skip') {
+      Navigation.navigate('BookedSkip');
+    }
+  }
+
   return (
-    <TouchableOpacity style={[styles.mainContainer, props.style]}>
+    <TouchableOpacity
+      style={[styles.mainContainer, props.style]}
+      onPress={navigationHandler}>
       <View style={styles.imageViewContainer}>
         <Image source={props.image} />
       </View>
