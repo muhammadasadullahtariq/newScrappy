@@ -11,7 +11,7 @@ import InfoText from '../../components/GlobalComponent/infoText';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import HeaderText from '../../components/GlobalComponent/headerText';
 import SkipSizeListComponent from '../../components/bookSkip/skipSizeListComponent';
-import skipSizeData from '../../Functions/bookSkip/skipSizeDataArray';
+import skipSizeData from '../../Functions/bookSkip/SkipSizeDataArray';
 import Alert from '../../components/GlobalComponent/singleButtonAlert';
 import ConfrmAndCancleButton from '../../components/GlobalComponent/confirmAndCancleButton';
 import dimensionHandler from '../../Functions/Global/dimensionHandler';
@@ -58,16 +58,23 @@ const screen = ({navigation, route}) => {
     );
   }
   async function numbersCheck() {
-    for (var i = 0; i < skipSizeData.length; i++) {
-      if (skipSizeData[i].count > 0) return true;
+    for (var i = 0; i < skipSizeDataArr.length; i++) {
+      if (skipSizeDataArr[i].count > 0) return true;
     }
+    setAlertFlag(true);
     return false;
   }
+async function timeGet()
+{
+  setTimeout(()=>{return},1000);
+}
   async function checkValidation() {
     var responce = await numbersCheck();
+    console.log(responce);
     if (responce) {
-      navigation.navigate('SkipService', {data: skipSizeData});
+      navigation.navigate('SkipService', {data: skipSizeDataArr});
     } else {
+      await timeGet();
       setAlertFlag(true);
       return;
     }

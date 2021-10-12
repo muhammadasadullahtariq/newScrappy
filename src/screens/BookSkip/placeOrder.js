@@ -58,6 +58,7 @@ const screen = ({navigation, route}) => {
         onPress={() => {
           setAlertFlag(false);
           console.log('Data is ', data);
+          navigation.pop(5);
         }}
         text={alertText}
       />
