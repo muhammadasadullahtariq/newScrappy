@@ -26,8 +26,9 @@ const screen = ({navigation, route}) => {
   async function getUserDetail() {
     console.log('i called');
     try {
-      auth().onAuthStateChanged(async user => {
-        if (user) {
+      const user=auth().currentUser;
+      //auth().onAuthStateChanged(async user => {
+        if (user!==null) {
           console.log('here am i', user.phoneNumber);
           let resultUserExist = await checkUserExist(user.phoneNumber);
           console.log('result:', resultUserExist);
@@ -43,7 +44,7 @@ const screen = ({navigation, route}) => {
         } else {
           userFlag = false;
         }
-      });
+      //});
     } catch (err) {
       console.warn('error', err);
     }
